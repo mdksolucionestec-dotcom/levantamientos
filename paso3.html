@@ -1,117 +1,131 @@
 <!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Levantamiento · Paso 3</title><style>
+<title>Paso 3 · Levantamiento</title><style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f2f8;color:#1a1a1a;padding-bottom:40px}
-.hdr{background:#1a1080;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
-.hlogo{width:40px;height:40px;background:#fff;border-radius:8px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f2f8;min-height:100vh;padding-bottom:80px}
+.hdr{background:#1a1080;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.hlogo{width:38px;height:38px;background:#fff;border-radius:8px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .hlogo img{width:100%;height:100%;object-fit:contain}
-.hdr h1{font-size:15px;font-weight:700}
-.hdr p{font-size:11px;opacity:.8}
-.bar{display:flex;gap:4px;padding:10px 16px;background:#fff;border-bottom:1px solid #e0ddf0}
+.hdr-info{flex:1}.hdr h1{font-size:14px;font-weight:800}.hdr p{font-size:11px;opacity:.75}
+.folio-b{background:rgba(255,255,255,.2);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.3);flex-shrink:0}
+.bar{display:flex;gap:3px;padding:8px 16px;background:#fff;border-bottom:1px solid #e0ddf0}
 .sd{flex:1;height:4px;border-radius:2px;background:#e0d8f0}
 .sd.done{background:#6c63c6}.sd.active{background:#1a1080}
-.card{background:#fff;border:1px solid #e0ddf0;border-radius:12px;padding:16px;margin:12px 16px}
-.card h2{font-size:13px;font-weight:700;color:#1a1080;margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em}
-.field{margin-bottom:12px}
-.field label{display:block;font-size:12px;color:#666;margin-bottom:4px;font-weight:500}
-.field input,.field select,.field textarea{width:100%;border:1px solid #d0cce8;border-radius:8px;padding:10px 12px;font-size:14px;color:#1a1a1a;background:#fff;outline:none;font-family:inherit;-webkit-appearance:none}
-.field input:focus,.field select:focus{border-color:#1a1080}
-.field textarea{resize:vertical;min-height:80px}
+main{padding:14px;max-width:560px;margin:0 auto}
+.card{background:#fff;border:1px solid #e0ddf0;border-radius:14px;padding:16px;margin-bottom:12px}
+.card h2{font-size:12px;font-weight:800;color:#1a1080;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.field{margin-bottom:11px}
+.field label{display:block;font-size:12px;font-weight:600;color:#556;margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;border:1px solid #d0cce8;border-radius:8px;padding:9px 12px;font-size:14px;color:#1a1a1a;background:#fff;outline:none;font-family:inherit;-webkit-appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#1a1080}
+.field textarea{resize:vertical;min-height:70px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.section-title{font-size:12px;font-weight:700;color:#1a1080;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px;border-bottom:2px solid #e0ddf0;padding-bottom:5px}
-.check-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.check-btn{padding:9px 16px;border:1.5px solid #d0cce8;border-radius:20px;font-size:13px;cursor:pointer;background:#fff;color:#444;-webkit-user-select:none;user-select:none;touch-action:manipulation}
-.check-btn.sel{background:#1a1080;border-color:#1a1080;color:#fff}
-.folio-badge{background:#1a1080;color:#fff;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:700;margin-left:auto;border:1px solid rgba(255,255,255,.3)}
-.btn-nav{display:block;width:calc(100% - 32px);margin:8px 16px;padding:15px;background:#1a1080;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;touch-action:manipulation}
-.btn-sec{background:#fff;color:#1a1080;border:2px solid #1a1080}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.sec{font-size:11px;font-weight:700;color:#1a1080;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px;border-bottom:2px solid #e0ddf0;padding-bottom:5px}
+.chk-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chk-btn{padding:9px 14px;border:1.5px solid #d0cce8;border-radius:20px;font-size:13px;cursor:pointer;background:#fff;color:#444;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.chk-btn.sel{background:#1a1080;border-color:#1a1080;color:#fff}
+.mat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mat-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #e0ddf0;border-radius:8px;background:#faf9ff}
+.mat-item label{font-size:12px;flex:1;color:#333}
+.mat-item input[type=number]{width:55px;border:1px solid #d0cce8;border-radius:6px;padding:4px 6px;font-size:13px;text-align:center}
+.mat-item span{font-size:11px;color:#888;flex-shrink:0}
+.btn{display:block;width:100%;padding:14px;background:#1a1080;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:10px;touch-action:manipulation}
+.btn:active{opacity:.85}
+.btn.outline{background:#fff;color:#1a1080;border:2px solid #1a1080}
+.btn.green{background:#145c2f}
+.btn.red{background:#c0392b}
+.foto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.foto-thumb{aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid #e0ddf0;position:relative;background:#f0eef8}
+.foto-thumb img{width:100%;height:100%;object-fit:cover}
+.foto-del{position:absolute;top:3px;right:3px;background:rgba(180,0,0,.8);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+.cat-card{background:#fff;border:1px solid #e0ddf0;border-radius:14px;padding:16px;margin-bottom:12px}
+.cat-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.cat-hdr .ico{font-size:20px}
+.cat-hdr h2{font-size:14px;font-weight:800;color:#1a1080;margin:0}
+.cat-hdr .cnt{margin-left:auto;background:#e8e4f8;color:#1a1080;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
+.btn-fotos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn-foto{padding:11px 8px;border:1.5px solid #1a1080;border-radius:10px;background:#fff;color:#1a1080;font-size:13px;font-weight:700;cursor:pointer;text-align:center;touch-action:manipulation;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-foto:active{background:#e8e4f8}
+.btn-foto.gal{border-color:#6c63c6;color:#6c63c6}
+.btn-foto.gal:active{background:#f0eeff}
+.total-bar{background:linear-gradient(135deg,#1a1080,#2e75b6);color:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.total-bar .lbl{font-size:12px;opacity:.8}
+.total-bar .num{font-size:28px;font-weight:900}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1080;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;transition:transform .3s;z-index:999;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.ok{background:#145c2f}.toast.err{background:#c0392b}
 </style></head><body>
 <div class="hdr">
   <div class="hlogo"><img src="data:image/jpeg;base64,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ANBvSf8Av3JR9dofzAeFUV7of2a/En/Qa0n/AL4kpP8Ahm3xJ21nSf8AvmSj67R/mA8Mp0cjxSJJExWVGDIw6hgcg17gf2bvE3bV9JP4PTT+zf4nHTVdJP8A33T+uUX9oD6C+FXimPxh4J07VQwNwyeVcL/dlXhvz6/jXX15D8DPh/4j8AzajbareWNzpt0BIqwFtySjjPPYj+Qr16vn66jGo1B3RIUHpRQehrIDyvxVdax4W8Y3WswQmexulVWJBK4A+6SPukV2/g7ULPVNIF5p8ZiSWRmkjPVXJ+YVHJbarE+oobe1vrS4kZo4nk2lQR0bIORWLa+FNV03S9KttMv0haO7Nxd7SQGBP3R6gDjFAHZaldLZWNxcuRtiQvz3wK87+HF1JZeLNZ0u5mWVpj54dTkM3U/of0ruddtrm6hght44niMytMrtjKA5wPxxXN6n4Zv/APhNbPWdLS2hhhCq6Ftpccg8AccHH4UAdv296878W65qF1rGr6PZPDFa2tg8s29NxfK5wD2+8K6bw5p+q2moatJql4LiCabdbqDnYvP5dhj2rF1/wvqEviC/1DTHt2S/tGtpUmYjaSAMjH0FAGJoOvy6d4f8M6bbSLC935jPMy7tiBz0Hck12/g7VLnVtFSe/iMVyrtG4KldxH8QB9a5RvBOq2+m6LLaXNsdU01m25yEZS27BPqDmu60mO9S0B1KSN7pjuYRjCJ/sr7UAef/AA6ka+8b+Iby6y06kopPVV34wPwAr0W1tobZ52hUL5z+Y4H97AGf0rkx4d1DRvFFzquiLBPb3gImt5XKbSTnIOD3q3rOl6/dpp72uoJBKtyJZ1UkKE/uj1x79aANTxVpw1XQL6zPWSI7fZhyP1ri/hzftqejWWlykmS0nJlU9kXlR/31x+Fekgda4b/hEb6ztPEJ0i4S3u76YNBIDjanUjPbnNAHdDpRVbTYp4dPto7uTzbhI1WR/wC82OTVmgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z" alt="MD"></div>
-  <div><h1>Formato de Levantamiento</h1><p>Paso 3 de 4 — Consideraciones e Inmueble</p></div>
-  <div class="folio-badge" id="folio-badge"></div>
+  <div class="hdr-info"><h1>Levantamiento · Paso 3</h1><p>Consideraciones e Inmueble</p></div>
+  <div class="folio-b" id="folio-b"></div>
 </div>
 <div class="bar"><div class="sd done"></div><div class="sd done"></div><div class="sd active"></div><div class="sd"></div></div>
+<main>
 
 <div class="card">
-  <h2>DC3 — Consideraciones de ingreso e instalación</h2>
-
-  <div class="section-title">Certificado médico o estudios</div>
-  <div class="field"><input type="text" id="certMedico" placeholder="Especificar si aplica"></div>
-
-  <div class="section-title">Obra civil y acceso</div>
+  <h2>⚙️ Consideraciones de ingreso</h2>
   <div class="row2">
     <div class="field"><label>Obra civil</label><input type="text" id="obraCivil" placeholder="Descripción"></div>
-    <div class="field"><label>Horario de instalación</label><input type="text" id="horarioInstal" placeholder="Ej: 8:00 - 18:00"></div>
+    <div class="field"><label>Horario de instalación</label><input type="text" id="horarioInst" placeholder="Ej: 8:00 - 18:00"></div>
   </div>
-
-  <div class="section-title">Escaleras</div>
-  <div class="check-group" id="escaleras-group">
-    <div class="check-btn" data-val="5" onclick="toggle(this,'escaleras-group')">5</div>
-    <div class="check-btn" data-val="7" onclick="toggle(this,'escaleras-group')">7</div>
-    <div class="check-btn" data-val="11" onclick="toggle(this,'escaleras-group')">11</div>
-    <div class="check-btn" data-val="24" onclick="toggle(this,'escaleras-group')">24</div>
+  <div class="field"><label>Escaleras</label>
+    <div class="chk-group" id="grp-escaleras">
+      <div class="chk-btn" data-val="5" onclick="toggle(this,'grp-escaleras')">5</div>
+      <div class="chk-btn" data-val="7" onclick="toggle(this,'grp-escaleras')">7</div>
+      <div class="chk-btn" data-val="11" onclick="toggle(this,'grp-escaleras')">11</div>
+      <div class="chk-btn" data-val="24" onclick="toggle(this,'grp-escaleras')">24</div>
+    </div>
   </div>
-
-  <div class="section-title">Plataforma</div>
-  <div class="field"><input type="text" id="plataforma" placeholder="Tipo de plataforma"></div>
-
-  <div class="row2" style="margin-top:8px">
-    <div class="field"><label>Andamio (mts)</label><input type="number" id="andamio" placeholder="0" min="0"></div>
-    <div class="field"><label>Uso de segurista o vigía</label><input type="text" id="segurista" placeholder="Sí / No / Quién"></div>
-  </div>
-
-  <div class="field"><label>Quien otorga el vigía</label><input type="text" id="quienOtorga" placeholder="Nombre o empresa"></div>
-
-  <div class="section-title">Cursos y certificaciones</div>
-  <div class="field"><input type="text" id="cursos" placeholder="Especificar cursos requeridos"></div>
-
-  <div class="section-title">Área confinada</div>
   <div class="row2">
-    <div class="field"><label>¿Área confinada?</label>
-      <div class="check-group" id="areaConfinada-group">
-        <div class="check-btn" data-val="Sí" onclick="toggle(this,'areaConfinada-group')">Sí</div>
-        <div class="check-btn" data-val="No" onclick="toggle(this,'areaConfinada-group')">No</div>
+    <div class="field"><label>Plataforma (tipo)</label><input type="text" id="plataforma" placeholder="Tipo"></div>
+    <div class="field"><label>Andamio (mts)</label><input type="number" id="andamio" placeholder="0" min="0"></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Uso de segurista o vigía</label><input type="text" id="segurista" placeholder="Sí / No / Quién"></div>
+    <div class="field"><label>Quien otorga</label><input type="text" id="quienOtorga" placeholder="Nombre o empresa"></div>
+  </div>
+  <div class="field"><label>Cursos y otras certificaciones</label><input type="text" id="cursos" placeholder="Especificar cursos requeridos"></div>
+  <div class="field"><label>Equipo delimitador de área de trabajo</label><input type="text" id="equipoDelim" placeholder="Especificar"></div>
+  <div class="row2">
+    <div class="field"><label>Área confinada</label>
+      <div class="chk-group" id="grp-confinada">
+        <div class="chk-btn" data-val="Sí" onclick="toggle(this,'grp-confinada')">Sí</div>
+        <div class="chk-btn" data-val="No" onclick="toggle(this,'grp-confinada')">No</div>
       </div>
     </div>
-    <div class="field"><label>Día y hora de curso o inducción</label><input type="text" id="diaHoraCurso" placeholder="Ej: Lunes 8:00 am"></div>
+    <div class="field"><label>Día y hora de inducción</label><input type="text" id="diaInduccion" placeholder="Ej: Lunes 8:00 am"></div>
   </div>
-
-  <div class="field"><label>Equipo delimitador de área de trabajo</label><input type="text" id="equipoDelimitador" placeholder="Especificar"></div>
   <div class="field"><label>Otro</label><input type="text" id="otroConside" placeholder="Otras consideraciones"></div>
 </div>
 
 <div class="card">
-  <h2>Estructura del inmueble</h2>
-
-  <div class="section-title">Tipo de plafón</div>
-  <div class="check-group" id="plafon-group">
-    <div class="check-btn" data-val="Corrido" onclick="toggle(this,'plafon-group')">Plafón corrido</div>
-    <div class="check-btn" data-val="Modular" onclick="toggle(this,'plafon-group')">Plafón modular</div>
-    <div class="check-btn" data-val="Sin plafón" onclick="toggle(this,'plafon-group')">Sin plafón</div>
-  </div>
-
-  <div class="section-title">Ductos y registros</div>
-  <div class="row2">
-    <div class="field"><label>Ductos eléctricos</label><input type="text" id="ductosElec" placeholder="Descripción"></div>
-    <div class="field"><label>Planos disponibles</label>
-      <div class="check-group" id="planos-group">
-        <div class="check-btn" data-val="Sí" onclick="toggle(this,'planos-group')">Sí</div>
-        <div class="check-btn" data-val="No" onclick="toggle(this,'planos-group')">No</div>
-      </div>
+  <h2>🏗️ Estructura del inmueble</h2>
+  <div class="field"><label>Tipo de plafón</label>
+    <div class="chk-group" id="grp-plafon">
+      <div class="chk-btn" data-val="Corrido" onclick="toggle(this,'grp-plafon')">Plafón corrido</div>
+      <div class="chk-btn" data-val="Modular" onclick="toggle(this,'grp-plafon')">Plafón modular</div>
+      <div class="chk-btn" data-val="Sin plafón" onclick="toggle(this,'grp-plafon')">Sin plafón</div>
     </div>
   </div>
   <div class="row2">
-    <div class="field"><label>Registros</label><input type="text" id="registros" placeholder="Sí / No"></div>
-    <div class="field"><label>¿Cuántos?</label><input type="number" id="cuantosRegistros" placeholder="0" min="0"></div>
+    <div class="field"><label>Ductos eléctricos</label><input type="text" id="ductos" placeholder="Descripción"></div>
+    <div class="field"><label>Planos disponibles</label>
+      <div class="chk-group" id="grp-planos">
+        <div class="chk-btn" data-val="Sí" onclick="toggle(this,'grp-planos')">Sí</div>
+        <div class="chk-btn" data-val="No" onclick="toggle(this,'grp-planos')">No</div>
+      </div>
+    </div>
   </div>
-  <div class="field"><label>Tamaño de registros</label><input type="text" id="tamanoRegistros" placeholder="Dimensiones"></div>
-
-  <div class="section-title">Accesos</div>
+  <div class="row3">
+    <div class="field"><label>Registros</label><input type="text" id="registros" placeholder="Sí/No"></div>
+    <div class="field"><label>¿Cuántos?</label><input type="number" id="cuantosReg" placeholder="0" min="0"></div>
+    <div class="field"><label>Tamaño</label><input type="text" id="tamanoReg" placeholder="Dim."></div>
+  </div>
   <div class="row2">
-    <div class="field"><label>Acceso a vertical</label><input type="text" id="accesoVertical" placeholder="Descripción"></div>
-    <div class="field"><label>Altura del inmueble por piso</label><input type="text" id="alturaInmueble" placeholder="metros"></div>
+    <div class="field"><label>Acceso a vertical</label><input type="text" id="accesoVert" placeholder="Descripción"></div>
+    <div class="field"><label>Altura del inmueble por piso</label><input type="text" id="alturaInm" placeholder="metros"></div>
   </div>
   <div class="row2">
     <div class="field"><label>Altura a instalar el equipo</label><input type="text" id="alturaEquipo" placeholder="metros"></div>
@@ -119,84 +133,70 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
   <div class="row2">
     <div class="field"><label>Señal</label><input type="text" id="senal" placeholder="Tipo de señal"></div>
-    <div class="field"><label>Estacionamiento y almacén</label><input type="text" id="estacionamiento" placeholder="Disponibilidad"></div>
+    <div class="field"><label>Estacionamiento y almacén</label><input type="text" id="estacion" placeholder="Disponibilidad"></div>
   </div>
-
-  <div class="section-title">Acceso a azotea y sitio</div>
   <div class="row2">
-    <div class="field"><label>Acceso a la azotea</label><input type="text" id="accesoAzotea" placeholder="Descripción"></div>
+    <div class="field"><label>Acceso a azotea</label><input type="text" id="azotea" placeholder="Descripción"></div>
     <div class="field"><label>Correos con anticipación</label>
-      <div class="check-group" id="correos-group">
-        <div class="check-btn" data-val="Sí" onclick="toggle(this,'correos-group')">Sí</div>
-        <div class="check-btn" data-val="No" onclick="toggle(this,'correos-group')">No</div>
+      <div class="chk-group" id="grp-correos">
+        <div class="chk-btn" data-val="Sí" onclick="toggle(this,'grp-correos')">Sí</div>
+        <div class="chk-btn" data-val="No" onclick="toggle(this,'grp-correos')">No</div>
       </div>
     </div>
   </div>
   <div class="row2">
     <div class="field"><label>Sitio en obra</label>
-      <div class="check-group" id="sitioObra-group">
-        <div class="check-btn" data-val="Sí" onclick="toggle(this,'sitioObra-group')">Sí</div>
-        <div class="check-btn" data-val="No" onclick="toggle(this,'sitioObra-group')">No</div>
+      <div class="chk-group" id="grp-obra">
+        <div class="chk-btn" data-val="Sí" onclick="toggle(this,'grp-obra')">Sí</div>
+        <div class="chk-btn" data-val="No" onclick="toggle(this,'grp-obra')">No</div>
       </div>
     </div>
-    <div class="field"><label>% Instalación equipo en muro de:</label><input type="text" id="instalMuro" placeholder="Material del muro"></div>
+    <div class="field"><label>% Instalación en muro de:</label><input type="text" id="instMuro" placeholder="Material del muro"></div>
   </div>
-
-  <div class="field"><label>Tipo de inmueble</label><input type="text" id="tipoInmueble" placeholder="Comercial, industrial, residencial..."></div>
-  <div class="field"><label>Permisos especiales</label><input type="text" id="permisosEsp" placeholder="Especificar si aplica"></div>
-
-  <div class="section-title">Observaciones</div>
-  <div class="field"><textarea id="observaciones" placeholder="Observaciones generales del levantamiento..."></textarea></div>
+  <div class="row2">
+    <div class="field"><label>Tipo de inmueble</label><input type="text" id="tipoInm" placeholder="Comercial, industrial..."></div>
+    <div class="field"><label>Permisos especiales</label><input type="text" id="permisos" placeholder="Si aplica"></div>
+  </div>
+  <div class="field"><label>Observaciones</label><textarea id="obs" placeholder="Observaciones generales del levantamiento..."></textarea></div>
 </div>
 
-<a class="btn-nav" href="paso4.html" onclick="guardar()">Fotos y envío →</a>
-<a class="btn-nav btn-sec" href="paso2.html">← Regresar</a>
-
+<a class="btn" href="paso4.html" onclick="guardar()">Evidencias fotográficas →</a>
+<a class="btn outline" href="paso2.html">← Regresar</a>
+</main>
+<div class="toast" id="toast"></div>
 <script>
-const f=sessionStorage.getItem('folio')||'';
-document.getElementById('folio-badge').textContent=f?'Folio: '+f:'';
+const SURL='https://script.google.com/macros/s/AKfycbzWN48UEonDCDL3Ryxh6ztK3L7-rg68nhb04w9Qj-GDE2M3s18gCIPeIXfYygTYhyfMTw/exec';
+let levIdx=parseInt(sessionStorage.getItem('lev_idx')||'0');
+function getLevs(){return JSON.parse(localStorage.getItem('lev_list')||'[]');}
+function saveLevs(v){localStorage.setItem('lev_list',JSON.stringify(v));}
+let lev=getLevs()[levIdx]||{};
+document.getElementById('folio-b').textContent=lev.folio||'';
 
-function toggle(btn, groupId){
-  const group=document.getElementById(groupId);
-  group.querySelectorAll('.check-btn').forEach(b=>b.classList.remove('sel'));
+function toggle(btn,gid){
+  document.getElementById(gid).querySelectorAll('.chk-btn').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');
 }
 
-// Prellenar
-const prev=JSON.parse(sessionStorage.getItem('p3')||'{}');
-const fields=['certMedico','obraCivil','horarioInstal','plataforma','andamio','segurista',
-  'quienOtorga','cursos','diaHoraCurso','equipoDelimitador','otroConside',
-  'ductosElec','registros','cuantosRegistros','tamanoRegistros','accesoVertical',
-  'alturaInmueble','alturaEquipo','canal','senal','estacionamiento','accesoAzotea',
-  'instalMuro','tipoInmueble','permisosEsp','observaciones'];
-fields.forEach(id=>{
-  const el=document.getElementById(id);
-  if(el&&prev[id]) el.value=prev[id];
-});
-
-// Restaurar check-btns
-const groups=['escaleras-group','areaConfinada-group','plafon-group','planos-group',
-              'correos-group','sitioObra-group'];
-groups.forEach(gid=>{
-  const key='grp_'+gid;
-  if(prev[key]){
-    const group=document.getElementById(gid);
-    if(group) group.querySelectorAll('.check-btn').forEach(b=>{
-      if(b.dataset.val===prev[key]) b.classList.add('sel');
-    });
+const FIELDS=['obraCivil','horarioInst','plataforma','andamio','segurista','quienOtorga',
+  'cursos','equipoDelim','diaInduccion','otroConside','ductos','registros','cuantosReg',
+  'tamanoReg','accesoVert','alturaInm','alturaEquipo','canal','senal','estacion',
+  'azotea','instMuro','tipoInm','permisos','obs'];
+const GROUPS=['grp-escaleras','grp-confinada','grp-plafon','grp-planos','grp-correos','grp-obra'];
+const prev=lev.p3||{};
+FIELDS.forEach(id=>{const el=document.getElementById(id);if(el&&prev[id])el.value=prev[id];});
+GROUPS.forEach(gid=>{
+  if(prev['g_'+gid]){
+    const g=document.getElementById(gid);
+    if(g) g.querySelectorAll('.chk-btn').forEach(b=>{if(b.dataset.val===prev['g_'+gid])b.classList.add('sel');});
   }
 });
 
 function guardar(){
   const d={};
-  fields.forEach(id=>{const el=document.getElementById(id);if(el)d[id]=el.value;});
-  groups.forEach(gid=>{
-    const group=document.getElementById(gid);
-    if(group){
-      const sel=group.querySelector('.sel');
-      d['grp_'+gid]=sel?sel.dataset.val:'';
-    }
-  });
-  sessionStorage.setItem('p3',JSON.stringify(d));
+  FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)d[id]=el.value;});
+  GROUPS.forEach(gid=>{const s=document.getElementById(gid)?.querySelector('.sel');d['g_'+gid]=s?s.dataset.val:'';});
+  const levs=getLevs();levs[levIdx].p3=d;levs[levIdx].paso=Math.max(levs[levIdx].paso||1,4);
+  saveLevs(levs);
 }
+function toast(msg,type='ok'){const el=document.getElementById('toast');el.textContent=msg;el.className='toast show '+(type==='err'?'err':'ok');setTimeout(()=>el.className='toast',3000);}
 </script></body></html>
