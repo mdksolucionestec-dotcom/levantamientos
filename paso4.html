@@ -1,333 +1,427 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Paso 4 · Evidencias</title><style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f2f8;min-height:100vh;padding-bottom:80px}
-.hdr{background:#1a1080;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
-.hlogo{width:38px;height:38px;background:#fff;border-radius:8px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.hlogo img{width:100%;height:100%;object-fit:contain}
-.hdr-info{flex:1}.hdr h1{font-size:14px;font-weight:800}.hdr p{font-size:11px;opacity:.75}
-.folio-b{background:rgba(255,255,255,.2);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.3);flex-shrink:0}
-.bar{display:flex;gap:3px;padding:8px 16px;background:#fff;border-bottom:1px solid #e0ddf0}
-.sd{flex:1;height:4px;border-radius:2px;background:#e0d8f0}
-.sd.done{background:#6c63c6}.sd.active{background:#1a1080}
-main{padding:14px;max-width:560px;margin:0 auto}
-.card{background:#fff;border:1px solid #e0ddf0;border-radius:14px;padding:16px;margin-bottom:12px}
-.card h2{font-size:12px;font-weight:800;color:#1a1080;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.field{margin-bottom:11px}
-.field label{display:block;font-size:12px;font-weight:600;color:#556;margin-bottom:4px}
-.field input,.field select,.field textarea{width:100%;border:1px solid #d0cce8;border-radius:8px;padding:9px 12px;font-size:14px;color:#1a1a1a;background:#fff;outline:none;font-family:inherit;-webkit-appearance:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:#1a1080}
-.field textarea{resize:vertical;min-height:70px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.sec{font-size:11px;font-weight:700;color:#1a1080;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px;border-bottom:2px solid #e0ddf0;padding-bottom:5px}
-.chk-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.chk-btn{padding:9px 14px;border:1.5px solid #d0cce8;border-radius:20px;font-size:13px;cursor:pointer;background:#fff;color:#444;touch-action:manipulation;-webkit-user-select:none;user-select:none}
-.chk-btn.sel{background:#1a1080;border-color:#1a1080;color:#fff}
-.mat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.mat-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #e0ddf0;border-radius:8px;background:#faf9ff}
-.mat-item label{font-size:12px;flex:1;color:#333}
-.mat-item input[type=number]{width:55px;border:1px solid #d0cce8;border-radius:6px;padding:4px 6px;font-size:13px;text-align:center}
-.mat-item span{font-size:11px;color:#888;flex-shrink:0}
-.btn{display:block;width:100%;padding:14px;background:#1a1080;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:10px;touch-action:manipulation}
-.btn:active{opacity:.85}
-.btn.outline{background:#fff;color:#1a1080;border:2px solid #1a1080}
-.btn.green{background:#145c2f}
-.btn.red{background:#c0392b}
-.foto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-.foto-thumb{aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid #e0ddf0;position:relative;background:#f0eef8}
-.foto-thumb img{width:100%;height:100%;object-fit:cover}
-.foto-del{position:absolute;top:3px;right:3px;background:rgba(180,0,0,.8);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
-.cat-card{background:#fff;border:1px solid #e0ddf0;border-radius:14px;padding:16px;margin-bottom:12px}
-.cat-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.cat-hdr .ico{font-size:20px}
-.cat-hdr h2{font-size:14px;font-weight:800;color:#1a1080;margin:0}
-.cat-hdr .cnt{margin-left:auto;background:#e8e4f8;color:#1a1080;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
-.btn-fotos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn-foto{padding:11px 8px;border:1.5px solid #1a1080;border-radius:10px;background:#fff;color:#1a1080;font-size:13px;font-weight:700;cursor:pointer;text-align:center;touch-action:manipulation;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-foto:active{background:#e8e4f8}
-.btn-foto.gal{border-color:#6c63c6;color:#6c63c6}
-.btn-foto.gal:active{background:#f0eeff}
-.total-bar{background:linear-gradient(135deg,#1a1080,#2e75b6);color:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.total-bar .lbl{font-size:12px;opacity:.8}
-.total-bar .num{font-size:28px;font-weight:900}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1080;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;transition:transform .3s;z-index:999;white-space:nowrap}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast.ok{background:#145c2f}.toast.err{background:#c0392b}
-</style>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a1080">
+<title>Paso 4 · Evidencias</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head><body>
-<div class="hdr">
-  <div class="hlogo"><img src="data:image/jpeg;base64,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ANBvSf8Av3JR9dofzAeFUV7of2a/En/Qa0n/AL4kpP8Ahm3xJ21nSf8AvmSj67R/mA8Mp0cjxSJJExWVGDIw6hgcg17gf2bvE3bV9JP4PTT+zf4nHTVdJP8A33T+uUX9oD6C+FXimPxh4J07VQwNwyeVcL/dlXhvz6/jXX15D8DPh/4j8AzajbareWNzpt0BIqwFtySjjPPYj+Qr16vn66jGo1B3RIUHpRQehrIDyvxVdax4W8Y3WswQmexulVWJBK4A+6SPukV2/g7ULPVNIF5p8ZiSWRmkjPVXJ+YVHJbarE+oobe1vrS4kZo4nk2lQR0bIORWLa+FNV03S9KttMv0haO7Nxd7SQGBP3R6gDjFAHZaldLZWNxcuRtiQvz3wK87+HF1JZeLNZ0u5mWVpj54dTkM3U/of0ruddtrm6hght44niMytMrtjKA5wPxxXN6n4Zv/APhNbPWdLS2hhhCq6Ftpccg8AccHH4UAdv296878W65qF1rGr6PZPDFa2tg8s29NxfK5wD2+8K6bw5p+q2moatJql4LiCabdbqDnYvP5dhj2rF1/wvqEviC/1DTHt2S/tGtpUmYjaSAMjH0FAGJoOvy6d4f8M6bbSLC935jPMy7tiBz0Hck12/g7VLnVtFSe/iMVyrtG4KldxH8QB9a5RvBOq2+m6LLaXNsdU01m25yEZS27BPqDmu60mO9S0B1KSN7pjuYRjCJ/sr7UAef/AA6ka+8b+Iby6y06kopPVV34wPwAr0W1tobZ52hUL5z+Y4H97AGf0rkx4d1DRvFFzquiLBPb3gImt5XKbSTnIOD3q3rOl6/dpp72uoJBKtyJZ1UkKE/uj1x79aANTxVpw1XQL6zPWSI7fZhyP1ri/hzftqejWWlykmS0nJlU9kXlR/31x+Fekgda4b/hEb6ztPEJ0i4S3u76YNBIDjanUjPbnNAHdDpRVbTYp4dPto7uTzbhI1WR/wC82OTVmgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z" alt="MD"></div>
-  <div class="hdr-info"><h1>Levantamiento · Paso 4</h1><p>Evidencias fotográficas</p></div>
-  <div class="folio-b" id="folio-b"></div>
-</div>
-<div class="bar"><div class="sd done"></div><div class="sd done"></div><div class="sd done"></div><div class="sd active"></div></div>
-<main>
+<style>
+:root{
+  --bg:#f4f2f8;--card:#fff;--border:#e0ddf0;--primary:#1a1080;--primary-soft:#efeafb;
+  --primary-2:#3a2ec0;--ink:#1b1830;--muted:#6a6688;--ok:#1f9d55;--danger:#d13b3b;
+  --radius:14px;--shadow:0 1px 3px rgba(26,16,128,.06),0 6px 18px rgba(26,16,128,.05);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.4;padding-bottom:150px}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+input,textarea{font-family:inherit}
 
-<div class="total-bar">
-  <div><div class="lbl">Total de fotos</div><div class="num" id="total-fotos">0</div></div>
-  <div style="text-align:right"><div class="lbl">Folio</div><div style="font-size:14px;font-weight:700" id="folio-right"></div></div>
-</div>
+.hdr{position:sticky;top:0;z-index:40;background:var(--primary);color:#fff;
+  padding:calc(env(safe-area-inset-top) + 12px) 16px 0;box-shadow:0 2px 12px rgba(26,16,128,.25)}
+.hdr-row{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto}
+.back{background:rgba(255,255,255,.14);border:none;color:#fff;width:36px;height:36px;
+  border-radius:10px;font-size:18px;flex:0 0 auto;display:grid;place-items:center}
+.htxt h1{font-size:15px;margin:0;font-weight:700}
+.htxt .folio{font-size:11.5px;opacity:.82;margin-top:1px;letter-spacing:.3px}
+.prog{max-width:760px;margin:0 auto;display:flex;gap:6px;padding:12px 0 0}
+.pstep{flex:1;text-align:center;padding-bottom:11px}
+.pbar{height:4px;border-radius:4px;background:rgba(255,255,255,.25)}
+.pstep.on .pbar{background:#fff}.pstep.done .pbar{background:#8fd6a8}
+.plabel{font-size:10px;color:rgba(255,255,255,.75);margin-top:5px;font-weight:600}
+.pstep.on .plabel{color:#fff}
 
+.wrap{max-width:760px;margin:0 auto;padding:16px}
 
-<div class="cat-card">
-  <div class="cat-hdr">
-    <span class="ico">📷</span>
-    <h2>Antes de la instalación</h2>
-    <span class="cnt" id="cnt-antes">0 fotos</span>
-  </div>
-  <div class="foto-grid" id="grid-antes"></div>
-  <div class="btn-fotos">
-    <button class="btn-foto" onclick="tomarFoto('antes')">📷 Cámara</button>
-    <button class="btn-foto gal" onclick="selGaleria('antes')">🖼️ Galería</button>
-  </div>
-  <input type="file" accept="image/*" capture="environment" style="display:none" id="cam-antes" onchange="fotoCap(this,'antes')">
-  <input type="file" accept="image/*" multiple style="display:none" id="gal-antes" onchange="fotoCap(this,'antes')">
-</div>
-<div class="cat-card">
-  <div class="cat-hdr">
-    <span class="ico">🔧</span>
-    <h2>Durante la instalación</h2>
-    <span class="cnt" id="cnt-durante">0 fotos</span>
-  </div>
-  <div class="foto-grid" id="grid-durante"></div>
-  <div class="btn-fotos">
-    <button class="btn-foto" onclick="tomarFoto('durante')">📷 Cámara</button>
-    <button class="btn-foto gal" onclick="selGaleria('durante')">🖼️ Galería</button>
-  </div>
-  <input type="file" accept="image/*" capture="environment" style="display:none" id="cam-durante" onchange="fotoCap(this,'durante')">
-  <input type="file" accept="image/*" multiple style="display:none" id="gal-durante" onchange="fotoCap(this,'durante')">
-</div>
-<div class="cat-card">
-  <div class="cat-hdr">
-    <span class="ico">✅</span>
-    <h2>Después de la instalación</h2>
-    <span class="cnt" id="cnt-despues">0 fotos</span>
-  </div>
-  <div class="foto-grid" id="grid-despues"></div>
-  <div class="btn-fotos">
-    <button class="btn-foto" onclick="tomarFoto('despues')">📷 Cámara</button>
-    <button class="btn-foto gal" onclick="selGaleria('despues')">🖼️ Galería</button>
-  </div>
-  <input type="file" accept="image/*" capture="environment" style="display:none" id="cam-despues" onchange="fotoCap(this,'despues')">
-  <input type="file" accept="image/*" multiple style="display:none" id="gal-despues" onchange="fotoCap(this,'despues')">
-</div>
-<div class="cat-card">
-  <div class="cat-hdr">
-    <span class="ico">📌</span>
-    <h2>Observaciones / Extras</h2>
-    <span class="cnt" id="cnt-extras">0 fotos</span>
-  </div>
-  <div class="foto-grid" id="grid-extras"></div>
-  <div class="btn-fotos">
-    <button class="btn-foto" onclick="tomarFoto('extras')">📷 Cámara</button>
-    <button class="btn-foto gal" onclick="selGaleria('extras')">🖼️ Galería</button>
-  </div>
-  <input type="file" accept="image/*" capture="environment" style="display:none" id="cam-extras" onchange="fotoCap(this,'extras')">
-  <input type="file" accept="image/*" multiple style="display:none" id="gal-extras" onchange="fotoCap(this,'extras')">
-</div>
+.total-bar{background:var(--primary);color:#fff;border-radius:var(--radius);padding:16px;
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;
+  box-shadow:0 6px 18px rgba(26,16,128,.28)}
+.total-bar .lbl{font-size:12.5px;opacity:.85;font-weight:600}
+.total-bar .num{font-size:30px;font-weight:800;line-height:1;margin-top:2px}
+.total-bar .ic{font-size:34px;opacity:.9}
 
-<div class="card">
-  <h2>📝 Notas finales</h2>
-  <div class="field"><textarea id="notasFinales" placeholder="Notas adicionales del técnico..."></textarea></div>
-  <div class="field"><label>Calificación del servicio</label>
-    <div style="display:flex;gap:8px;font-size:32px;margin-top:4px" id="stars">
-      <span onclick="setRating(1)" style="cursor:pointer;touch-action:manipulation">☆</span>
-      <span onclick="setRating(2)" style="cursor:pointer;touch-action:manipulation">☆</span>
-      <span onclick="setRating(3)" style="cursor:pointer;touch-action:manipulation">☆</span>
-      <span onclick="setRating(4)" style="cursor:pointer;touch-action:manipulation">☆</span>
-      <span onclick="setRating(5)" style="cursor:pointer;touch-action:manipulation">☆</span>
+.cat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:15px;margin-bottom:14px}
+.cat-head{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.cat-ic{font-size:20px}
+.cat-title{font-size:14px;font-weight:800;color:var(--primary);flex:1}
+.cat-count{font-size:11.5px;font-weight:800;color:var(--primary);background:var(--primary-soft);
+  padding:4px 10px;border-radius:20px}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.thumb{position:relative;aspect-ratio:1/1;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:#f0eef8}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .del{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;
+  border:none;background:rgba(20,14,60,.72);color:#fff;font-size:14px;line-height:1;
+  display:grid;place-items:center}
+.cat-btns{display:flex;gap:8px}
+.pill{flex:1;border:1.5px solid var(--border);background:#fbfaff;color:var(--primary);
+  border-radius:11px;padding:12px;font-size:13px;font-weight:700;display:flex;align-items:center;
+  justify-content:center;gap:7px;transition:.13s}
+.pill:active{transform:scale(.98);background:var(--primary-soft)}
+.hidden-input{display:none}
+
+.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.field textarea{width:100%;padding:12px;border:1.5px solid var(--border);border-radius:11px;
+  font-size:15px;background:#fbfaff;color:var(--ink);min-height:84px;resize:vertical}
+.field textarea:focus{outline:none;border-color:var(--primary-2);background:#fff}
+
+.stars{display:flex;gap:6px;margin-top:2px}
+.star{font-size:34px;color:#d6d0ef;line-height:1;background:none;border:none;padding:0;transition:transform .1s}
+.star.on{color:#f5b820}
+.star:active{transform:scale(1.15)}
+
+.navbar{position:fixed;left:0;right:0;bottom:0;z-index:30;
+  padding:12px 16px calc(env(safe-area-inset-bottom) + 12px);
+  background:linear-gradient(to top,var(--bg) 55%,rgba(244,242,248,0))}
+.nav-inner{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:9px}
+.nav-secondary{display:flex;gap:10px}
+.btn{border:none;border-radius:12px;padding:14px;font-size:14.5px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .06s,background .15s}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.6;pointer-events:none}
+.btn-send{background:var(--ok);color:#fff;box-shadow:0 4px 14px rgba(31,157,85,.32);width:100%;font-size:15.5px}
+.btn-send:hover{background:#188047}
+.btn-ghost{background:#fff;color:var(--primary);border:1.5px solid var(--border);flex:1}
+.btn-pdf{background:#fff;color:var(--primary);border:1.5px solid var(--border);flex:1.4}
+
+/* overlay envío */
+.sending{position:fixed;inset:0;z-index:80;background:rgba(20,14,60,.55);display:none;
+  align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.sending.on{display:flex}
+.send-box{background:#fff;border-radius:18px;padding:26px 30px;text-align:center;max-width:320px;width:86%}
+.spin{width:44px;height:44px;border:4px solid var(--primary-soft);border-top-color:var(--primary);
+  border-radius:50%;margin:0 auto 14px;animation:sp 0.8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.send-box h3{margin:0 0 4px;font-size:16px}
+.send-box p{margin:0;font-size:13px;color:var(--muted)}
+.send-box.done .spin{display:none}
+.check-ic{font-size:46px;color:var(--ok);margin-bottom:6px;display:none}
+.send-box.done .check-ic{display:block}
+@media(max-width:360px){.thumbs{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-row">
+    <button class="back" onclick="volver()" aria-label="Atrás">‹</button>
+    <div class="htxt"><h1>Evidencias fotográficas</h1><div class="folio" id="folio">—</div></div>
+  </div>
+  <div class="prog">
+    <div class="pstep done"><div class="pbar"></div><div class="plabel">Generales</div></div>
+    <div class="pstep done"><div class="pbar"></div><div class="plabel">Material</div></div>
+    <div class="pstep done"><div class="pbar"></div><div class="plabel">Inmueble</div></div>
+    <div class="pstep on"><div class="pbar"></div><div class="plabel">Evidencias</div></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="total-bar">
+    <div>
+      <div class="lbl">Total de fotos</div>
+      <div class="num" id="totalNum">0</div>
+    </div>
+    <div class="ic">📷</div>
+  </div>
+
+  <div id="cats"></div>
+
+  <div class="cat">
+    <div class="cat-head"><span class="cat-ic">📝</span><span class="cat-title">Notas finales</span></div>
+    <div class="field"><textarea id="notasFinales" placeholder="Resumen, pendientes u observaciones finales…"></textarea></div>
+    <div class="cat-head" style="margin-top:14px"><span class="cat-ic">⭐</span><span class="cat-title">Calificación del servicio</span></div>
+    <div class="stars" id="stars"></div>
+  </div>
+</main>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <button class="btn btn-send" id="sendBtn" onclick="enviar()">📤 Enviar levantamiento a Drive</button>
+    <div class="nav-secondary">
+      <button class="btn btn-ghost" onclick="volver()">‹ Atrás</button>
+      <button class="btn btn-pdf" onclick="descargarPDF()">📄 Descargar PDF</button>
     </div>
   </div>
+</nav>
+
+<div class="sending" id="sendOv">
+  <div class="send-box" id="sendBox">
+    <div class="spin"></div>
+    <div class="check-ic">✓</div>
+    <h3 id="sendTitle">Enviando…</h3>
+    <p id="sendMsg">Subiendo fotos y evidencias a Drive.</p>
+  </div>
 </div>
 
-<button class="btn green" id="btn-env" onclick="enviar()">☁️ Enviar levantamiento a Drive</button>
-<a class="btn outline" href="paso3.html">← Regresar</a>
-</main>
-<div class="toast" id="toast"></div>
+<!-- inputs de archivo generados por categoría -->
+<div id="fileInputs"></div>
 
 <script>
-const SURL='https://script.google.com/macros/s/AKfycbzWN48UEonDCDL3Ryxh6ztK3L7-rg68nhb04w9Qj-GDE2M3s18gCIPeIXfYygTYhyfMTw/exec';
-const DRIVE_ID='1RugRIdGyuSumyKYg-OQqEMruU9umwztf';
-const SHEET_ID='1P3DNpSKZsC0bDRlQeCZGFJ0EGJuRzIH-gzC1JGCtPQA';
-let levIdx=parseInt(sessionStorage.getItem('lev_idx')||'0');
-let rating=0;
-const CATS=['antes','durante','despues','extras'];
-const CAT_NAMES={'antes':'ANTES DE LA INSTALACIÓN','durante':'DURANTE LA INSTALACIÓN','despues':'DESPUÉS DE LA INSTALACIÓN','extras':'OBSERVACIONES / EXTRAS'};
+/* ===================== CONFIGURACIÓN ===================== */
+const SURL     = 'URL_DEL_APPS_SCRIPT';
+const DRIVE_ID = 'ID_CARPETA_DRIVE';
+const SHEET_ID = 'ID_GOOGLE_SHEET';
+const LOGO     = '';
+/* ======================================================== */
 
-function getLevs(){return JSON.parse(localStorage.getItem('lev_list')||'[]');}
-function saveLevs(v){localStorage.setItem('lev_list',JSON.stringify(v));}
-let lev=getLevs()[levIdx]||{};
-if(!lev.fotos) lev.fotos={antes:[],durante:[],despues:[],extras:[]};
+const CATS = [
+  ['antes',  '📷', 'Antes de la instalación'],
+  ['durante','🔧', 'Durante la instalación'],
+  ['despues','✅', 'Después de la instalación'],
+  ['extras', '📌', 'Observaciones / Extras']
+];
 
-window.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('folio-b').textContent=lev.folio||'';
-  document.getElementById('folio-right').textContent=lev.folio||'';
-  renderAll();
-});
+function getLevs(){ try{ return JSON.parse(localStorage.getItem('lev_list')||'[]'); }catch(e){ return []; } }
+function saveLevs(l){ try{ localStorage.setItem('lev_list', JSON.stringify(l)); return true; }
+  catch(e){ alert('Almacenamiento lleno. No se pudo guardar la foto. Envía y cierra levantamientos terminados para liberar espacio.'); return false; } }
 
-function tomarFoto(cat){document.getElementById('cam-'+cat).click();}
-function selGaleria(cat){document.getElementById('gal-'+cat).click();}
+const levIdx = parseInt(sessionStorage.getItem('lev_idx'));
+let levs = getLevs();
+if(isNaN(levIdx) || !levs[levIdx]){ window.location.href='index.html'; }
+let rating = 0;
 
+function lev(){ return getLevs()[levIdx]; }
+function fotosDe(cat){ const l=lev(); return (l.fotos&&l.fotos[cat])||[]; }
+
+/* ---------- render ---------- */
+function render(){
+  const l = lev();
+  document.getElementById('folio').textContent = l.folio || '';
+  document.getElementById('notasFinales').value = l.notasFinales || '';
+  rating = l.rating || 0;
+
+  // categorías
+  document.getElementById('cats').innerHTML = CATS.map(([cat,ic,title])=>{
+    const fotos = (l.fotos&&l.fotos[cat])||[];
+    const thumbs = fotos.map((f,i)=>`
+      <div class="thumb">
+        <img src="${f.data}" alt="">
+        <button class="del" onclick="eliminar('${cat}',${i})" aria-label="Eliminar">✕</button>
+      </div>`).join('');
+    return `<div class="cat">
+      <div class="cat-head">
+        <span class="cat-ic">${ic}</span>
+        <span class="cat-title">${title}</span>
+        <span class="cat-count">${fotos.length}</span>
+      </div>
+      <div class="thumbs">${thumbs || ''}</div>
+      <div class="cat-btns">
+        <button class="pill" onclick="document.getElementById('cam-${cat}').click()">📷 Cámara</button>
+        <button class="pill" onclick="document.getElementById('gal-${cat}').click()">🖼️ Galería</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // inputs de archivo (cámara + galería) por categoría
+  document.getElementById('fileInputs').innerHTML = CATS.map(([cat])=>`
+    <input class="hidden-input" type="file" accept="image/*" capture="environment"
+      id="cam-${cat}" onchange="fotoCap(this,'${cat}')">
+    <input class="hidden-input" type="file" accept="image/*" multiple
+      id="gal-${cat}" onchange="fotoCap(this,'${cat}')">
+  `).join('');
+
+  // estrellas
+  document.getElementById('stars').innerHTML = [1,2,3,4,5].map(n=>
+    `<button class="star${n<=rating?' on':''}" onclick="setRating(${n})">${n<=rating?'★':'☆'}</button>`
+  ).join('');
+
+  actualizarTotal();
+}
+function actualizarTotal(){
+  const l=lev(), n=CATS.reduce((s,[c])=>s+(((l.fotos&&l.fotos[c])||[]).length),0);
+  document.getElementById('totalNum').textContent = n;
+}
+function setRating(n){
+  rating=n;
+  levs=getLevs(); levs[levIdx].rating=n; saveLevs(levs);
+  document.querySelectorAll('.star').forEach((el,i)=>{
+    const on=i<n; el.classList.toggle('on',on); el.textContent=on?'★':'☆';
+  });
+}
+
+/* ---------- captura + compresión ---------- */
 function fotoCap(input, cat){
-  const files=Array.from(input.files);
+  const files = Array.from(input.files||[]);
   if(!files.length) return;
-  let loaded=0;
+  let pend = files.length;
   files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      // Comprimir imagen manteniendo alta calidad
-      const img=new Image();
-      img.onload=()=>{
-        const canvas=document.createElement('canvas');
-        // Media carta = 5.5" x 8.5" a 150dpi = 825 x 1275px
-        const maxW=1650, maxH=2550; // doble para mejor calidad
+    const reader = new FileReader();
+    reader.onload = ev=>{
+      const img = new Image();
+      img.onload = ()=>{
+        const canvas = document.createElement('canvas');
+        const maxW=1650, maxH=2550;              // media carta a alta resolución
         let w=img.width, h=img.height;
-        if(w>maxW||h>maxH){
-          const ratio=Math.min(maxW/w,maxH/h);
+        if(w>maxW || h>maxH){
+          const ratio=Math.min(maxW/w, maxH/h);
           w=Math.round(w*ratio); h=Math.round(h*ratio);
         }
         canvas.width=w; canvas.height=h;
         const ctx=canvas.getContext('2d');
+        ctx.fillStyle='#fff'; ctx.fillRect(0,0,w,h);
         ctx.drawImage(img,0,0,w,h);
-        const dataUrl=canvas.toDataURL('image/jpeg',0.92); // 92% calidad
-        const foto={data:dataUrl, name:file.name||('foto_'+Date.now()+'.jpg'), type:'image/jpeg', ts:new Date().toISOString()};
-        const levs=getLevs();
-        if(!levs[levIdx].fotos) levs[levIdx].fotos={antes:[],durante:[],despues:[],extras:[]};
-        levs[levIdx].fotos[cat].push(foto);
-        saveLevs(levs);
-        lev=levs[levIdx];
-        loaded++;
-        if(loaded===files.length){renderAll();toast('✅ '+files.length+' foto(s) agregada(s)','ok');}
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.92);   // 92% calidad
+        guardarFoto(cat, { data:dataUrl, name:file.name||'foto.jpg',
+          type:'image/jpeg', ts:new Date().toISOString() });
+        if(--pend===0){ input.value=''; render(); }
       };
-      img.src=ev.target.result;
+      img.onerror = ()=>{ if(--pend===0){ input.value=''; render(); } };
+      img.src = ev.target.result;
     };
     reader.readAsDataURL(file);
   });
-  input.value='';
 }
-
-function borrarFoto(cat,i){
-  if(!confirm('¿Eliminar esta foto?')) return;
-  const levs=getLevs();
+function guardarFoto(cat, foto){
+  levs=getLevs();
+  if(!levs[levIdx].fotos) levs[levIdx].fotos={antes:[],durante:[],despues:[],extras:[]};
+  if(!levs[levIdx].fotos[cat]) levs[levIdx].fotos[cat]=[];
+  levs[levIdx].fotos[cat].push(foto);
+  saveLevs(levs);
+}
+function eliminar(cat, i){
+  levs=getLevs();
   levs[levIdx].fotos[cat].splice(i,1);
-  saveLevs(levs); lev=levs[levIdx]; renderAll();
+  saveLevs(levs);
+  render();
 }
 
-function renderAll(){
-  let total=0;
-  CATS.forEach(cat=>{
-    const fotos=(lev.fotos&&lev.fotos[cat])||[];
-    total+=fotos.length;
-    document.getElementById('cnt-'+cat).textContent=fotos.length+' foto(s)';
-    const grid=document.getElementById('grid-'+cat);
-    grid.innerHTML=fotos.map((f,i)=>
-      `<div class="foto-thumb"><img src="${f.data}" loading="lazy">
-       <button class="foto-del" onclick="borrarFoto('${cat}',${i})">✕</button></div>`
-    ).join('');
+/* ---------- PDF de evidencias (media carta) ---------- */
+function recolectarFotos(){
+  const l=lev(), out=[];
+  CATS.forEach(([cat,,title])=>{
+    ((l.fotos&&l.fotos[cat])||[]).forEach(f=> out.push({...f, cat, catLabel:title.toUpperCase()}));
   });
-  document.getElementById('total-fotos').textContent=total;
+  return out;
+}
+function fitRect(natW,natH,boxW,boxH,offX,offY){
+  const r=Math.min(boxW/natW, boxH/natH);
+  const w=natW*r, h=natH*r;
+  return { x:offX+(boxW-w)/2, y:offY+(boxH-h)/2, w, h };
+}
+function cargarImg(src){ return new Promise(res=>{ const im=new Image();
+  im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
+
+async function generarPDF(){
+  if(!window.jspdf || !window.jspdf.jsPDF){ alert('jsPDF no cargó. Revisa tu conexión e inténtalo de nuevo.'); return null; }
+  const fotos = recolectarFotos();
+  if(!fotos.length){ alert('No hay fotos para generar el PDF.'); return null; }
+  const l=lev();
+  const W=139.7, H=215.9;                        // media carta en mm
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit:'mm', format:[W,H], orientation:'portrait' });
+  const fecha = new Date().toLocaleDateString('es-MX');
+
+  for(let i=0;i<fotos.length;i++){
+    if(i>0) doc.addPage([W,H],'portrait');
+    const f=fotos[i];
+    const im=await cargarImg(f.data);
+    // caja de imagen con márgenes 5mm, dejando 10mm inferior para el footer
+    const boxX=5, boxY=5, boxW=W-10, boxH=H-15;
+    if(im){
+      const r=fitRect(im.naturalWidth||im.width, im.naturalHeight||im.height, boxW, boxH, boxX, boxY);
+      doc.addImage(f.data,'JPEG', r.x, r.y, r.w, r.h, '', 'FAST');
+    }
+    // footer azul MDreieck
+    doc.setFillColor(26,16,128);
+    doc.rect(0, H-10, W, 10, 'F');
+    doc.setTextColor(255,255,255); doc.setFontSize(6.5);
+    doc.text((l.folio||'') + ' · ' + f.catLabel, 5, H-5.5);
+    doc.text('Foto ' + (i+1) + '/' + fotos.length + ' · ' + fecha, W-5, H-5.5, {align:'right'});
+  }
+  return doc;
+}
+async function descargarPDF(){
+  const doc = await generarPDF();
+  if(doc) doc.save('Evidencias_' + (lev().folio||'levantamiento') + '.pdf');
 }
 
-function setRating(n){
-  rating=n;
-  const stars=document.getElementById('stars').children;
-  for(let i=0;i<5;i++) stars[i].textContent=i<n?'★':'☆';
+/* ---------- guardar campos de esta pantalla ---------- */
+function guardarCampos(){
+  levs=getLevs();
+  levs[levIdx].notasFinales = document.getElementById('notasFinales').value;
+  levs[levIdx].rating = rating;
+  saveLevs(levs);
 }
+function volver(){ guardarCampos(); window.location.href='paso3.html'; }
 
-// ── ENVIAR TODO ────────────────────────────────────────────────────────────────
+/* ---------- envío a Apps Script ---------- */
+function stripB64(dataUrl){ const i=(dataUrl||'').indexOf('base64,'); return i>=0 ? dataUrl.slice(i+7) : dataUrl; }
+
 async function enviar(){
-  const btn=document.getElementById('btn-env');
-  btn.disabled=true; btn.textContent='Generando PDF y enviando...';
+  guardarCampos();
+  const l=lev();
+  const totalFotos = recolectarFotos().length;
+  if(totalFotos===0 && !confirm('No hay fotos cargadas. ¿Enviar de todas formas?')) return;
+
+  const ov=document.getElementById('sendOv'), box=document.getElementById('sendBox');
+  const title=document.getElementById('sendTitle'), msg=document.getElementById('sendMsg');
+  const btn=document.getElementById('sendBtn');
+  box.classList.remove('done'); title.textContent='Generando PDF…'; msg.textContent='Preparando evidencias.';
+  ov.classList.add('on'); btn.disabled=true;
 
   try{
-    const levs=getLevs(); lev=levs[levIdx];
-    const p1=lev.p1||{}, p2=lev.p2||{}, p3=lev.p3||{};
-    const notasFinales=document.getElementById('notasFinales').value;
-
-    // ── Generar PDF de evidencias fotográficas (media carta = 139.7 x 215.9 mm) ──
-    const {jsPDF}=window.jspdf;
-    const W=139.7, H=215.9; // Media carta en mm
-    const doc=new jsPDF({unit:'mm',format:[W,H],orientation:'portrait'});
-    let primeraPag=true;
-    let totalFotos=0;
-
-    for(const cat of CATS){
-      const fotos=(lev.fotos&&lev.fotos[cat])||[];
-      for(let i=0;i<fotos.length;i++){
-        if(!primeraPag) doc.addPage([W,H]);
-        primeraPag=false; totalFotos++;
-
-        // Foto ocupa casi toda la página (márgenes mínimos)
-        const M=5;
-        const imgH=H-M*2-10; // 10mm para footer
-        try{
-          doc.addImage(fotos[i].data,'JPEG',M,M,W-M*2,imgH,'','FAST');
-        }catch(e){
-          doc.setFontSize(10);doc.setTextColor(150,150,150);
-          doc.text('Error al cargar imagen',W/2,H/2,{align:'center'});
-        }
-
-        // Footer azul
-        doc.setFillColor(26,16,128);
-        doc.rect(0,H-10,W,10,'F');
-        doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(255,255,255);
-        doc.text(lev.folio+' · '+CAT_NAMES[cat],M,H-5.5);
-        doc.text('Foto '+(i+1)+'/'+fotos.length+' · '+lev.fecha,W-M,H-5.5,{align:'right'});
-      }
+    // 1. PDF de evidencias → base64
+    let pdfEvidencias=null;
+    const doc = await generarPDF();
+    if(doc){
+      const b64 = doc.output('datauristring');
+      pdfEvidencias = { name:'Evidencias_'+(l.folio||'lev')+'.pdf', data:stripB64(b64) };
     }
+    // descarga local también
+    if(doc) doc.save('Evidencias_'+(l.folio||'levantamiento')+'.pdf');
 
-    const pdfB64=totalFotos>0?doc.output('datauristring').split(',')[1]:null;
+    // 2. fotos por categoría con nombres
+    title.textContent='Enviando…'; msg.textContent='Subiendo fotos a Drive.';
+    const fotosOut={antes:[],durante:[],despues:[],extras:[]};
+    CATS.forEach(([cat])=>{
+      ((l.fotos&&l.fotos[cat])||[]).forEach((f,i)=>{
+        fotosOut[cat].push({
+          data: stripB64(f.data),
+          name: cat + '_' + String(i+1).padStart(2,'0') + '_' + (l.folio||'lev') + '.jpg',
+          type: 'image/jpeg'
+        });
+      });
+    });
 
-    // ── Preparar payload ──
-    const fotosPayload={};
-    for(const cat of CATS){
-      fotosPayload[cat]=((lev.fotos&&lev.fotos[cat])||[]).map((f,i)=>{
-        return {data:f.data.split(',')[1], name:cat+'_'+String(i+1).padStart(2,'0')+'_'+lev.folio+'.jpg', type:'image/jpeg'};
+    // 3. payload
+    const payload = {
+      accion:'levantamiento', folderId:DRIVE_ID, sheetId:SHEET_ID,
+      folio:l.folio, tecnico:l.tecnico, proyecto:l.proyecto, empresa:l.empresa,
+      direccion:l.dir||(l.p1&&l.p1.direccion)||'', fecha:l.fecha, tipo:l.tipo,
+      rating:l.rating||0, notasFinales:l.notasFinales||'', totalFotos,
+      p1:l.p1||{}, p2:l.p2||{}, p3:l.p3||{},
+      pdfEvidencias, fotos:fotosOut
+    };
+
+    // 4. POST (no-cors: GitHub Pages → Apps Script)
+    if(SURL && SURL!=='URL_DEL_APPS_SCRIPT'){
+      await fetch(SURL, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify(payload)
       });
     }
 
-    const payload={
-      accion:'levantamiento',
-      folderId:DRIVE_ID, sheetId:SHEET_ID,
-      folio:lev.folio, tecnico:lev.tecnico||p1.tecnicos,
-      proyecto:lev.proyecto, empresa:lev.empresa||p1.empresa,
-      direccion:lev.dir||p1.direccion, fecha:lev.fecha,
-      tipo:lev.tipo, rating, notasFinales,
-      totalFotos, p1, p2, p3,
-      pdfEvidencias: pdfB64?{name:'Evidencias_'+lev.folio+'.pdf', data:pdfB64}:null,
-      fotos: fotosPayload
-    };
-
-    // Descargar PDF localmente
-    if(pdfB64) doc.save('Evidencias_'+lev.folio+'.pdf');
-
-    // Enviar al Apps Script
-    await fetch(SURL,{
-      method:'POST', mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(payload)
-    });
-
-    // Marcar cerrado
-    levs[levIdx].cerrado=true;
+    // 5. marcar como enviado
+    levs=getLevs(); levs[levIdx].cerrado=true; levs[levIdx].enviado=new Date().toISOString();
     saveLevs(levs);
 
-    toast('✅ Levantamiento enviado a Drive','ok');
-    setTimeout(()=>window.location.href='index.html',2500);
-
+    box.classList.add('done'); title.textContent='¡Enviado!';
+    msg.textContent = (SURL && SURL!=='URL_DEL_APPS_SCRIPT')
+      ? 'Levantamiento subido a Drive y registrado en Sheets.'
+      : 'PDF generado. Configura la URL del Apps Script para subir a Drive.';
+    setTimeout(()=>{ window.location.href='index.html'; }, 1700);
   }catch(err){
-    console.error(err);
-    toast('❌ Error: '+err.message,'err');
-    btn.disabled=false; btn.textContent='☁️ Enviar levantamiento a Drive';
+    box.classList.remove('done');
+    title.textContent='Error al enviar';
+    msg.textContent='Revisa tu conexión. El PDF se descargó localmente. '+ (err&&err.message||'');
+    btn.disabled=false;
+    setTimeout(()=>ov.classList.remove('on'), 2600);
   }
 }
 
-function toast(msg,type='ok'){
-  const el=document.getElementById('toast');
-  el.textContent=msg; el.className='toast show '+(type==='err'?'err':'ok');
-  setTimeout(()=>el.className='toast',3500);
-}
-</script></body></html>
+render();
+</script>
+</body>
+</html>
