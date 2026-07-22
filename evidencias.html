@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Evidencias · MDreieck</title>
+<title>Evidencia · MDreieck</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f2f8;min-height:100vh;padding-bottom:80px}
@@ -8,110 +9,209 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .hlogo{width:38px;height:38px;background:#fff;border-radius:8px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .hlogo img{width:100%;height:100%;object-fit:contain}
 .hdr-info{flex:1}.hdr h1{font-size:14px;font-weight:800}.hdr p{font-size:11px;opacity:.75}
-.folio-badge{background:rgba(255,255,255,.2);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.3);flex-shrink:0}
+.folio-b{background:rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;border:1px solid rgba(255,255,255,.3);flex-shrink:0;white-space:nowrap}
 main{padding:14px;max-width:560px;margin:0 auto}
 .info-bar{background:#fff;border:1px solid #e0ddf0;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .info-bar span{font-size:11px;color:#778}.info-bar b{font-size:13px;color:#1a1a1a;display:block}
-.cat-card{background:#fff;border:1px solid #e0ddf0;border-radius:14px;padding:16px;margin-bottom:12px}
-.cat-title{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.cat-title .ico{font-size:20px}
-.cat-title h2{font-size:14px;font-weight:800;color:#1a1080}
-.cat-title .count{margin-left:auto;background:#e8e4f8;color:#1a1080;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
-.foto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-.foto-thumb{aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid #e0ddf0;position:relative;background:#f0eef8}
-.foto-thumb img{width:100%;height:100%;object-fit:cover}
-.foto-del{position:absolute;top:4px;right:4px;background:rgba(180,0,0,.8);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
-.btn-fotos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn-foto{padding:11px 8px;border:1.5px solid #1a1080;border-radius:10px;background:#fff;color:#1a1080;font-size:13px;font-weight:700;cursor:pointer;text-align:center;touch-action:manipulation;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-foto:active{background:#e8e4f8}
-.btn-foto.galeria{border-color:#6c63c6;color:#6c63c6}
-.btn-foto.galeria:active{background:#f0eeff}
+.tipo-banner{border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:700;text-align:center}
+.tipo-lev{background:#e8e4f8;color:#1a1080}
+.tipo-dur{background:#fff3e0;color:#b05000}
+.tipo-des{background:#e8f4ec;color:#145c2f}
+.card{background:#fff;border:1px solid #e0ddf0;border-radius:14px;padding:16px;margin-bottom:12px}
+.card h2{font-size:12px;font-weight:800;color:#1a1080;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.field{margin-bottom:11px}
+.field label{display:block;font-size:12px;font-weight:600;color:#556;margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;border:1px solid #d0cce8;border-radius:8px;padding:9px 12px;font-size:14px;color:#1a1a1a;background:#fff;outline:none;font-family:inherit;-webkit-appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#1a1080}
+.field textarea{resize:vertical;min-height:60px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.gps-box{background:#f0f4ff;border:1px solid #c0d0f0;border-radius:10px;padding:12px;margin-bottom:8px}
+.gps-data{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
+.gps-item{text-align:center}
+.gps-item span{font-size:10px;color:#778;display:block}
+.gps-item b{font-size:13px;color:#1a1080;display:block;margin-top:2px}
+.btn-gps{width:100%;padding:11px;background:#1a1080;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.btn-gps:active{opacity:.85}
+.medio-item{border:1px solid #e0ddf0;border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
+.medio-preview{width:100%;border-radius:8px;overflow:hidden;margin-bottom:8px;background:#f0eef8;max-height:200px;display:flex;align-items:center;justify-content:center}
+.medio-preview img{width:100%;max-height:200px;object-fit:cover;display:block}
+.medio-preview video{width:100%;max-height:200px;display:block}
+.medio-preview .vid-ico{font-size:48px;padding:20px;color:#6c63c6}
+.medio-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.medio-tipo-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+.badge-foto{background:#e8e4f8;color:#1a1080}
+.badge-video{background:#fff3e0;color:#b05000}
+.medio-del{margin-left:auto;background:none;border:none;color:#c0392b;font-size:18px;cursor:pointer;padding:2px;touch-action:manipulation}
+.btn-agregar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.btn-med{padding:12px 6px;border:1.5px solid #1a1080;border-radius:10px;background:#fff;color:#1a1080;font-size:12px;font-weight:700;cursor:pointer;text-align:center;touch-action:manipulation}
+.btn-med:active{background:#e8e4f8}
+.btn-med.vid-btn{border-color:#b05000;color:#b05000}
+.btn-med.vid-btn:active{background:#fff3e0}
+.btn-med.gal-btn{border-color:#6c63c6;color:#6c63c6}
+.btn-med.gal-btn:active{background:#f0eeff}
 .total-bar{background:linear-gradient(135deg,#1a1080,#2e75b6);color:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
 .total-bar .lbl{font-size:12px;opacity:.8}
-.total-bar .num{font-size:28px;font-weight:900}
-.btn-enviar{display:block;width:100%;padding:15px;background:#145c2f;color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:800;cursor:pointer;text-align:center;margin-bottom:10px;touch-action:manipulation}
-.btn-enviar:active{opacity:.85}
-.btn-enviar:disabled{opacity:.5;cursor:not-allowed}
-.btn-back{display:block;width:100%;padding:13px;background:#fff;color:#1a1080;border:2px solid #1a1080;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:10px}
+.total-bar .num{font-size:26px;font-weight:900}
+.btn{display:block;width:100%;padding:14px;background:#1a1080;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:10px;touch-action:manipulation}
+.btn:active{opacity:.85}
+.btn.green{background:#145c2f}
+.btn.outline{background:#fff;color:#1a1080;border:2px solid #1a1080}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1080;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;transition:transform .3s;z-index:999;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast.ok{background:#145c2f}.toast.err{background:#c0392b}
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head><body>
+.sec{font-size:11px;font-weight:700;color:#1a1080;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px;border-bottom:2px solid #e0ddf0;padding-bottom:5px}
+</style></head><body>
+
 <div class="hdr">
   <div class="hlogo"><img src="data:image/jpeg;base64,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ANBvSf8Av3JR9dofzAeFUV7of2a/En/Qa0n/AL4kpP8Ahm3xJ21nSf8AvmSj67R/mA8Mp0cjxSJJExWVGDIw6hgcg17gf2bvE3bV9JP4PTT+zf4nHTVdJP8A33T+uUX9oD6C+FXimPxh4J07VQwNwyeVcL/dlXhvz6/jXX15D8DPh/4j8AzajbareWNzpt0BIqwFtySjjPPYj+Qr16vn66jGo1B3RIUHpRQehrIDyvxVdax4W8Y3WswQmexulVWJBK4A+6SPukV2/g7ULPVNIF5p8ZiSWRmkjPVXJ+YVHJbarE+oobe1vrS4kZo4nk2lQR0bIORWLa+FNV03S9KttMv0haO7Nxd7SQGBP3R6gDjFAHZaldLZWNxcuRtiQvz3wK87+HF1JZeLNZ0u5mWVpj54dTkM3U/of0ruddtrm6hght44niMytMrtjKA5wPxxXN6n4Zv/APhNbPWdLS2hhhCq6Ftpccg8AccHH4UAdv296878W65qF1rGr6PZPDFa2tg8s29NxfK5wD2+8K6bw5p+q2moatJql4LiCabdbqDnYvP5dhj2rF1/wvqEviC/1DTHt2S/tGtpUmYjaSAMjH0FAGJoOvy6d4f8M6bbSLC935jPMy7tiBz0Hck12/g7VLnVtFSe/iMVyrtG4KldxH8QB9a5RvBOq2+m6LLaXNsdU01m25yEZS27BPqDmu60mO9S0B1KSN7pjuYRjCJ/sr7UAef/AA6ka+8b+Iby6y06kopPVV34wPwAr0W1tobZ52hUL5z+Y4H97AGf0rkx4d1DRvFFzquiLBPb3gImt5XKbSTnIOD3q3rOl6/dpp72uoJBKtyJZ1UkKE/uj1x79aANTxVpw1XQL6zPWSI7fZhyP1ri/hzftqejWWlykmS0nJlU9kXlR/31x+Fekgda4b/hEb6ztPEJ0i4S3u76YNBIDjanUjPbnNAHdDpRVbTYp4dPto7uTzbhI1WR/wC82OTVmgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z" alt="MD"></div>
   <div class="hdr-info">
     <h1 id="hdr-titulo">Cargando...</h1>
     <p id="hdr-sub"></p>
   </div>
-  <div class="folio-badge" id="folio-badge"></div>
+  <div class="folio-b" id="folio-b"></div>
 </div>
+
 <main>
+  <div class="tipo-banner" id="tipo-banner"></div>
   <div class="info-bar" id="info-bar"></div>
-  <div class="total-bar">
-    <div><div class="lbl">Total de fotos</div><div class="num" id="total-fotos">0</div></div>
-    <div style="text-align:right"><div class="lbl">Levantamiento</div><div style="font-size:14px;font-weight:700" id="info-folio"></div></div>
+
+  <!-- GPS -->
+  <div class="card">
+    <h2>📍 Geolocalización</h2>
+    <div class="gps-box">
+      <button class="btn-gps" onclick="capturarGPS()">📡 Capturar ubicación GPS</button>
+      <div class="gps-data" id="gps-data">
+        <div class="gps-item"><span>Latitud</span><b id="gps-lat">—</b></div>
+        <div class="gps-item"><span>Longitud</span><b id="gps-lon">—</b></div>
+        <div class="gps-item"><span>Altitud</span><b id="gps-alt">—</b></div>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Latitud (manual)</label><input type="text" id="lat-manual" placeholder="Ej: 19.432608"></div>
+      <div class="field"><label>Longitud (manual)</label><input type="text" id="lon-manual" placeholder="Ej: -99.133209"></div>
+    </div>
+    <div class="field"><label>Altitud (m)</label><input type="number" id="alt-manual" placeholder="metros sobre el nivel del mar"></div>
+    <div class="field"><label>Localización / Entre calles</label><input type="text" id="entre-calles" placeholder="Ej: Entre Av. Juárez y Calle 5"></div>
   </div>
-  
-<div class="cat-card" id="cat-antes">
-  <div class="cat-title">
-    <span class="ico">📷</span>
-    <h2>Antes de la instalación</h2>
-    <span class="count" id="cnt-antes">0 fotos</span>
+
+  <!-- INFO SITIO — visible según tipo -->
+  <div id="sec-levantamiento">
+    <div class="card">
+      <h2>🏗️ Información del sitio</h2>
+      <div class="field"><label>Tipo de suelo</label>
+        <select id="tipo-suelo">
+          <option value="">Seleccionar...</option>
+          <option>Tierra natural</option>
+          <option>Concreto</option>
+          <option>Asfalto</option>
+          <option>Arena</option>
+          <option>Roca</option>
+          <option>Arcilla</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="field"><label>Observaciones del suelo</label><textarea id="obs-suelo" placeholder="Condiciones del suelo, humedad, estabilidad..."></textarea></div>
+      <div class="field"><label>Viento (condiciones)</label>
+        <select id="viento">
+          <option value="">Seleccionar...</option>
+          <option>Calma (sin viento)</option>
+          <option>Brisa suave</option>
+          <option>Viento moderado</option>
+          <option>Viento fuerte</option>
+          <option>Ráfagas</option>
+        </select>
+      </div>
+      <div class="field"><label>Tipo de cimentación requerida</label><textarea id="cimentacion" placeholder="Descripción de la cimentación necesaria..."></textarea></div>
+      <div class="field"><label>Cómo se colocará el poste/equipo</label><textarea id="como-poste" placeholder="Método de instalación del poste o equipo..."></textarea></div>
+    </div>
+
+    <div class="card">
+      <h2>📡 Equipo a instalar</h2>
+      <div class="field"><label>Tipo de equipo / poste</label><input type="text" id="tipo-equipo" placeholder="Ej: Poste metálico 9m, cámara PTZ..."></div>
+      <div class="field"><label>Descripción del equipo</label><textarea id="desc-equipo" placeholder="Especificaciones del equipo a instalar..."></textarea></div>
+      <div class="field"><label>Coordenadas del equipo</label><input type="text" id="coords-equipo" placeholder="Lat, Long del punto exacto de instalación"></div>
+      <div class="field"><label>Foto de señal del equipo</label><input type="text" id="senal-equipo" placeholder="Nivel de señal, frecuencia, canal..."></div>
+      <div class="field"><label>Plano / localización</label><input type="text" id="plano-loc" placeholder="Referencia en plano o mapa"></div>
+    </div>
+
+    <div class="card">
+      <h2>🌤️ Condiciones climáticas</h2>
+      <div class="row2">
+        <div class="field"><label>Temperatura (°C)</label><input type="number" id="temperatura" placeholder="Ej: 25"></div>
+        <div class="field"><label>Humedad (%)</label><input type="number" id="humedad" placeholder="Ej: 60" min="0" max="100"></div>
+      </div>
+      <div class="field"><label>Condiciones generales</label>
+        <select id="clima">
+          <option value="">Seleccionar...</option>
+          <option>Despejado</option>
+          <option>Parcialmente nublado</option>
+          <option>Nublado</option>
+          <option>Lluvia ligera</option>
+          <option>Lluvia intensa</option>
+          <option>Tormenta</option>
+        </select>
+      </div>
+      <div class="field"><label>Observaciones climáticas</label><textarea id="obs-clima" placeholder="Condiciones del clima al momento del levantamiento..."></textarea></div>
+    </div>
   </div>
-  <div class="foto-grid" id="grid-antes"></div>
-  <div class="btn-fotos">
-    <button class="btn-foto" onclick="tomarFoto('antes')">📷 Cámara</button>
-    <button class="btn-foto galeria" onclick="seleccionarGaleria('antes')">🖼️ Galería</button>
+
+  <!-- INFO DURANTE -->
+  <div id="sec-durante" style="display:none">
+    <div class="card">
+      <h2>🔧 Proceso de instalación</h2>
+      <div class="field"><label>Etapa actual del proceso</label><input type="text" id="etapa" placeholder="Ej: Excavación, colado de base, montaje..."></div>
+      <div class="field"><label>Avance (%)</label><input type="number" id="avance" placeholder="0-100" min="0" max="100"></div>
+      <div class="field"><label>Materiales utilizados</label><textarea id="mat-dur" placeholder="Lista de materiales empleados..."></textarea></div>
+      <div class="field"><label>Incidencias o problemas</label><textarea id="incidencias" placeholder="Problemas encontrados, soluciones aplicadas..."></textarea></div>
+      <div class="field"><label>Observaciones generales</label><textarea id="obs-dur" placeholder="Notas del proceso de instalación..."></textarea></div>
+    </div>
   </div>
-  <input type="file" accept="image/*" capture="environment" style="display:none" id="cam-antes" onchange="fotoCapturada(this,'antes')">
-  <input type="file" accept="image/*" style="display:none" id="gal-antes" onchange="fotoCapturada(this,'antes')">
-</div>
-<div class="cat-card" id="cat-durante">
-  <div class="cat-title">
-    <span class="ico">🔧</span>
-    <h2>Durante la instalación</h2>
-    <span class="count" id="cnt-durante">0 fotos</span>
+
+  <!-- INFO DESPUÉS -->
+  <div id="sec-despues" style="display:none">
+    <div class="card">
+      <h2>✅ Configuración y pruebas</h2>
+      <div class="field"><label>Configuración realizada</label><textarea id="config" placeholder="Configuración del equipo instalado..."></textarea></div>
+      <div class="field"><label>Pruebas de funcionamiento</label><textarea id="pruebas" placeholder="Resultado de las pruebas realizadas..."></textarea></div>
+      <div class="field"><label>Estado final del equipo</label>
+        <select id="estado-final">
+          <option value="">Seleccionar...</option>
+          <option>Funcionando correctamente</option>
+          <option>Funcionando con observaciones</option>
+          <option>Pendiente de configuración</option>
+          <option>Fuera de servicio</option>
+        </select>
+      </div>
+      <div class="field"><label>Observaciones de entrega</label><textarea id="obs-des" placeholder="Notas de entrega al cliente..."></textarea></div>
+    </div>
   </div>
-  <div class="foto-grid" id="grid-durante"></div>
-  <div class="btn-fotos">
-    <button class="btn-foto" onclick="tomarFoto('durante')">📷 Cámara</button>
-    <button class="btn-foto galeria" onclick="seleccionarGaleria('durante')">🖼️ Galería</button>
+
+  <!-- MEDIOS (fotos + videos) -->
+  <div class="card">
+    <h2>📸 Fotografías y videos</h2>
+    <div class="total-bar" style="padding:10px 14px;margin-bottom:12px">
+      <div><div class="lbl">Total de medios</div><div class="num" id="total-medios">0</div></div>
+      <div style="text-align:right;font-size:12px;opacity:.8" id="medios-resumen">0 fotos · 0 videos</div>
+    </div>
+
+    <div class="btn-agregar">
+      <button class="btn-med" onclick="abrirCamara()">📷 Cámara</button>
+      <button class="btn-med gal-btn" onclick="abrirGaleria()">🖼️ Galería</button>
+      <button class="btn-med vid-btn" onclick="grabarVideo()">🎥 Video</button>
+    </div>
+
+    <!-- Inputs ocultos -->
+    <input type="file" accept="image/*" capture="environment" style="display:none" id="inp-cam" onchange="medioSeleccionado(this)">
+    <input type="file" accept="image/*,video/*" multiple style="display:none" id="inp-gal" onchange="medioSeleccionado(this)">
+    <input type="file" accept="video/*" capture="camcorder" style="display:none" id="inp-vid" onchange="medioSeleccionado(this)">
+
+    <div id="medios-lista"></div>
   </div>
-  <input type="file" accept="image/*" capture="environment" style="display:none" id="cam-durante" onchange="fotoCapturada(this,'durante')">
-  <input type="file" accept="image/*" style="display:none" id="gal-durante" onchange="fotoCapturada(this,'durante')">
-</div>
-<div class="cat-card" id="cat-despues">
-  <div class="cat-title">
-    <span class="ico">✅</span>
-    <h2>Después de la instalación</h2>
-    <span class="count" id="cnt-despues">0 fotos</span>
-  </div>
-  <div class="foto-grid" id="grid-despues"></div>
-  <div class="btn-fotos">
-    <button class="btn-foto" onclick="tomarFoto('despues')">📷 Cámara</button>
-    <button class="btn-foto galeria" onclick="seleccionarGaleria('despues')">🖼️ Galería</button>
-  </div>
-  <input type="file" accept="image/*" capture="environment" style="display:none" id="cam-despues" onchange="fotoCapturada(this,'despues')">
-  <input type="file" accept="image/*" style="display:none" id="gal-despues" onchange="fotoCapturada(this,'despues')">
-</div>
-<div class="cat-card" id="cat-extras">
-  <div class="cat-title">
-    <span class="ico">📌</span>
-    <h2>Observaciones / Extras</h2>
-    <span class="count" id="cnt-extras">0 fotos</span>
-  </div>
-  <div class="foto-grid" id="grid-extras"></div>
-  <div class="btn-fotos">
-    <button class="btn-foto" onclick="tomarFoto('extras')">📷 Cámara</button>
-    <button class="btn-foto galeria" onclick="seleccionarGaleria('extras')">🖼️ Galería</button>
-  </div>
-  <input type="file" accept="image/*" capture="environment" style="display:none" id="cam-extras" onchange="fotoCapturada(this,'extras')">
-  <input type="file" accept="image/*" style="display:none" id="gal-extras" onchange="fotoCapturada(this,'extras')">
-</div>
-  <button class="btn-enviar" id="btn-enviar" onclick="enviarDrive()">☁️ Enviar a Drive y cerrar</button>
-  <a class="btn-back" href="index.html">← Mis levantamientos</a>
+
+  <button class="btn green" id="btn-env" onclick="enviarDrive()">☁️ Enviar a Drive</button>
+  <button class="btn" onclick="guardarLocal()" style="background:#6c63c6">💾 Guardar sin enviar</button>
+  <a class="btn outline" href="index.html">← Mis proyectos</a>
 </main>
 <div class="toast" id="toast"></div>
 
@@ -120,154 +220,283 @@ const SURL='https://script.google.com/macros/s/AKfycbzWN48UEonDCDL3Ryxh6ztK3L7-r
 const DRIVE_ID='1RugRIdGyuSumyKYg-OQqEMruU9umwztf';
 const SHEET_ID='1P3DNpSKZsC0bDRlQeCZGFJ0EGJuRzIH-gzC1JGCtPQA';
 
-let levIdx=0, lev=null;
+let proyIdx=0, proy=null;
+const TIPO_LABELS={lev:'🔍 Levantamiento de sitio',dur:'🔧 Durante la instalación',des:'✅ Después de la instalación'};
+const TIPO_CSS={lev:'tipo-lev',dur:'tipo-dur',des:'tipo-des'};
 
 window.addEventListener('DOMContentLoaded',()=>{
-  levIdx=parseInt(sessionStorage.getItem('ev_lev_idx')||'0');
-  const levs=getLevs();
-  lev=levs[levIdx];
-  if(!lev){window.location.href='index.html';return;}
-  if(!lev.fotos) lev.fotos={antes:[],durante:[],despues:[],extras:[]};
+  proyIdx=parseInt(sessionStorage.getItem('ev_site_idx')||'0');
+  const proys=getProys();
+  proy=proys[proyIdx];
+  if(!proy){window.location.href='index.html';return;}
+  if(!proy.medios) proy.medios=[];
 
-  document.getElementById('hdr-titulo').textContent=lev.proyecto+' · '+lev.empresa;
-  document.getElementById('hdr-sub').textContent=lev.tecnico+' · '+lev.fecha;
-  document.getElementById('folio-badge').textContent=lev.folio;
-  document.getElementById('info-folio').textContent=lev.folio;
+  // Header
+  document.getElementById('hdr-titulo').textContent=proy.proyecto+' · '+proy.empresa;
+  document.getElementById('hdr-sub').textContent=proy.capturadoPor||proy.tecnico;
+  document.getElementById('folio-b').textContent=proy.folio;
+
+  // Banner tipo
+  const tb=document.getElementById('tipo-banner');
+  tb.className='tipo-banner '+(TIPO_CSS[proy.tipoKey]||'tipo-lev');
+  tb.textContent=TIPO_LABELS[proy.tipoKey]||proy.tipo;
+
+  // Info bar
   document.getElementById('info-bar').innerHTML=
-    '<div><span>Técnico</span><b>'+lev.tecnico+'</b></div>'+
-    '<div><span>Empresa</span><b>'+lev.empresa+'</b></div>'+
-    '<div><span>Fecha</span><b>'+lev.fecha+'</b></div>'+
-    '<div><span>Tipo</span><b>'+lev.tipo+'</b></div>';
+    '<div><span>Técnico</span><b>'+proy.tecnico+'</b></div>'+
+    '<div><span>Capturado por</span><b>'+proy.capturadoPor+'</b></div>'+
+    '<div><span>Fecha</span><b>'+proy.fecha+'</b></div>'+
+    '<div><span>Sitio</span><b>'+proy.direccion.substring(0,30)+'</b></div>';
 
-  renderAll();
+  // Mostrar sección según tipo
+  document.getElementById('sec-levantamiento').style.display=proy.tipoKey==='lev'?'block':'none';
+  document.getElementById('sec-durante').style.display=proy.tipoKey==='dur'?'block':'none';
+  document.getElementById('sec-despues').style.display=proy.tipoKey==='des'?'block':'none';
+
+  // Cargar datos guardados
+  cargarDatos();
+  renderMedios();
 });
 
-function getLevs(){return JSON.parse(localStorage.getItem('ev_levs')||'[]');}
-function saveLevs(v){localStorage.setItem('ev_levs',JSON.stringify(v));}
+function getProys(){return JSON.parse(localStorage.getItem('ev_site_proys')||'[]');}
+function saveProys(v){localStorage.setItem('ev_site_proys',JSON.stringify(v));}
 
-function tomarFoto(cat){document.getElementById('cam-'+cat).click();}
-function seleccionarGaleria(cat){document.getElementById('gal-'+cat).click();}
+// ── GPS ──────────────────────────────────────────────────────────
+function capturarGPS(){
+  if(!navigator.geolocation){toast('GPS no disponible en este dispositivo','err');return;}
+  toast('Capturando ubicación...','ok');
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=pos.coords.latitude.toFixed(6);
+    const lon=pos.coords.longitude.toFixed(6);
+    const alt=pos.coords.altitude?pos.coords.altitude.toFixed(1):'N/D';
+    document.getElementById('gps-lat').textContent=lat;
+    document.getElementById('gps-lon').textContent=lon;
+    document.getElementById('gps-alt').textContent=alt+(alt!=='N/D'?' m':'');
+    document.getElementById('lat-manual').value=lat;
+    document.getElementById('lon-manual').value=lon;
+    if(pos.coords.altitude) document.getElementById('alt-manual').value=pos.coords.altitude.toFixed(1);
+    const proys=getProys();
+    proys[proyIdx].gps={lat,lon,alt,ts:new Date().toISOString()};
+    saveProys(proys); proy=proys[proyIdx];
+    toast('✅ Ubicación capturada','ok');
+  },err=>{
+    toast('Error GPS: activa la ubicación del celular','err');
+  },{enableHighAccuracy:true,timeout:15000});
+}
 
-function fotoCapturada(input, cat){
-  const file=input.files[0];
-  if(!file) return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const foto={data:ev.target.result, name:file.name||('foto_'+Date.now()+'.jpg'), type:file.type||'image/jpeg', ts:new Date().toISOString()};
-    const levs=getLevs();
-    if(!levs[levIdx].fotos) levs[levIdx].fotos={antes:[],durante:[],despues:[],extras:[]};
-    levs[levIdx].fotos[cat].push(foto);
-    saveLevs(levs);
-    lev=levs[levIdx];
-    renderAll();
-    toast('✅ Foto agregada','ok');
-  };
-  reader.readAsDataURL(file);
+// ── MEDIOS (fotos y videos) ──────────────────────────────────────
+function abrirCamara(){document.getElementById('inp-cam').click();}
+function abrirGaleria(){document.getElementById('inp-gal').click();}
+function grabarVideo(){document.getElementById('inp-vid').click();}
+
+function medioSeleccionado(input){
+  const files=Array.from(input.files);
+  if(!files.length) return;
+  let procesados=0;
+
+  files.forEach(file=>{
+    const esVideo=file.type.startsWith('video/');
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      if(esVideo){
+        // Video — guardar directo sin comprimir
+        const medio={
+          tipo:'video', data:ev.target.result,
+          name:file.name||('video_'+Date.now()+'.mp4'),
+          mimeType:file.type, size:file.size,
+          observaciones:'', ts:new Date().toISOString()
+        };
+        agregarMedio(medio);
+      } else {
+        // Foto — comprimir con canvas (alta calidad, media carta)
+        const img=new Image();
+        img.onload=()=>{
+          const canvas=document.createElement('canvas');
+          const maxW=1800, maxH=2700; // alta resolución media carta
+          let w=img.width, h=img.height;
+          if(w>maxW||h>maxH){
+            const ratio=Math.min(maxW/w,maxH/h);
+            w=Math.round(w*ratio); h=Math.round(h*ratio);
+          }
+          canvas.width=w; canvas.height=h;
+          canvas.getContext('2d').drawImage(img,0,0,w,h);
+          const dataUrl=canvas.toDataURL('image/jpeg',0.93);
+          const medio={
+            tipo:'foto', data:dataUrl,
+            name:file.name||('foto_'+Date.now()+'.jpg'),
+            mimeType:'image/jpeg', size:dataUrl.length,
+            observaciones:'', ts:new Date().toISOString()
+          };
+          agregarMedio(medio);
+        };
+        img.src=ev.target.result;
+      }
+      procesados++;
+      if(procesados===files.length) toast('✅ '+files.length+' medio(s) agregado(s)','ok');
+    };
+    reader.readAsDataURL(file);
+  });
   input.value='';
 }
 
-function borrarFoto(cat, i){
-  if(!confirm('¿Eliminar esta foto?')) return;
-  const levs=getLevs();
-  levs[levIdx].fotos[cat].splice(i,1);
-  saveLevs(levs);
-  lev=levs[levIdx];
-  renderAll();
+function agregarMedio(medio){
+  const proys=getProys();
+  if(!proys[proyIdx].medios) proys[proyIdx].medios=[];
+  proys[proyIdx].medios.push(medio);
+  saveProys(proys); proy=proys[proyIdx];
+  renderMedios();
 }
 
-function renderAll(){
-  const cats=['antes','durante','despues','extras'];
-  let total=0;
-  cats.forEach(cat=>{
-    const fotos=(lev.fotos&&lev.fotos[cat])||[];
-    total+=fotos.length;
-    document.getElementById('cnt-'+cat).textContent=fotos.length+' foto(s)';
-    const grid=document.getElementById('grid-'+cat);
-    grid.innerHTML=fotos.map((f,i)=>
-      `<div class="foto-thumb">
-        <img src="${f.data}" loading="lazy">
-        <button class="foto-del" onclick="borrarFoto('${cat}',${i})">✕</button>
-      </div>`
-    ).join('');
+function actualizarObs(i, val){
+  const proys=getProys();
+  proys[proyIdx].medios[i].observaciones=val;
+  saveProys(proys); proy=proys[proyIdx];
+}
+
+function eliminarMedio(i){
+  if(!confirm('¿Eliminar este medio?')) return;
+  const proys=getProys();
+  proys[proyIdx].medios.splice(i,1);
+  saveProys(proys); proy=proys[proyIdx];
+  renderMedios();
+}
+
+function renderMedios(){
+  const medios=proy.medios||[];
+  const nFotos=medios.filter(m=>m.tipo==='foto').length;
+  const nVids=medios.filter(m=>m.tipo==='video').length;
+  document.getElementById('total-medios').textContent=medios.length;
+  document.getElementById('medios-resumen').textContent=nFotos+' foto(s) · '+nVids+' video(s)';
+
+  const lista=document.getElementById('medios-lista');
+  if(!medios.length){lista.innerHTML='<p style="text-align:center;color:#aaa;font-size:13px;padding:16px">Aún no hay fotos ni videos</p>';return;}
+  lista.innerHTML=medios.map((m,i)=>{
+    const preview=m.tipo==='foto'
+      ? `<img src="${m.data}" loading="lazy">`
+      : `<div class="vid-ico">🎥</div>`;
+    const badgeCls=m.tipo==='foto'?'badge-foto':'badge-video';
+    const badgeTxt=m.tipo==='foto'?'📷 Foto':'🎥 Video';
+    return `<div class="medio-item">
+      <div class="medio-preview">${preview}</div>
+      <div class="medio-header">
+        <span class="medio-tipo-badge ${badgeCls}">${badgeTxt}</span>
+        <span style="font-size:11px;color:#aaa">${m.ts?m.ts.split('T')[0]:''}</span>
+        <button class="medio-del" onclick="eliminarMedio(${i})">🗑</button>
+      </div>
+      <div class="field">
+        <label>Observaciones / notas de este medio</label>
+        <textarea rows="2" style="width:100%;border:1px solid #d0cce8;border-radius:8px;padding:8px;font-size:13px;font-family:inherit;resize:vertical" 
+          placeholder="Describe lo que muestra esta foto/video..." 
+          oninput="actualizarObs(${i},this.value)">${m.observaciones||''}</textarea>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── GUARDAR DATOS DEL FORMULARIO ─────────────────────────────────
+function recopilarDatos(){
+  const d={};
+  const ids=['lat-manual','lon-manual','alt-manual','entre-calles',
+    // levantamiento
+    'tipo-suelo','obs-suelo','viento','cimentacion','como-poste',
+    'tipo-equipo','desc-equipo','coords-equipo','senal-equipo','plano-loc',
+    'temperatura','humedad','clima','obs-clima',
+    // durante
+    'etapa','avance','mat-dur','incidencias','obs-dur',
+    // después
+    'config','pruebas','estado-final','obs-des'];
+  ids.forEach(id=>{const el=document.getElementById(id);if(el)d[id]=el.value;});
+  return d;
+}
+
+function cargarDatos(){
+  const d=proy.infoSitio||{};
+  Object.keys(d).forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value=d[id];
   });
-  document.getElementById('total-fotos').textContent=total;
+  if(proy.gps){
+    document.getElementById('gps-lat').textContent=proy.gps.lat||'—';
+    document.getElementById('gps-lon').textContent=proy.gps.lon||'—';
+    document.getElementById('gps-alt').textContent=proy.gps.alt||'—';
+  }
 }
 
-// ── ENVIAR A DRIVE ────────────────────────────────────────────────────────────
-async function enviarDrive(){
-  const cats=['antes','durante','despues','extras'];
-  const total=cats.reduce((s,c)=>s+((lev.fotos&&lev.fotos[c])||[]).length,0);
-  if(total===0){toast('Agrega al menos una foto','err');return;}
+function guardarLocal(){
+  const proys=getProys();
+  proys[proyIdx].infoSitio=recopilarDatos();
+  saveProys(proys); proy=proys[proyIdx];
+  toast('💾 Guardado en dispositivo','ok');
+}
 
-  const btn=document.getElementById('btn-enviar');
-  btn.disabled=true;
-  btn.textContent='Generando PDF y enviando...';
+// ── ENVIAR A DRIVE ────────────────────────────────────────────────
+async function enviarDrive(){
+  const medios=proy.medios||[];
+  const btn=document.getElementById('btn-env');
+  btn.disabled=true; btn.textContent='Enviando...';
+
+  // Guardar datos del formulario
+  const proys=getProys();
+  proys[proyIdx].infoSitio=recopilarDatos();
+  saveProys(proys); proy=proys[proyIdx];
 
   try{
-    // 1. Generar PDF de evidencias (una foto por hoja tamaño carta)
+    // Generar PDF de evidencias (media carta, una foto por hoja)
     const {jsPDF}=window.jspdf;
-    const doc=new jsPDF({unit:'mm',format:'letter',orientation:'portrait'});
-    const W=215.9, H=279.4;
-    let primeraPagina=true;
-    const catNames={antes:'ANTES DE LA INSTALACIÓN',durante:'DURANTE LA INSTALACIÓN',despues:'DESPUÉS DE LA INSTALACIÓN',extras:'OBSERVACIONES / EXTRAS'};
+    const W=139.7, H=215.9;
+    const doc=new jsPDF({unit:'mm',format:[W,H],orientation:'portrait'});
+    let primera=true;
+    const fotos=medios.filter(m=>m.tipo==='foto');
 
-    for(const cat of cats){
-      const fotos=(lev.fotos&&lev.fotos[cat])||[];
-      for(let i=0;i<fotos.length;i++){
-        if(!primeraPagina) doc.addPage();
-        primeraPagina=false;
-        const f=fotos[i];
-
-        // Fondo blanco
-        doc.setFillColor(255,255,255);
-        doc.rect(0,0,W,H,'F');
-
-        // Foto centrada (área de imagen: margen 10mm todos lados)
-        try{
-          const imgM=10;
-          const imgW=W-imgM*2;
-          const imgH=H-imgM*2;
-          doc.addImage(f.data,'JPEG',imgM,imgM,imgW,imgH,'','FAST');
-        }catch(e){
-          doc.setFontSize(12);doc.setTextColor(150,150,150);
-          doc.text('Error al cargar imagen',W/2,H/2,{align:'center'});
-        }
-
-        // Footer sutil
-        doc.setFillColor(26,16,128);
-        doc.rect(0,H-8,W,8,'F');
-        doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(255,255,255);
-        doc.text(lev.folio+' · '+catNames[cat]+' · Foto '+(i+1)+'/'+fotos.length,W/2,H-3,{align:'center'});
-        doc.text('MDreieck S.A. de C.V. · '+lev.fecha,10,H-3);
+    fotos.forEach((f,i)=>{
+      if(!primera) doc.addPage([W,H]);
+      primera=false;
+      try{
+        doc.addImage(f.data,'JPEG',5,5,W-10,H-18,'','FAST');
+      }catch(e){
+        doc.setFontSize(10);doc.setTextColor(150,150,150);
+        doc.text('Error al cargar imagen',W/2,H/2,{align:'center'});
       }
-    }
+      // Footer azul
+      doc.setFillColor(26,16,128); doc.rect(0,H-13,W,13,'F');
+      doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(255,255,255);
+      doc.text(proy.folio+' · '+proy.tipo,3,H-8.5);
+      doc.text('Foto '+(i+1)+'/'+fotos.length+' · '+proy.fecha,W-3,H-8.5,{align:'right'});
+      if(f.observaciones){
+        doc.setFontSize(5.5);
+        doc.text('Obs: '+f.observaciones.substring(0,80),3,H-3.5);
+      }
+    });
 
-    const pdfB64=doc.output('datauristring').split(',')[1];
+    const pdfB64=fotos.length>0?doc.output('datauristring').split(',')[1]:null;
+    if(pdfB64) doc.save('Evidencias_'+proy.folio+'.pdf');
 
-    // 2. Preparar fotos individuales para Drive
-    const fotosPayload={};
-    for(const cat of cats){
-      const fotos=(lev.fotos&&lev.fotos[cat])||[];
-      fotosPayload[cat]=fotos.map((f,i)=>{
-        return {data:f.data, name:cat+'_'+(String(i+1).padStart(2,'0'))+'_'+lev.folio+'.jpg', type:f.type||'image/jpeg'};
-      });
-    }
+    // Preparar medios para Drive
+    const mediosPayload=medios.map((m,i)=>{
+      const ext=m.tipo==='video'?'.mp4':'.jpg';
+      return {
+        data: m.data.includes(',') ? m.data.split(',')[1] : m.data,
+        name: m.tipo+'_'+String(i+1).padStart(2,'0')+'_'+proy.folio+ext,
+        mimeType: m.mimeType||'image/jpeg',
+        tipo: m.tipo,
+        observaciones: m.observaciones||''
+      };
+    });
 
-    // 3. Enviar al Apps Script
     const payload={
-      accion:'evidencias',
-      folderId:DRIVE_ID,
-      sheetId:SHEET_ID,
-      folio:lev.folio,
-      tecnico:lev.tecnico,
-      proyecto:lev.proyecto,
-      empresa:lev.empresa,
-      direccion:lev.direccion||'',
-      fecha:lev.fecha,
-      tipo:lev.tipo,
-      totalFotos:total,
-      pdfEvidencias:{name:'Evidencias_'+lev.folio+'.pdf', data:pdfB64},
-      fotos:fotosPayload
+      accion:'evidenciaSitio',
+      folderId:DRIVE_ID, sheetId:SHEET_ID,
+      folio:proy.folio, tecnico:proy.tecnico,
+      capturadoPor:proy.capturadoPor,
+      proyecto:proy.proyecto, empresa:proy.empresa,
+      direccion:proy.direccion, fecha:proy.fecha,
+      tipo:proy.tipo, tipoKey:proy.tipoKey,
+      gps:proy.gps||null,
+      infoSitio:proy.infoSitio||{},
+      totalFotos:fotos.length,
+      totalVideos:medios.filter(m=>m.tipo==='video').length,
+      pdfEvidencias:pdfB64?{name:'Evidencias_'+proy.folio+'.pdf',data:pdfB64}:null,
+      medios:mediosPayload
     };
 
     await fetch(SURL,{
@@ -276,28 +505,23 @@ async function enviarDrive(){
       body:JSON.stringify(payload)
     });
 
-    // 4. Descargar PDF localmente también
-    doc.save('Evidencias_'+lev.folio+'.pdf');
-
-    // 5. Marcar como cerrado
-    const levs=getLevs();
-    levs[levIdx].cerrado=true;
-    saveLevs(levs);
-
-    toast('✅ PDF descargado y enviado a Drive','ok');
-    setTimeout(()=>window.location.href='index.html',2000);
+    // Marcar cerrado
+    const proys2=getProys();
+    proys2[proyIdx].cerrado=true;
+    saveProys(proys2);
+    toast('✅ Enviado a Drive correctamente','ok');
+    setTimeout(()=>window.location.href='index.html',2500);
 
   }catch(err){
     console.error(err);
     toast('❌ Error: '+err.message,'err');
-    btn.disabled=false;
-    btn.textContent='☁️ Enviar a Drive y cerrar';
+    btn.disabled=false; btn.textContent='☁️ Enviar a Drive';
   }
 }
 
 function toast(msg,type='ok'){
   const el=document.getElementById('toast');
-  el.textContent=msg;el.className='toast show '+(type==='err'?'err':'ok');
+  el.textContent=msg; el.className='toast show '+(type==='err'?'err':'ok');
   setTimeout(()=>el.className='toast',3500);
 }
 </script></body></html>
