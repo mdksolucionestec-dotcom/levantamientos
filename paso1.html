@@ -1,158 +1,216 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Paso 1 · Levantamiento</title><style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f2f8;min-height:100vh;padding-bottom:80px}
-.hdr{background:#1a1080;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
-.hlogo{width:38px;height:38px;background:#fff;border-radius:8px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.hlogo img{width:100%;height:100%;object-fit:contain}
-.hdr-info{flex:1}.hdr h1{font-size:14px;font-weight:800}.hdr p{font-size:11px;opacity:.75}
-.folio-b{background:rgba(255,255,255,.2);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.3);flex-shrink:0}
-.bar{display:flex;gap:3px;padding:8px 16px;background:#fff;border-bottom:1px solid #e0ddf0}
-.sd{flex:1;height:4px;border-radius:2px;background:#e0d8f0}
-.sd.done{background:#6c63c6}.sd.active{background:#1a1080}
-main{padding:14px;max-width:560px;margin:0 auto}
-.card{background:#fff;border:1px solid #e0ddf0;border-radius:14px;padding:16px;margin-bottom:12px}
-.card h2{font-size:12px;font-weight:800;color:#1a1080;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.field{margin-bottom:11px}
-.field label{display:block;font-size:12px;font-weight:600;color:#556;margin-bottom:4px}
-.field input,.field select,.field textarea{width:100%;border:1px solid #d0cce8;border-radius:8px;padding:9px 12px;font-size:14px;color:#1a1a1a;background:#fff;outline:none;font-family:inherit;-webkit-appearance:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:#1a1080}
-.field textarea{resize:vertical;min-height:70px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.sec{font-size:11px;font-weight:700;color:#1a1080;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px;border-bottom:2px solid #e0ddf0;padding-bottom:5px}
-.chk-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.chk-btn{padding:9px 14px;border:1.5px solid #d0cce8;border-radius:20px;font-size:13px;cursor:pointer;background:#fff;color:#444;touch-action:manipulation;-webkit-user-select:none;user-select:none}
-.chk-btn.sel{background:#1a1080;border-color:#1a1080;color:#fff}
-.mat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.mat-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #e0ddf0;border-radius:8px;background:#faf9ff}
-.mat-item label{font-size:12px;flex:1;color:#333}
-.mat-item input[type=number]{width:55px;border:1px solid #d0cce8;border-radius:6px;padding:4px 6px;font-size:13px;text-align:center}
-.mat-item span{font-size:11px;color:#888;flex-shrink:0}
-.btn{display:block;width:100%;padding:14px;background:#1a1080;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:10px;touch-action:manipulation}
-.btn:active{opacity:.85}
-.btn.outline{background:#fff;color:#1a1080;border:2px solid #1a1080}
-.btn.green{background:#145c2f}
-.btn.red{background:#c0392b}
-.foto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-.foto-thumb{aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid #e0ddf0;position:relative;background:#f0eef8}
-.foto-thumb img{width:100%;height:100%;object-fit:cover}
-.foto-del{position:absolute;top:3px;right:3px;background:rgba(180,0,0,.8);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
-.cat-card{background:#fff;border:1px solid #e0ddf0;border-radius:14px;padding:16px;margin-bottom:12px}
-.cat-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.cat-hdr .ico{font-size:20px}
-.cat-hdr h2{font-size:14px;font-weight:800;color:#1a1080;margin:0}
-.cat-hdr .cnt{margin-left:auto;background:#e8e4f8;color:#1a1080;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
-.btn-fotos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn-foto{padding:11px 8px;border:1.5px solid #1a1080;border-radius:10px;background:#fff;color:#1a1080;font-size:13px;font-weight:700;cursor:pointer;text-align:center;touch-action:manipulation;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-foto:active{background:#e8e4f8}
-.btn-foto.gal{border-color:#6c63c6;color:#6c63c6}
-.btn-foto.gal:active{background:#f0eeff}
-.total-bar{background:linear-gradient(135deg,#1a1080,#2e75b6);color:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.total-bar .lbl{font-size:12px;opacity:.8}
-.total-bar .num{font-size:28px;font-weight:900}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1080;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;transition:transform .3s;z-index:999;white-space:nowrap}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast.ok{background:#145c2f}.toast.err{background:#c0392b}
-</style></head><body>
-<div class="hdr">
-  <div class="hlogo"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAC1ASwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD6pooooAKKKKACiiigAooooAKKKTcucZGfSgBaKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooARjgV826t8WPJ/aAg23H/Ehts6XIAflJY/NJ+D459BXrnxg8WDwh4E1DUEYC7dfItRnkytwD+Ayfwr4WZi7FnYlmJJY9STXpYDDKqpTltshn6PKQ3TpTq86+BXi3/hLPh/Zyzvuv7L/RLnPUso4Y/VcH869Frz5wdOTg90IKKKKkAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoPSiud+IHiODwn4S1LWLgj/R4iY1P8ch4VfzxTScnZdQPmj9qDxadY8XxaHbSbrTSl/eY6NMw5/IYFeL1Ne3U17eT3d05kuJ5GlkY8ksTk1DX1NCmqNNQXQpHrP7N3i3/AIR7x4lhcybbHVgLd8nhZRkxt+eV/EV9kV+cEUjxSpJE5SRGDKw6qQcgj3r7x+FnilPGHgjTdVyPtDJ5Vyo/hlXhv15+hFeTmdHlkqq6iZ11FFFeWIKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAQnFfMP7V/i37TqVj4YtZP3dsBdXQB6ufuKfoOfxr6M8R6vbaFoV9ql8wW2tImlfPfA6ficCvgHxBq9xr2uX2q3pLXF5M0zZ7ZPA/AYFejltHnnzvZfmNIz6KKK94YV7p+yx4t/szxNc+HrqQi21JfMgBPAmUdB9V/9BFeF1Z0u/uNL1K1v7JzHc20qzRsOzKcj+VY16SrU3Bgz9GBzRWL4M1638T+F9N1i0I8u7hEhX+43Rl/A5FbVfLtNOzJCiiikAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFV7+6hsbOa6uXEcEKNJI56KoGSaAPAP2rvFnkadZeF7WT95dH7TdYPSMH5V/E8/hXzLXQePfEc3izxdqWszE4uJT5Sn+CMcIPy/nXP4r6fCUfY0lHr1KQUUUV0AFFFGKAPoz9k/xZte/8LXUnDZu7TJ7/wDLRR+jfnX0rX56eE9cuPDXiTTtYtM+daTLJj+8v8S/iMivv7RtRt9W0q01CzcPb3USzRsP7rDNeBmVHkqc62f5iZdooozivPEFFGRRmgAooyKKACiiigAooooAKKKKACikDqSQGBI4OO1LQAUUUUAFFFFABRRRketABRRkUUAFFFFABRRRQAUUUUAFeJ/tReLf7I8HxaJaybbvViVfaeVhX735nAr2p3CIzMQqgZJPYV8KfGDxUfGHj3UdQRi1nG32a1HYRocZ/E5NduAo+1q3eyGjkLWRIbqGWSFJo0cM0T5CuB/CcdjX1J8JvCfw+8e+FhqZ8K29pcxzNBPCJ5GCsOcg56EHNfK1e9/BPxCfDXw8jvmbbbt4lggm7fI8e0/qQfwr1MfBuHNHcbOk+OXwn8PaV4Au9T8NaWlpd2TrM7I7HdHnDDkn1Br5gFfonrFjFq2lXdhcANBdRNC/fhhj+tfnzrGnT6VrN7pk6MLi1neAr6kHA/pWOWVnNOMnsCPb/wBnL4b6R4n0fVNW8S2C3dv5ogtkZmUAqMu3BHqB+FejeOfh38PPCnhPUtbuPDUUqWke8RiVwXYkADO7uSKv/CILoT2/g6PG/TNKgurrA/5eJnZmz+AH51N+0V/ySDXP+2X/AKNWuGpVnUxG+jf4C6nxtrd5bahqk9zY2EWm2z42WsTsyxgADgtzz1/Gvpn9lXxd9u8P3fhy6kzPp5823BPJhY8j/gLfzr5YrqPhp4nk8IeNdM1dSfJjk8u4UfxRNww/r9RXsYqgqlJxW62GffIPFZmv2d7eWm3Tb97KdckMqBg3HQ57Vft5UuII5oXV4pFDoy9GBGQakr5ok8Dl8a+JYpXifUnDIxQ/IvUHHp7V1OiHxlrGhpqVjrUbFiwELxqCcH1xivOdX/5DF9/18Sf+hmvaPhRz4Ltf99/50DOP034j6vp161trlusyo22T5Qki/lwa9V0nUbbVbCK8sZBJBIMg+nsfevJ/jJp6W+s2l7Gu37TGVf3Ze/5UfB/V3ttZl012Pk3Kl0U9A6/4igR7JRXJeIPHFpoWoG0vrG9B6pIFG1x6qc81Bb/ETSptMvL3y50W3KqEcDdIzdAOfagDtKK5fwb4vt/E32hI4Ht54cEo7A5U9wRUfiLxvY6RerYwxSX1+SF8mHsT0BPr7UAdZWT4suZ7Pw3qVxaZ+0RwMyEdj61i6J46tL7VDpt9azadfbtgjmxgt6Z7H61reKNbh0SyFxdWlxcWzZWQxKCEH+1k9DQB5B8N7+8j8YWaxzSyLcMVlDMSGGDyfeveV6V5b4b8SeFLbWYxpek3MF1dSCMOeQu444yTgfSvT3dY0LOyqqgkknAA9aAH0Vw1z8Q7Z7yaDR9OutSEKl3eLgbR1I7kVs+FPFdh4jjf7LuiuEGXhk+8B6j1FAHQUVXv7yCwtZLm7lWKCMbmdjwK4eT4kxutxNYaReXNnbkebPnaFB7n0oA9APSvHPGmveIvD+uyWcerSSRFRIhMa5we3TtXo/hfxLY+I7ZpLJmWRP8AWQuPmT/Ee9eXfGD/AJGxP+vZf5mgDv8A4ZapeavoElxqMxmmE7JuIA4AHpXXV5/8JZTD4PuZVjeUpcOQifebgcD3qzZ/EWyvL1bS303UXuS23ywi5B9+eKAO3ooooAKKKKACg0UjUAeX/tDeLT4Y8A3ENtJs1DUybWHB5VSPnb8B/Ovi8DAwOgr039oPxb/wlHj+4it5N9hpoNrDg8MwPzt+fH4V5lX0WAo+ypa7spBXpVjn/hnnVsHB/t+HB9P3dea16TY/8m86t/2H4f8A0XW9b7PqgPqj4T6+PE/w/wBG1JmzM0AimHpInyt/KvIfHngNLj9obSrqRAul3kf9pXLEfKvkffz9SFP40v7JHiDMOs+H5W+4ReQKT2PyuB+IB/GvQP2gNaj0D4eajdIFF/cp9ht3/iHmffx7bVNeG4yoYh049dPvEcV+z1rj+JPiX481dycXQjZB6IHcKPwAFdx+0V/ySDXP+2X/AKNWvKv2P+Nb8S/9e0H/AKG9eq/tFf8AJIdc/wC2X/o1aqvFRxcYrpYD4ooo7UV9AM+wf2aPFp1/wONMuZd19pLCE5PLRH7h/mPwFewV8OfBDxZ/wiPj+yuJ5Nlhdn7Lc5PAVjwx+hwa+4UORXzmOo+xqu2zEz5o1f8A5DF9/wBfEn/oZr2n4T/8iXa/77/zrxbV/wDkMX3/AF8Sf+hmvafhR/yJdr/vv/OuMDE+Nqj+z9KbuJnH/jtcH4DYp4x0kr1M2P0Ndn8bLlS2lWo+8N8pHt0rnPhdYveeL7aQAmO2DSsfTjA/U0AdP8bVHkaS3ffIP0Fch4L8Mt4ma+hFyYPIjDrxkFycDP5V2Hxt/wCPfSf+uj/yFVvgl/x+at/1zj/maBE2h6JeeB9G1rVr6SI3Hk+XCsZyM54J/EiuU+HIFx42spLlskF5WZz1baefzr034rBj4Nu9vQPGT9N1eTeCrS0vvE1la6gpa3mJQgMV52nHI96ANf4rKsXjBpbdgC8Ub7kPQjjP14FeiXt5/anwznvJBl5bAs2f7wXn9RQfh/4dPJs3P1lY/wBata7Y2+m+BdRtLJdlvFayBF3ZxwT1oA8R8Mf8jLpX/X1H/wChCvUvjBqz2eiw2MDFXvHIcj+4vJH4nFeW+F/+Rk0r/r6j/wDQhXcfG0N9u0s4+Ty5B+ORQMf8F44QmrTSsgYlIxuIHGDXJ6HeNo3jaOSFsRpdtEwB6oWIrY+F+i6Xrb38WpRvJLFtdNrleDwenvXfL4B8Oxusgs2DKQwJlbqPxoEch8ZdVke+tdKjY+VGnnSD+8x+7+Qq14UtC3wo1PyY980/mtjucYrnPisrL4zuN3QxRkfTBrvPhDOkvhLygQXhndWH15FAHD/CPzj4uQw58vyG809sds/jUnxg/wCRrT/r2X+Zr2O1srS0dzbW8MLSHLFFC7jXjnxg/wCRrT/r3X+ZoA2fA+u2/h/wBc3c5BkNy4ijzy74GB9K6P4caTbW+kjVS6T3t/mWWUfw5Odo9Md68Zls7pdGgvWJazaV4lGeFcAHn616F8HNbw0+jTvwczQZ/wDHh/WgZ6rRRRQIKKKKACuH+MniweEPAV/fxsBeSj7PajuZG4B/AZP4V3FfIv7T3iwaz4xj0W1k3WelLtfB4advvfkMD8TXRhKPtqqj0A8ZYlmJYlmPJJ6k+tJRRX05QqgswCgkngADJNe1ab4P1qT9nLUWXT7jzpNUW+SHyzvaJRtLbevvXjFtPLbXEU9u5jmiYOjjqrDoa63/AIWd42zn/hJ9Sz/vr/hXPXhUnbk6agTfB3Xm8MfErSLqUmKFpfss4bjCSfLz9Dg16F+1j4g+1+JNM0GF8x2UX2iUD++/3f8Ax0A/jXh17eXN9fTXl5M811M/mPK33mb14707VNQvNVvpbzUrmW6upcb5ZTlmwMD9Kl4fmqxq9kB9Ffsk6Lf2p1/VLm1mhtZ0ihhaRCvmEFiSM9QMjmvUvjfpV3rXwu12z0+F57oxrIkSDLNtdWIA9cA18jxfErxnDEkUXiXUUjQBVUOoAA7dKf8A8LO8bf8AQz6n/wB9j/CuSpgq06vtboRyEsckMjRzRvHIvBV1KkfUGm1b1bUr3V9QlvtTuZLq8lxvmkxubAwM49gKqV6ivbUYfjivtX4I+NoNf+HFrc6hcIl3p6/ZbouwHKD5W/FcfiDXxVXpnwB1qzsfG8Ol6zFHNpuqYhKyfdSX+Bv5j8a48fR9rSut0DO3v51nv7mZPuySu4+hYkV6n8OvFOkaZ4TWC/vI4ZoXYmNvvMCcjA711o8I6AR/yCrX/vmnL4S0FTkaXa5/3K+dJPGPEF9d+MPEkktlbyybsRwxKMlUHr6etet+A/DC+HNMIlIe9mw0zjt6KPYV0FpY2tmm20t4oF9I0C/yqxgYoA8p+Nd3C76ZbLIpmQu7KDkgHAGarfBe6hi1XUIJJFWSWNSgJxuwTkD867bWbLwyNSb+0bW3kvZR5jDYXcjpuOOgqxpGieHpGjvNNs7RjG52Sxjow9KANHX9OXVtHu7JyAJoyoJ7Hsfzr51uILvR9TaKUPBd20mR6gg8EV9NHoawr3S9D8SGUXMMF1JbuYXYfeRh1UkUAcHB8R9S1K1j0+x09f7VmHlrKrZXJ/i29q6nXIotB+HVxZ3E+5xatHuduZJG6/Xk1taN4d0rRizadZxwyNwX6sfxNHiG00ma08/W4oXt4Pm3SgkJnvQB8/aDPHba5p88rARx3CMx9AGFexfEzRm1zw+lxYgSzWzeagU53qRyB/P8Kv6f4e8Majapc2VhZzW7/dkRTg4Nb9paQ2dtHb20YjhjGFRegFAHzr4b1m50DVUvbUAsAUeNuA69wfSvQrbxFfeOL6306ztXs7BGWS7kDkkgHIXI6Zrc8RaX4ROooNUggW9l52R7g7e5C1veHo9KjsymiLCtujbT5Q43e/fNAHDfF/QpJo4NWtkLCFfLnCjkL2b8K4rwZ4puPDV1I6Rie2mA8yItjkdCPevddX1Gx0238zUp44YHOwtIPlOexrlp9C8Gy2yao9vb/ZZGwJFLBGJPHAoAqeHNTvvGOvQXzwNa6TYEuihs+bKRgZPfArjfivdQ3Pi1hBIj+VCqMQcgN1xXttnbwW9skVtGkUIHyqgwAPpWU/hPQndmbS7YsxJJK9SaAOB8E2dtrPw81XT5ZIxKkrSDccbDgFW+lefaVfS6bqNveW7ASwOGHPXHUfiK+hbbw5pFrHPHb2EEaTp5coUY3r6GoP8AhENA/wCgVa/980AaOj6jb6tpsF7aOGilUHg8qe4PuKuVU0zTbPTIGhsLeOCJm3lUGATgDP6CrdABRRRQBznxD8SReEvCGp6zMRm3iPlL/fkPCr+ZFfA15czXl3Nc3TmSeZ2kkc/xMTkn8zX2n8aPAOq/ECxsLGx1W3sLOBzLKkkbMZHxhenYc/jXkx/Zo1bt4hsP+/D/AONergK1GjFuT1Y0eAUV76f2aNZ7eINO/wC/D/40h/Zo1vtr+m/9+XruWOodxngdFe9H9mnXe2vaZ/36emn9mrX+2vaX/wB+pKf12h/MB4PRXu//AAzV4h/6Dulf9+5KT/hmrxF/0HNJ/wC/clH12h/MB4TRXu3/AAzX4i/6Dmk/9+5KT/hmvxH/ANBvSf8Av3JR9dofzAeFUV7of2a/En/Qa0n/AL4kpP8Ahm3xJ21nSf8AvmSj67R/mA8Mp0cjxSJJExWVGDIw6hgcg17gf2bvE3bV9JP4PTT+zf4nHTVdJP8A33T+uUX9oD6C+FXimPxh4J07VQwNwyeVcL/dlXhvz6/jXX15D8DPh/4j8AzajbareWNzpt0BIqwFtySjjPPYj+Qr16vn66jGo1B3RIUHpRQehrIDyvxVdax4W8Y3WswQmexulVWJBK4A+6SPukV2/g7ULPVNIF5p8ZiSWRmkjPVXJ+YVHJbarE+oobe1vrS4kZo4nk2lQR0bIORWLa+FNV03S9KttMv0haO7Nxd7SQGBP3R6gDjFAHZaldLZWNxcuRtiQvz3wK87+HF1JZeLNZ0u5mWVpj54dTkM3U/of0ruddtrm6hght44niMytMrtjKA5wPxxXN6n4Zv/APhNbPWdLS2hhhCq6Ftpccg8AccHH4UAdv296878W65qF1rGr6PZPDFa2tg8s29NxfK5wD2+8K6bw5p+q2moatJql4LiCabdbqDnYvP5dhj2rF1/wvqEviC/1DTHt2S/tGtpUmYjaSAMjH0FAGJoOvy6d4f8M6bbSLC935jPMy7tiBz0Hck12/g7VLnVtFSe/iMVyrtG4KldxH8QB9a5RvBOq2+m6LLaXNsdU01m25yEZS27BPqDmu60mO9S0B1KSN7pjuYRjCJ/sr7UAef/AA6ka+8b+Iby6y06kopPVV34wPwAr0W1tobZ52hUL5z+Y4H97AGf0rkx4d1DRvFFzquiLBPb3gImt5XKbSTnIOD3q3rOl6/dpp72uoJBKtyJZ1UkKE/uj1x79aANTxVpw1XQL6zPWSI7fZhyP1ri/hzftqejWWlykmS0nJlU9kXlR/31x+Fekgda4b/hEb6ztPEJ0i4S3u76YNBIDjanUjPbnNAHdDpRVbTYp4dPto7uTzbhI1WR/wC82OTVmgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z" alt="MD"></div>
-  <div class="hdr-info"><h1>Levantamiento · Paso 1</h1><p>Datos generales</p></div>
-  <div class="folio-b" id="folio-b"></div>
-</div>
-<div class="bar">
-  <div class="sd active"></div><div class="sd "></div><div class="sd "></div><div class="sd "></div>
-</div>
-<main>
-
-<div class="card">
-  <h2>📋 Tipo y fecha</h2>
-  <div class="field"><label>Tipo de levantamiento</label>
-    <select id="tipo"><option>Instalación nueva</option><option>Mantenimiento</option><option>Revisión</option><option>Ampliación</option></select></div>
-  <div class="row2">
-    <div class="field"><label>Fecha de reporte</label><input type="date" id="fechaReporte"></div>
-    <div class="field"><label>Ejecutivo</label><input type="text" id="ejecutivo" placeholder="Nombre del ejecutivo"></div>
-  </div>
-</div>
-
-<div class="card">
-  <h2>👷 Datos del técnico</h2>
-  <div class="field"><label>Nombre(s) del técnico(s)</label><input type="text" id="tecnicos" placeholder="Nombre completo"></div>
-  <div class="row2">
-    <div class="field"><label>Hora de entrada</label><input type="time" id="horaEntrada"></div>
-    <div class="field"><label>Hora de salida</label><input type="time" id="horaSalida"></div>
-  </div>
-</div>
-
-<div class="card">
-  <h2>🏢 Datos del cliente</h2>
-  <div class="field"><label>Nombre de la empresa</label><input type="text" id="empresa" placeholder="Razón social"></div>
-  <div class="row2">
-    <div class="field"><label>Nombre del responsable</label><input type="text" id="responsable" placeholder="Nombre completo"></div>
-    <div class="field"><label>Puesto</label><input type="text" id="puesto" placeholder="Cargo"></div>
-  </div>
-  <div class="field"><label>Dirección</label><input type="text" id="direccion" placeholder="Calle, número, colonia, ciudad"></div>
-  <div class="row3">
-    <div class="field"><label>Teléfono</label><input type="tel" id="telefono" placeholder="10 dígitos"></div>
-    <div class="field"><label>Extensión</label><input type="text" id="extension" placeholder="Ext."></div>
-    <div class="field"><label>Correo</label><input type="email" id="correo" placeholder="correo@empresa.com"></div>
-  </div>
-</div>
-
-<div class="card">
-  <h2>⏱️ Tiempos de servicio</h2>
-  <div class="field"><label>Fecha de servicio</label><input type="date" id="fechaServicio"></div>
-  <div class="sec">Desplazamiento 1</div>
-  <div class="row2">
-    <div class="field"><label>De</label><input type="time" id="d1De"></div>
-    <div class="field"><label>A</label><input type="time" id="d1A"></div>
-  </div>
-  <div class="sec">Trabajo</div>
-  <div class="row2">
-    <div class="field"><label>De</label><input type="time" id="tDe"></div>
-    <div class="field"><label>A</label><input type="time" id="tA"></div>
-  </div>
-  <div class="sec">Pausa de trabajo</div>
-  <div class="row2">
-    <div class="field"><label>De</label><input type="time" id="pDe"></div>
-    <div class="field"><label>A</label><input type="time" id="pA"></div>
-  </div>
-  <div class="sec">Desplazamiento 2</div>
-  <div class="row2">
-    <div class="field"><label>De</label><input type="time" id="d2De"></div>
-    <div class="field"><label>A</label><input type="time" id="d2A"></div>
-  </div>
-  <div class="row3">
-    <div class="field"><label>Horas totales</label><input type="text" id="hTotal" placeholder="0:00"></div>
-    <div class="field"><label>Horas trabajo</label><input type="text" id="hTrabajo" placeholder="0:00"></div>
-    <div class="field"><label>Horas viaje</label><input type="text" id="hViaje" placeholder="0:00"></div>
-  </div>
-</div>
-
-<a class="btn" href="paso2.html" onclick="guardar()">Materiales →</a>
-<a class="btn outline" href="index.html">← Inicio</a>
-</main>
-<div class="toast" id="toast"></div>
-<script>
-const SURL='https://script.google.com/macros/s/AKfycbzWN48UEonDCDL3Ryxh6ztK3L7-rg68nhb04w9Qj-GDE2M3s18gCIPeIXfYygTYhyfMTw/exec';
-let levIdx=parseInt(sessionStorage.getItem('lev_idx')||'0');
-function getLevs(){return JSON.parse(localStorage.getItem('lev_list')||'[]');}
-function saveLevs(v){localStorage.setItem('lev_list',JSON.stringify(v));}
-let lev=getLevs()[levIdx]||{};
-document.getElementById('folio-b').textContent=lev.folio||'';
-const IDS=['tipo','fechaReporte','ejecutivo','tecnicos','horaEntrada','horaSalida',
-  'empresa','responsable','puesto','direccion','telefono','extension','correo',
-  'fechaServicio','d1De','d1A','tDe','tA','pDe','pA','d2De','d2A','hTotal','hTrabajo','hViaje'];
-const prev=lev.p1||{};
-IDS.forEach(id=>{const el=document.getElementById(id);if(el&&prev[id])el.value=prev[id];});
-if(!document.getElementById('fechaReporte').value)
-  document.getElementById('fechaReporte').value=new Date().toISOString().split('T')[0];
-function guardar(){
-  const d={};
-  IDS.forEach(id=>{const el=document.getElementById(id);if(el)d[id]=el.value;});
-  const levs=getLevs(); levs[levIdx].p1=d; levs[levIdx].paso=Math.max(levs[levIdx].paso||1,2);
-  saveLevs(levs);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a1080">
+<title>Paso 1 · Datos generales</title>
+<style>
+:root{
+  --bg:#f4f2f8;--card:#fff;--border:#e0ddf0;--primary:#1a1080;--primary-soft:#efeafb;
+  --primary-2:#3a2ec0;--ink:#1b1830;--muted:#6a6688;--radius:14px;
+  --shadow:0 1px 3px rgba(26,16,128,.06),0 6px 18px rgba(26,16,128,.05);
 }
-function toast(msg,type='ok'){const el=document.getElementById('toast');el.textContent=msg;el.className='toast show '+(type==='err'?'err':'ok');setTimeout(()=>el.className='toast',3000);}
-</script></body></html>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.4;padding-bottom:92px}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+input,select,textarea{font-family:inherit}
+
+.hdr{position:sticky;top:0;z-index:40;background:var(--primary);color:#fff;
+  padding:calc(env(safe-area-inset-top) + 12px) 16px 0;box-shadow:0 2px 12px rgba(26,16,128,.25)}
+.hdr-row{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto}
+.back{background:rgba(255,255,255,.14);border:none;color:#fff;width:36px;height:36px;
+  border-radius:10px;font-size:18px;flex:0 0 auto;display:grid;place-items:center}
+.htxt h1{font-size:15px;margin:0;font-weight:700}
+.htxt .folio{font-size:11.5px;opacity:.82;margin-top:1px;letter-spacing:.3px}
+
+/* progreso */
+.prog{max-width:760px;margin:0 auto;display:flex;gap:6px;padding:12px 0 0}
+.pstep{flex:1;text-align:center;padding-bottom:11px;position:relative}
+.pbar{height:4px;border-radius:4px;background:rgba(255,255,255,.25)}
+.pstep.on .pbar{background:#fff}
+.pstep.done .pbar{background:#8fd6a8}
+.plabel{font-size:10px;color:rgba(255,255,255,.75);margin-top:5px;font-weight:600}
+.pstep.on .plabel{color:#fff}
+
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+.card h2{font-size:14px;margin:0 0 14px;color:var(--primary);font-weight:800;
+  display:flex;align-items:center;gap:8px;letter-spacing:.2px}
+.card h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--primary-2)}
+
+.field{margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.field input,.field select,.field textarea{
+  width:100%;padding:12px;border:1.5px solid var(--border);border-radius:11px;font-size:15px;
+  background:#fbfaff;color:var(--ink);transition:border-color .15s,background .15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--primary-2);background:#fff}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.sub-h{font-size:11.5px;font-weight:800;color:var(--primary);text-transform:uppercase;
+  letter-spacing:.6px;margin:14px 0 8px;padding-top:12px;border-top:1px dashed var(--border)}
+.sub-h:first-child{border-top:none;padding-top:0;margin-top:0}
+
+.navbar{position:fixed;left:0;right:0;bottom:0;z-index:30;
+  padding:12px 16px calc(env(safe-area-inset-bottom) + 12px);
+  background:linear-gradient(to top,var(--bg) 62%,rgba(244,242,248,0))}
+.nav-inner{max-width:760px;margin:0 auto;display:flex;gap:10px}
+.btn{border:none;border-radius:12px;padding:14px;font-size:14.5px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .06s,background .15s}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(26,16,128,.28);flex:1.5}
+.btn-primary:hover{background:var(--primary-2)}
+.btn-ghost{background:#fff;color:var(--primary);border:1.5px solid var(--border);flex:1}
+@media(max-width:430px){.row3{grid-template-columns:1fr 1fr}}
+@media(max-width:360px){.row2,.row3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-row">
+    <button class="back" onclick="volver()" aria-label="Atrás">‹</button>
+    <div class="htxt">
+      <h1>Datos generales</h1>
+      <div class="folio" id="folio">—</div>
+    </div>
+  </div>
+  <div class="prog">
+    <div class="pstep on"><div class="pbar"></div><div class="plabel">Generales</div></div>
+    <div class="pstep"><div class="pbar"></div><div class="plabel">Material</div></div>
+    <div class="pstep"><div class="pbar"></div><div class="plabel">Inmueble</div></div>
+    <div class="pstep"><div class="pbar"></div><div class="plabel">Evidencias</div></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="card">
+    <h2><span class="dot"></span>Tipo y fecha</h2>
+    <div class="field">
+      <label>Tipo de levantamiento</label>
+      <select id="tipo">
+        <option>Instalación nueva</option><option>Mantenimiento</option>
+        <option>Revisión</option><option>Ampliación</option>
+      </select>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Fecha de reporte</label><input id="fechaReporte" type="date"></div>
+      <div class="field"><label>Ejecutivo</label><input id="ejecutivo" placeholder="Ejecutivo"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>Datos del técnico</h2>
+    <div class="field"><label>Nombre(s) del técnico(s)</label><input id="tecnicos" placeholder="Técnico(s)"></div>
+    <div class="row2">
+      <div class="field"><label>Hora de entrada</label><input id="horaEntrada" type="time"></div>
+      <div class="field"><label>Hora de salida</label><input id="horaSalida" type="time"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>Datos del cliente</h2>
+    <div class="field"><label>Nombre de la empresa</label><input id="empresa" placeholder="Empresa cliente"></div>
+    <div class="row2">
+      <div class="field"><label>Responsable</label><input id="responsable" placeholder="Nombre"></div>
+      <div class="field"><label>Puesto</label><input id="puesto" placeholder="Puesto"></div>
+    </div>
+    <div class="field"><label>Dirección completa</label><input id="direccion" placeholder="Calle, número, ciudad"></div>
+    <div class="row3">
+      <div class="field"><label>Teléfono</label><input id="telefono" type="tel" placeholder="Tel."></div>
+      <div class="field"><label>Extensión</label><input id="extension" placeholder="Ext."></div>
+      <div class="field"><label>Correo</label><input id="correo" type="email" placeholder="correo@"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>Tiempos de servicio</h2>
+    <div class="field"><label>Fecha de servicio</label><input id="fechaServicio" type="date"></div>
+
+    <div class="sub-h">Desplazamiento 1</div>
+    <div class="row2">
+      <div class="field"><label>De</label><input id="d1De" type="time"></div>
+      <div class="field"><label>A</label><input id="d1A" type="time"></div>
+    </div>
+    <div class="sub-h">Trabajo</div>
+    <div class="row2">
+      <div class="field"><label>De</label><input id="tDe" type="time"></div>
+      <div class="field"><label>A</label><input id="tA" type="time"></div>
+    </div>
+    <div class="sub-h">Pausa de trabajo</div>
+    <div class="row2">
+      <div class="field"><label>De</label><input id="pDe" type="time"></div>
+      <div class="field"><label>A</label><input id="pA" type="time"></div>
+    </div>
+    <div class="sub-h">Desplazamiento 2</div>
+    <div class="row2">
+      <div class="field"><label>De</label><input id="d2De" type="time"></div>
+      <div class="field"><label>A</label><input id="d2A" type="time"></div>
+    </div>
+    <div class="sub-h">Totales</div>
+    <div class="row3">
+      <div class="field"><label>Horas totales</label><input id="hTotal" inputmode="decimal" placeholder="0"></div>
+      <div class="field"><label>Horas de trabajo</label><input id="hTrabajo" inputmode="decimal" placeholder="0"></div>
+      <div class="field"><label>Horas de viaje</label><input id="hViaje" inputmode="decimal" placeholder="0"></div>
+    </div>
+  </div>
+</main>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <button class="btn btn-ghost" onclick="volver()">‹ Inicio</button>
+    <button class="btn btn-primary" onclick="siguiente()">Guardar y continuar ›</button>
+  </div>
+</nav>
+
+<script>
+const IDS = ['tipo','fechaReporte','ejecutivo','tecnicos','horaEntrada','horaSalida',
+  'empresa','responsable','puesto','direccion','telefono','extension','correo',
+  'fechaServicio','d1De','d1A','tDe','tA','pDe','pA','d2De','d2A',
+  'hTotal','hTrabajo','hViaje'];
+
+function getLevs(){ try{ return JSON.parse(localStorage.getItem('lev_list')||'[]'); }catch(e){ return []; } }
+function saveLevs(l){ try{ localStorage.setItem('lev_list', JSON.stringify(l)); return true; }
+  catch(e){ alert('Almacenamiento lleno. Envía y cierra levantamientos terminados.'); return false; } }
+
+const levIdx = parseInt(sessionStorage.getItem('lev_idx'));
+let levs = getLevs();
+if(isNaN(levIdx) || !levs[levIdx]){ window.location.href='index.html'; }
+
+function cargar(){
+  const lev = levs[levIdx];
+  document.getElementById('folio').textContent = lev.folio || '';
+  const d = lev.p1 || {};
+  IDS.forEach(id=>{ const el=document.getElementById(id); if(el && d[id]!=null) el.value=d[id]; });
+  // defaults
+  if(!document.getElementById('fechaReporte').value)
+    document.getElementById('fechaReporte').value = lev.fecha || new Date().toISOString().slice(0,10);
+  if(!document.getElementById('empresa').value && lev.empresa)
+    document.getElementById('empresa').value = lev.empresa;
+  if(!document.getElementById('direccion').value && lev.dir)
+    document.getElementById('direccion').value = lev.dir;
+  if(!document.getElementById('tecnicos').value && lev.tecnico)
+    document.getElementById('tecnicos').value = lev.tecnico;
+}
+
+function guardar(){
+  const d = {};
+  IDS.forEach(id=>{ const el=document.getElementById(id); if(el) d[id]=el.value; });
+  levs = getLevs();
+  levs[levIdx].p1 = d;
+  // sincroniza campos de resumen para la lista
+  levs[levIdx].tipo    = d.tipo || levs[levIdx].tipo;
+  levs[levIdx].empresa = d.empresa || levs[levIdx].empresa;
+  levs[levIdx].paso    = Math.max(levs[levIdx].paso||1, 2);
+  return saveLevs(levs);
+}
+function siguiente(){ if(guardar()) window.location.href='paso2.html'; }
+function volver(){ guardar(); window.location.href='index.html'; }
+
+cargar();
+</script>
+</body>
+</html>
