@@ -1,220 +1,351 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Evidencias de Sitio · MDreieck</title><style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f2f8;min-height:100vh;padding-bottom:40px}
-.hdr{background:#1a1080;color:#fff;padding:13px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.hlogo{width:40px;height:40px;background:#fff;border-radius:8px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.hlogo img{width:100%;height:100%;object-fit:contain}
-.hdr h1{font-size:15px;font-weight:800}.hdr p{font-size:11px;opacity:.75}
-.hero{background:linear-gradient(135deg,#1a1080,#2e75b6);color:#fff;padding:26px 16px;text-align:center}
-.hero h2{font-size:20px;font-weight:800;margin-bottom:6px}
-.hero p{font-size:13px;opacity:.85}
-main{padding:14px;max-width:560px;margin:0 auto}
-.card{background:#fff;border:1px solid #e0ddf0;border-radius:14px;padding:16px;margin-bottom:12px}
-.card h2{font-size:12px;font-weight:800;color:#1a1080;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
-.field{margin-bottom:11px}
-.field label{display:block;font-size:12px;font-weight:600;color:#556;margin-bottom:4px}
-.field input,.field select,.field textarea{width:100%;border:1px solid #d0cce8;border-radius:8px;padding:10px 12px;font-size:14px;color:#1a1a1a;background:#fff;outline:none;font-family:inherit;-webkit-appearance:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:#1a1080;box-shadow:0 0 0 2px rgba(26,16,128,.1)}
-.field textarea{resize:vertical;min-height:60px}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a1080">
+<title>MDreieck · Campo</title>
+<style>
+:root{
+  --bg:#f4f2f8;--card:#fff;--border:#e0ddf0;--primary:#1a1080;--primary-soft:#efeafb;
+  --primary-2:#3a2ec0;--ink:#1b1830;--muted:#6a6688;--ok:#1f9d55;--ok-soft:#e6f6ec;
+  --warn:#9a6b04;--warn-soft:#fdf4dc;--danger:#c62828;--danger-soft:#fdeaea;
+  --radius:14px;--shadow:0 1px 3px rgba(26,16,128,.06),0 6px 18px rgba(26,16,128,.05);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.4;padding-bottom:92px}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+input,select,textarea{font-family:inherit}
+
+.hdr{position:sticky;top:0;z-index:40;background:var(--primary);color:#fff;
+  padding:calc(env(safe-area-inset-top) + 14px) 16px 0;box-shadow:0 2px 12px rgba(26,16,128,.25)}
+.hdr-row{display:flex;align-items:center;gap:11px;max-width:760px;margin:0 auto}
+.logo{width:38px;height:38px;border-radius:9px;flex:0 0 auto;overflow:hidden;
+  background:linear-gradient(135deg,#fff,#d9d4ff);display:grid;place-items:center;
+  color:var(--primary);font-weight:800;font-size:15px;letter-spacing:-.5px}
+.logo img{width:100%;height:100%;object-fit:cover}
+.hdr h1{font-size:16px;margin:0;font-weight:700}
+.hdr .sub{font-size:11.5px;opacity:.82;margin-top:1px}
+.tabs{max-width:760px;margin:14px auto 0;display:flex;gap:4px}
+.tab{flex:1;background:none;border:none;color:rgba(255,255,255,.7);font-size:13px;
+  font-weight:700;padding:10px 4px 11px;border-bottom:3px solid transparent;transition:.15s}
+.tab.on{color:#fff;border-bottom-color:#fff}
+
+.wrap{max-width:760px;margin:0 auto;padding:14px 16px}
+
+.banner{border-radius:12px;padding:11px 13px;font-size:12.5px;font-weight:600;
+  display:flex;align-items:center;gap:9px;margin-bottom:13px;line-height:1.35}
+.banner.off{background:var(--danger-soft);color:var(--danger);border:1px solid #f3c9c9}
+.banner.pend{background:var(--warn-soft);color:var(--warn);border:1px solid #f0e0b0}
+.banner .b-ic{font-size:17px;flex:0 0 auto}
+.banner .b-act{margin-left:auto;background:var(--warn);color:#fff;border:none;border-radius:8px;
+  padding:8px 12px;font-size:11.5px;font-weight:800;flex:0 0 auto}
+
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
+.count-chip{font-size:12.5px;color:var(--muted);font-weight:600}
+
+.list{display:flex;flex-direction:column;gap:12px}
+.item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:14px 15px;display:flex;align-items:center;gap:14px;
+  cursor:pointer;transition:transform .07s,box-shadow .15s,border-color .15s}
+.item:active{transform:scale(.99)}
+.item:hover{border-color:#c9c2ec}
+.it-body{flex:1;min-width:0}
+.it-folio{font-weight:800;font-size:14.5px;color:var(--primary);letter-spacing:.2px}
+.it-folio .prov{font-size:9.5px;background:var(--warn-soft);color:var(--warn);
+  padding:2px 6px;border-radius:5px;margin-left:6px;vertical-align:middle;font-weight:800}
+.it-emp{font-size:13px;margin-top:2px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.it-meta{font-size:11.5px;color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:3px 10px}
+.it-side{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex:0 0 auto}
+.badge{font-size:11px;font-weight:800;padding:5px 9px;border-radius:20px;white-space:nowrap}
+.badge-step{background:var(--primary-soft);color:var(--primary)}
+.badge-sent{background:var(--ok-soft);color:var(--ok)}
+.badge-pend{background:var(--warn-soft);color:var(--warn)}
+.chip{font-size:11px;color:var(--muted);font-weight:600}
+
+.empty{text-align:center;padding:52px 20px;color:var(--muted)}
+.empty .em-ic{font-size:40px;margin-bottom:8px}
+.empty h3{margin:6px 0 4px;color:var(--ink);font-size:16px}
+.empty p{margin:0;font-size:13px}
+
+.fab-bar{position:fixed;left:0;right:0;bottom:0;z-index:30;
+  padding:12px 16px calc(env(safe-area-inset-bottom) + 12px);
+  background:linear-gradient(to top,var(--bg) 60%,rgba(244,242,248,0))}
+.fab-inner{max-width:760px;margin:0 auto}
+.btn{border:none;border-radius:12px;padding:14px 16px;font-size:14.5px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .06s,background .15s}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.6;pointer-events:none}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(26,16,128,.28)}
+.btn-ghost{background:#fff;color:var(--primary);border:1.5px solid var(--border)}
+.btn-block{width:100%}
+
+.overlay{position:fixed;inset:0;z-index:60;background:rgba(20,14,60,.42);display:none;
+  align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
+.overlay.open{display:flex}
+.sheet{background:#fff;width:100%;max-width:520px;border-radius:20px 20px 0 0;
+  padding:8px 18px calc(env(safe-area-inset-bottom) + 18px);max-height:92vh;overflow:auto;
+  animation:up .22s ease}
+@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+.grab{width:42px;height:5px;border-radius:5px;background:#d9d4ee;margin:8px auto 10px}
+.sheet h2{margin:2px 0 4px;font-size:17px}
+.sheet .sh-sub{font-size:12px;color:var(--muted);margin:0 0 14px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.field input,.field select{width:100%;padding:12px;border:1.5px solid var(--border);
+  border-radius:11px;font-size:15px;background:#fbfaff;color:var(--ink)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--primary-2);background:#fff}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.proy-card{background:#fff;border:1px solid #e0ddf0;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;touch-action:manipulation}
-.proy-card:active{background:#f0eeff}
-.proy-ico{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.proy-ico.lev{background:#e8e4f8}
-.proy-ico.dur{background:#fff3e0}
-.proy-ico.des{background:#e8f4ec}
-.proy-info{flex:1}.proy-info h3{font-size:14px;font-weight:700;margin-bottom:2px}.proy-info p{font-size:11px;color:#778}
-.proy-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0}
-.badge-lev{background:#e8e4f8;color:#1a1080}
-.badge-dur{background:#fff3e0;color:#b05000}
-.badge-des{background:#e8f4ec;color:#145c2f}
-.badge-done{background:#e0e0e0;color:#666}
-.btn{display:block;width:100%;padding:14px;background:#1a1080;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:10px;touch-action:manipulation}
-.btn:active{opacity:.85}
-.btn.green{background:#145c2f}
-.btn.outline{background:#fff;color:#1a1080;border:2px solid #1a1080}
-.tipo-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:14px}
-.tipo-opt{border:2px solid #d0cce8;border-radius:12px;padding:14px;cursor:pointer;touch-action:manipulation;display:flex;align-items:center;gap:12px}
-.tipo-opt.sel-lev{border-color:#1a1080;background:#f0eeff}
-.tipo-opt.sel-dur{border-color:#b05000;background:#fff8f0}
-.tipo-opt.sel-des{border-color:#145c2f;background:#f0faf4}
-.tipo-opt .tipo-ico{font-size:24px;flex-shrink:0}
-.tipo-opt .tipo-lbl{font-size:14px;font-weight:700}
-.tipo-opt .tipo-sub{font-size:11px;color:#888;margin-top:2px}
-.empty{text-align:center;padding:32px;color:#aaa;font-size:13px;line-height:1.8}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:flex-end}
-.modal-bg.show{display:flex}
-.modal{background:#fff;border-radius:20px 20px 0 0;padding:20px;width:100%;max-height:94vh;overflow-y:auto}
-.modal h2{font-size:16px;font-weight:800;color:#1a1080;margin-bottom:16px}
-.offline-bar{display:none;background:#c0392b;color:#fff;padding:10px 16px;text-align:center;font-size:13px;font-weight:600}
-.pending-bar{display:none;background:#e8a838;color:#1a1080;padding:10px 16px;font-size:13px;font-weight:700;text-align:center;cursor:pointer}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1080;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;transition:transform .3s;z-index:999;white-space:nowrap}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast.ok{background:#145c2f}.toast.err{background:#c0392b}
-</style></head><body>
-<div class="hdr">
-  <div class="hlogo"><img src="data:image/jpeg;base64,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ANBvSf8Av3JR9dofzAeFUV7of2a/En/Qa0n/AL4kpP8Ahm3xJ21nSf8AvmSj67R/mA8Mp0cjxSJJExWVGDIw6hgcg17gf2bvE3bV9JP4PTT+zf4nHTVdJP8A33T+uUX9oD6C+FXimPxh4J07VQwNwyeVcL/dlXhvz6/jXX15D8DPh/4j8AzajbareWNzpt0BIqwFtySjjPPYj+Qr16vn66jGo1B3RIUHpRQehrIDyvxVdax4W8Y3WswQmexulVWJBK4A+6SPukV2/g7ULPVNIF5p8ZiSWRmkjPVXJ+YVHJbarE+oobe1vrS4kZo4nk2lQR0bIORWLa+FNV03S9KttMv0haO7Nxd7SQGBP3R6gDjFAHZaldLZWNxcuRtiQvz3wK87+HF1JZeLNZ0u5mWVpj54dTkM3U/of0ruddtrm6hght44niMytMrtjKA5wPxxXN6n4Zv/APhNbPWdLS2hhhCq6Ftpccg8AccHH4UAdv296878W65qF1rGr6PZPDFa2tg8s29NxfK5wD2+8K6bw5p+q2moatJql4LiCabdbqDnYvP5dhj2rF1/wvqEviC/1DTHt2S/tGtpUmYjaSAMjH0FAGJoOvy6d4f8M6bbSLC935jPMy7tiBz0Hck12/g7VLnVtFSe/iMVyrtG4KldxH8QB9a5RvBOq2+m6LLaXNsdU01m25yEZS27BPqDmu60mO9S0B1KSN7pjuYRjCJ/sr7UAef/AA6ka+8b+Iby6y06kopPVV34wPwAr0W1tobZ52hUL5z+Y4H97AGf0rkx4d1DRvFFzquiLBPb3gImt5XKbSTnIOD3q3rOl6/dpp72uoJBKtyJZ1UkKE/uj1x79aANTxVpw1XQL6zPWSI7fZhyP1ri/hzftqejWWlykmS0nJlU9kXlR/31x+Fekgda4b/hEb6ztPEJ0i4S3u76YNBIDjanUjPbnNAHdDpRVbTYp4dPto7uTzbhI1WR/wC82OTVmgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z" alt="MD"></div>
-  <div><h1>Evidencias de Sitio</h1><p>MDreieck S.A. de C.V.</p></div>
-</div>
-<div class="offline-bar" id="off-bar">📵 Sin conexión — Los datos se guardan en tu dispositivo</div>
-<div class="pending-bar" id="pend-bar" onclick="document.getElementById('lista').scrollIntoView({behavior:'smooth'})"></div>
-<div class="hero">
-  <h2>📸 Proyectos de evidencias</h2>
-  <p>Captura fotos, videos y datos del sitio · Envía cuando tengas señal</p>
-</div>
-<main>
-  <div id="lista"></div>
-  <button class="btn" onclick="showModal()">+ Nuevo proyecto</button>
-
-  <div class="modal-bg" id="modal">
-    <div class="modal">
-      <h2>Nuevo proyecto de evidencias</h2>
-
-      <div class="field"><label>Técnico *</label><input type="text" id="m-tec" placeholder="Nombre del técnico"></div>
-      <div class="field"><label>Capturado por *</label><input type="text" id="m-cap" placeholder="Nombre de quien captura la información"></div>
-      <div class="field"><label>Proyecto *</label><input type="text" id="m-proy" placeholder="Ej: VERACRUZ, PUEBLA..." style="text-transform:uppercase"></div>
-      <div class="field"><label>Empresa / Cliente *</label><input type="text" id="m-emp" placeholder="Nombre del cliente"></div>
-      <div class="field"><label>Dirección / Sitio *</label><input type="text" id="m-dir" placeholder="Dirección exacta del sitio"></div>
-      <div class="row2">
-        <div class="field"><label>Fecha *</label><input type="date" id="m-fecha"></div>
-        <div class="field"><label>Hora</label><input type="time" id="m-hora"></div>
-      </div>
-
-      <div class="field"><label>Tipo de evidencia *</label></div>
-      <div class="tipo-grid">
-        <div class="tipo-opt" id="opt-lev" onclick="selTipo('lev')">
-          <span class="tipo-ico">🔍</span>
-          <div><div class="tipo-lbl">Levantamiento de sitio</div><div class="tipo-sub">Antes de la instalación — datos del sitio, suelo, coordenadas</div></div>
-        </div>
-        <div class="tipo-opt" id="opt-dur" onclick="selTipo('dur')">
-          <span class="tipo-ico">🔧</span>
-          <div><div class="tipo-lbl">Durante la instalación</div><div class="tipo-sub">Proceso de instalación del equipo o poste</div></div>
-        </div>
-        <div class="tipo-opt" id="opt-des" onclick="selTipo('des')">
-          <span class="tipo-ico">✅</span>
-          <div><div class="tipo-lbl">Después de la instalación</div><div class="tipo-sub">Configuración, pruebas de funcionamiento y entrega</div></div>
-        </div>
-      </div>
-      <input type="hidden" id="m-tipo" value="">
-
-      <button class="btn green" onclick="crearProyecto()">✅ Crear proyecto</button>
-      <button class="btn outline" onclick="closeModal()">Cancelar</button>
+.err{color:var(--danger);font-size:12px;margin:-6px 0 8px;min-height:1px}
+.sheet-actions{display:flex;gap:10px;margin-top:6px}
+@media(max-width:400px){.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-row">
+    <div class="logo" id="brandLogo">MD</div>
+    <div>
+      <h1>MDreieck Campo</h1>
+      <div class="sub">Levantamientos y evidencias</div>
     </div>
   </div>
+  <div class="tabs">
+    <button class="tab on" id="tab-lev" onclick="setTab('lev')">Levantamientos</button>
+    <button class="tab" id="tab-ev" onclick="setTab('ev')">Evidencias de sitio</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="banners"></div>
+  <div class="toolbar">
+    <span class="count-chip" id="countChip">—</span>
+    <button class="btn btn-ghost" style="padding:9px 13px;font-size:13px" onclick="abrirModal()">＋ Nuevo</button>
+  </div>
+  <div class="list" id="list"></div>
 </main>
-<div class="toast" id="toast"></div>
+
+<div class="fab-bar">
+  <div class="fab-inner">
+    <button class="btn btn-primary btn-block" id="fabBtn" onclick="abrirModal()">＋ Nuevo levantamiento</button>
+  </div>
+</div>
+
+<div class="overlay" id="ov" onclick="if(event.target===this)cerrarModal()">
+  <div class="sheet" role="dialog" aria-modal="true">
+    <div class="grab"></div>
+    <h2 id="mTitle">Nuevo levantamiento</h2>
+    <p class="sh-sub">El folio se genera aunque no haya señal.</p>
+
+    <div class="field"><label>Técnico</label><input id="m_tecnico" placeholder="Nombre del técnico" autocomplete="off"></div>
+    <div class="field" id="fld_capturado" style="display:none">
+      <label>Capturado por</label><input id="m_capturado" placeholder="Quién toma la evidencia" autocomplete="off">
+    </div>
+    <div class="field"><label>Proyecto</label><input id="m_proyecto" placeholder="Ej. PUEBLA" autocomplete="off" style="text-transform:uppercase"></div>
+    <div class="field"><label>Empresa cliente</label><input id="m_empresa" placeholder="Ej. Municipio de Puebla" autocomplete="off"></div>
+    <div class="field"><label>Dirección</label><input id="m_dir" placeholder="Dirección del sitio" autocomplete="off"></div>
+    <div class="row2">
+      <div class="field"><label>Fecha</label><input id="m_fecha" type="date"></div>
+      <div class="field"><label>Tipo</label><select id="m_tipo"></select></div>
+    </div>
+    <div class="err" id="mErr"></div>
+    <div class="sheet-actions">
+      <button class="btn btn-ghost" style="flex:1" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn btn-primary" style="flex:1.4" id="crearBtn" onclick="crear()">Crear</button>
+    </div>
+  </div>
+</div>
 
 <script>
-const SURL='https://script.google.com/macros/s/AKfycbzWN48UEonDCDL3Ryxh6ztK3L7-rg68nhb04w9Qj-GDE2M3s18gCIPeIXfYygTYhyfMTw/exec';
-const SHEET_ID='1P3DNpSKZsC0bDRlQeCZGFJ0EGJuRzIH-gzC1JGCtPQA';
-const TIPOS={lev:'Levantamiento de sitio',dur:'Durante la instalación',des:'Después de la instalación'};
-const TIPO_BADGES={lev:'badge-lev',dur:'badge-dur',des:'badge-des'};
-const TIPO_ICOS={lev:'🔍',dur:'🔧',des:'✅'};
-const TIPO_PROY={lev:'lev',dur:'dur',des:'des'};
-let tipoSel='';
+/* ===================== CONFIGURACIÓN ===================== */
+const SURL     = 'URL_DEL_APPS_SCRIPT';
+const DRIVE_ID = 'ID_CARPETA_DRIVE';
+const SHEET_ID = 'ID_GOOGLE_SHEET';
+const LOGO     = '';   // 'data:image/jpeg;base64,...' logo MDreieck
+/* ======================================================== */
 
-function getProys(){return JSON.parse(localStorage.getItem('ev_site_proys')||'[]');}
-function saveProys(v){localStorage.setItem('ev_site_proys',JSON.stringify(v));}
+const TIPOS_LEV = ['Instalación nueva','Mantenimiento','Revisión','Ampliación'];
+const TIPOS_EV  = ['Levantamiento de sitio','Durante la instalación','Después de la instalación'];
+
+let tab = sessionStorage.getItem('mdk_tab') || 'lev';
+
+function getLevs(){ try{ return JSON.parse(localStorage.getItem('lev_list')||'[]'); }catch(e){ return []; } }
+function saveLevs(l){ try{ localStorage.setItem('lev_list',JSON.stringify(l)); return true; }
+  catch(e){ alert('Almacenamiento lleno. Envía y cierra registros terminados.'); return false; } }
+function getEvs(){ try{ return JSON.parse(localStorage.getItem('ev_list')||'[]'); }catch(e){ return []; } }
+function saveEvs(l){ try{ localStorage.setItem('ev_list',JSON.stringify(l)); return true; }
+  catch(e){ alert('Almacenamiento lleno. Envía y cierra registros terminados.'); return false; } }
+
+function countFotosLev(l){ const f=l.fotos||{};
+  return ['antes','durante','despues','extras'].reduce((n,k)=>n+((f[k]&&f[k].length)||0),0); }
+function fmtFecha(f){ if(!f) return '';
+  const d=new Date(f+'T00:00:00'); if(isNaN(d)) return f;
+  return d.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'}); }
+
+function online(){ return navigator.onLine !== false; }
+
+function renderBanners(){
+  const cont=document.getElementById('banners');
+  const pend=getEvs().filter(e=>!e.enviado && e.listoParaEnviar).length;
+  let html='';
+  if(!online()){
+    html = `<div class="banner off"><span class="b-ic">⚠️</span>
+      <span>Sin conexión. Puedes crear y capturar todo; se guarda en el teléfono y se envía cuando haya señal.</span></div>`;
+  } else if(pend>0){
+    html = `<div class="banner pend"><span class="b-ic">🔄</span>
+      <span>${pend} ${pend===1?'evidencia lista':'evidencias listas'} sin enviar.</span>
+      <button class="b-act" onclick="sincronizar()">Enviar</button></div>`;
+  }
+  cont.innerHTML=html;
+}
+
+function setTab(t){
+  tab=t; sessionStorage.setItem('mdk_tab',t);
+  document.getElementById('tab-lev').classList.toggle('on',t==='lev');
+  document.getElementById('tab-ev').classList.toggle('on',t==='ev');
+  document.getElementById('fabBtn').textContent = t==='lev' ? '＋ Nuevo levantamiento' : '＋ Nueva evidencia de sitio';
+  render();
+}
 
 function render(){
-  const proys=getProys();
-  const lista=document.getElementById('lista');
-  if(!proys.length){lista.innerHTML='<div class="empty">📂 No hay proyectos aún.<br>Crea uno para comenzar.<br><br>📵 Funciona sin internet —<br>envía cuando tengas señal.</div>';return;}
-  lista.innerHTML=proys.map((p,i)=>{
-    const nFotos=(p.medios||[]).length;
-    const badge=p.cerrado?'badge-done':TIPO_BADGES[p.tipoKey]||'badge-lev';
-    const status=p.cerrado?'Enviado':TIPOS[p.tipoKey]||p.tipo;
-    const ico=TIPO_ICOS[p.tipoKey]||'📸';
-    const icoCls='proy-ico '+(p.cerrado?'':'proy-ico '+p.tipoKey);
-    return `<div class="proy-card" onclick="abrirProy(${i})">
-      <div class="${icoCls}">${ico}</div>
-      <div class="proy-info">
-        <h3>${p.folio} · ${p.proyecto}</h3>
-        <p>${p.empresa} · ${p.capturadoPor||p.tecnico}</p>
-        <p style="color:#aaa;font-size:10px">${p.fecha} · ${nFotos} medio(s)</p>
+  renderBanners();
+  const list=document.getElementById('list');
+  const arr = tab==='lev' ? getLevs() : getEvs();
+  document.getElementById('countChip').textContent =
+    arr.length + ' ' + (tab==='lev'
+      ? (arr.length===1?'levantamiento':'levantamientos')
+      : (arr.length===1?'evidencia':'evidencias'));
+
+  if(!arr.length){
+    list.innerHTML = `<div class="empty">
+      <div class="em-ic">${tab==='lev'?'📋':'📍'}</div>
+      <h3>${tab==='lev'?'Sin levantamientos':'Sin evidencias de sitio'}</h3>
+      <p>Crea el primero con el botón de abajo.</p></div>`;
+    return;
+  }
+  const orden = arr.map((o,i)=>({o,i})).sort((a,b)=>(b.o.creado||'').localeCompare(a.o.creado||''));
+
+  list.innerHTML = orden.map(({o,i})=>{
+    if(tab==='lev'){
+      const badge = o.cerrado ? '<span class="badge badge-sent">✓ Enviado</span>'
+                              : `<span class="badge badge-step">Paso ${o.paso||1}/4</span>`;
+      return `<div class="item" onclick="abrirLev(${i})">
+        <div class="it-body">
+          <div class="it-folio">${o.folio||'(sin folio)'}</div>
+          <div class="it-emp">${o.empresa||o.proyecto||'—'}</div>
+          <div class="it-meta"><span>👤 ${o.tecnico||'—'}</span><span>📅 ${fmtFecha(o.fecha)}</span></div>
+        </div>
+        <div class="it-side">${badge}<span class="chip">📷 ${countFotosLev(o)}</span></div>
+      </div>`;
+    }
+    const nf=(o.medios||[]).filter(m=>m.kind==='foto').length;
+    const nv=(o.medios||[]).filter(m=>m.kind==='video').length;
+    const badge = o.enviado ? '<span class="badge badge-sent">✓ Enviado</span>'
+      : (o.listoParaEnviar ? '<span class="badge badge-pend">Por enviar</span>'
+                           : '<span class="badge badge-step">En captura</span>');
+    const prov = o.folioProvisional ? '<span class="prov">PROV</span>' : '';
+    return `<div class="item" onclick="abrirEv('${o.id}')">
+      <div class="it-body">
+        <div class="it-folio">${o.folio||'(sin folio)'}${prov}</div>
+        <div class="it-emp">${o.empresa||o.proyecto||'—'}</div>
+        <div class="it-meta"><span>🏷️ ${o.tipo||'—'}</span><span>📅 ${fmtFecha(o.fecha)}</span>
+          ${o.gps&&o.gps.lat?'<span>📍 GPS</span>':''}</div>
       </div>
-      <div class="proy-badge ${badge}">${p.cerrado?'Enviado':status.split(' ')[0]}</div>
+      <div class="it-side">${badge}<span class="chip">📷 ${nf} · 🎥 ${nv}</span></div>
     </div>`;
   }).join('');
-  checkPending();
 }
 
-function selTipo(t){
-  tipoSel=t;
-  ['lev','dur','des'].forEach(k=>{
-    const el=document.getElementById('opt-'+k);
-    el.className='tipo-opt'+(k===t?' sel-'+k:'');
-  });
-  document.getElementById('m-tipo').value=t;
+function abrirLev(i){
+  sessionStorage.setItem('lev_idx', i);
+  const l=getLevs()[i];
+  window.location.href='paso'+Math.min(Math.max(l.paso||1,1),4)+'.html';
+}
+function abrirEv(id){
+  sessionStorage.setItem('ev_id', id);
+  window.location.href='evidencia.html';
+}
+function sincronizar(){
+  const pend=getEvs().filter(e=>!e.enviado && e.listoParaEnviar);
+  if(!pend.length) return;
+  sessionStorage.setItem('ev_id', pend[0].id);
+  sessionStorage.setItem('ev_autosend','1');
+  window.location.href='evidencia.html';
 }
 
-function showModal(){
-  tipoSel='';
-  ['lev','dur','des'].forEach(k=>document.getElementById('opt-'+k).className='tipo-opt');
-  document.getElementById('m-fecha').value=new Date().toISOString().split('T')[0];
-  document.getElementById('m-hora').value=new Date().toTimeString().slice(0,5);
-  document.getElementById('modal').classList.add('show');
+function abrirModal(){
+  const esEv = tab==='ev';
+  document.getElementById('mTitle').textContent = esEv?'Nueva evidencia de sitio':'Nuevo levantamiento';
+  document.getElementById('fld_capturado').style.display = esEv?'block':'none';
+  document.getElementById('m_tipo').innerHTML =
+    (esEv?TIPOS_EV:TIPOS_LEV).map(t=>`<option>${t}</option>`).join('');
+  document.getElementById('mErr').textContent='';
+  if(!document.getElementById('m_fecha').value)
+    document.getElementById('m_fecha').value=new Date().toISOString().slice(0,10);
+  document.getElementById('ov').classList.add('open');
 }
-function closeModal(){document.getElementById('modal').classList.remove('show');}
+function cerrarModal(){ document.getElementById('ov').classList.remove('open'); }
 
-async function crearProyecto(){
-  const tec=document.getElementById('m-tec').value.trim();
-  const cap=document.getElementById('m-cap').value.trim();
-  const proy=document.getElementById('m-proy').value.trim().toUpperCase();
-  const emp=document.getElementById('m-emp').value.trim();
-  const dir=document.getElementById('m-dir').value.trim();
-  const fecha=document.getElementById('m-fecha').value;
-  const hora=document.getElementById('m-hora').value;
-  const tipo=document.getElementById('m-tipo').value;
-  if(!tec||!cap||!proy||!emp||!dir||!fecha||!tipo){toast('Completa todos los campos y selecciona el tipo','err');return;}
+async function crear(){
+  const btn=document.getElementById('crearBtn'), errEl=document.getElementById('mErr');
+  const tecnico=document.getElementById('m_tecnico').value.trim();
+  const capturado=document.getElementById('m_capturado').value.trim();
+  const proyecto=document.getElementById('m_proyecto').value.trim().toUpperCase().replace(/\s+/g,'-');
+  const empresa=document.getElementById('m_empresa').value.trim();
+  const dir=document.getElementById('m_dir').value.trim();
+  const fecha=document.getElementById('m_fecha').value;
+  const tipo=document.getElementById('m_tipo').value;
 
-  let folio='EV-'+proy+'-001';
-  try{
-    const r=await fetch(SURL+'?accion=getConsec&proyecto=EV-'+encodeURIComponent(proy)+'&sheet='+SHEET_ID);
-    const d=await r.json();
-    folio='EV-'+proy+'-'+String(d.consec).padStart(3,'0');
-  }catch(e){
-    const ps=getProys().filter(p=>p.proyecto===proy).length+1;
-    folio='EV-'+proy+'-'+String(ps).padStart(3,'0');
+  if(!tecnico||!proyecto||!empresa){ errEl.textContent='Técnico, proyecto y empresa son obligatorios.'; return; }
+  errEl.textContent=''; btn.disabled=true; btn.textContent='Creando…';
+
+  if(tab==='lev'){
+    const c=await consecutivo('LEV',proyecto,getLevs());
+    const folio='LEV-'+proyecto+'-'+String(c.consec).padStart(3,'0');
+    const levs=getLevs();
+    levs.push({folio,folioProvisional:c.provisional,tecnico,proyecto,empresa,dir,fecha,tipo,
+      paso:1,cerrado:false,creado:new Date().toISOString(),
+      p1:{tipo,fechaReporte:fecha,empresa,direccion:dir,tecnicos:tecnico},p2:{},p3:{},
+      fotos:{antes:[],durante:[],despues:[],extras:[]}});
+    if(!saveLevs(levs)){ btn.disabled=false; btn.textContent='Crear'; return; }
+    sessionStorage.setItem('lev_idx',levs.length-1);
+    window.location.href='paso1.html';
+  } else {
+    const c=await consecutivo('EV',proyecto,getEvs());
+    const folio='EV-'+proyecto+'-'+String(c.consec).padStart(3,'0');
+    const id='ev_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
+    const evs=getEvs();
+    evs.push({id,folio,folioProvisional:c.provisional,tecnico,capturadoPor:capturado||tecnico,
+      proyecto,empresa,direccion:dir,fecha,tipo,
+      gps:{},datos:{},medios:[],enviado:false,listoParaEnviar:false,
+      creado:new Date().toISOString()});
+    if(!saveEvs(evs)){ btn.disabled=false; btn.textContent='Crear'; return; }
+    sessionStorage.setItem('ev_id',id);
+    window.location.href='evidencia.html';
   }
-
-  const p={folio,tecnico:tec,capturadoPor:cap,proyecto:proy,empresa:emp,
-    direccion:dir,fecha,hora,tipo:TIPOS[tipo],tipoKey:tipo,
-    gps:null,infoSitio:{},medios:[],
-    cerrado:false,creado:new Date().toISOString()};
-
-  const proys=getProys();
-  proys.unshift(p);
-  saveProys(proys);
-  closeModal();
-  sessionStorage.setItem('ev_site_idx','0');
-  window.location.href='evidencia.html';
 }
 
-function abrirProy(i){
-  if(getProys()[i].cerrado){toast('Este proyecto ya fue enviado','err');return;}
-  sessionStorage.setItem('ev_site_idx',i);
-  window.location.href='evidencia.html';
+/* Consecutivo: servidor si hay señal; si no, localStorage (folio provisional) */
+async function consecutivo(prefijo, proyecto, lista){
+  const localNext = lista.filter(o=>o.proyecto===proyecto).length + 1;
+  if(!online() || !SURL || SURL==='URL_DEL_APPS_SCRIPT') return {consec:localNext, provisional:true};
+  try{
+    const ctrl=new AbortController(); const t=setTimeout(()=>ctrl.abort(),5000);
+    const r=await fetch(SURL+'?accion=getConsec&proyecto='+encodeURIComponent(prefijo+'-'+proyecto)+
+      '&sheet='+encodeURIComponent(SHEET_ID),{signal:ctrl.signal});
+    clearTimeout(t);
+    const d=await r.json();
+    if(d&&d.consec) return {consec:d.consec, provisional:false};
+  }catch(e){}
+  return {consec:localNext, provisional:true};
 }
 
-function checkPending(){
-  const proys=getProys();
-  const pend=proys.filter(p=>!p.cerrado);
-  const pb=document.getElementById('pend-bar');
-  if(pend.length&&navigator.onLine){
-    pb.style.display='block';
-    pb.textContent='⚠️ '+pend.length+' proyecto(s) pendiente(s) de enviar a Drive. Toca para ver.';
-  }else pb.style.display='none';
-}
-
-// Offline detection
-window.addEventListener('online', ()=>{document.getElementById('off-bar').style.display='none';checkPending();toast('✅ Conexión restaurada','ok');});
-window.addEventListener('offline',()=>{document.getElementById('off-bar').style.display='block';toast('📵 Sin conexión — datos guardados','err');});
-if(!navigator.onLine) document.getElementById('off-bar').style.display='block';
-
-function toast(msg,type='ok'){const el=document.getElementById('toast');el.textContent=msg;el.className='toast show '+(type==='err'?'err':'ok');setTimeout(()=>el.className='toast',3000);}
-
-render();
-</script></body></html>
+if(LOGO) document.getElementById('brandLogo').innerHTML='<img src="'+LOGO+'" alt="MD">';
+window.addEventListener('online', render);
+window.addEventListener('offline', render);
+setTab(tab);
+</script>
+</body>
+</html>
