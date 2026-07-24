@@ -4,130 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1080">
-<title>Evidencia de sitio</title>
+<title>Evidencias</title>
+<link rel="stylesheet" href="estilos.css">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<style>
-:root{
-  --bg:#f4f2f8;--card:#fff;--border:#e0ddf0;--primary:#1a1080;--primary-soft:#efeafb;
-  --primary-2:#3a2ec0;--ink:#1b1830;--muted:#6a6688;--ok:#1f9d55;--ok-soft:#e6f6ec;
-  --warn:#9a6b04;--warn-soft:#fdf4dc;--danger:#c62828;--danger-soft:#fdeaea;
-  --radius:14px;--shadow:0 1px 3px rgba(26,16,128,.06),0 6px 18px rgba(26,16,128,.05);
-}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0}
-body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
-  background:var(--bg);color:var(--ink);line-height:1.4;padding-bottom:132px}
-button{font-family:inherit;cursor:pointer;touch-action:manipulation}
-input,select,textarea{font-family:inherit}
-
-.hdr{position:sticky;top:0;z-index:40;background:var(--primary);color:#fff;
-  padding:calc(env(safe-area-inset-top) + 12px) 16px 13px;box-shadow:0 2px 12px rgba(26,16,128,.25)}
-.hdr-row{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto}
-.back{background:rgba(255,255,255,.14);border:none;color:#fff;width:36px;height:36px;
-  border-radius:10px;font-size:18px;flex:0 0 auto;display:grid;place-items:center}
-.htxt{flex:1;min-width:0}
-.htxt h1{font-size:15px;margin:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.htxt .folio{font-size:11.5px;opacity:.85;margin-top:1px;letter-spacing:.3px}
-
-.wrap{max-width:760px;margin:0 auto;padding:14px 16px}
-.banner{border-radius:12px;padding:11px 13px;font-size:12.5px;font-weight:600;
-  display:flex;align-items:center;gap:9px;margin-bottom:13px;line-height:1.35}
-.banner.off{background:var(--danger-soft);color:var(--danger);border:1px solid #f3c9c9}
-.banner.pend{background:var(--warn-soft);color:var(--warn);border:1px solid #f0e0b0}
-.banner .b-ic{font-size:17px;flex:0 0 auto}
-
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-  box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
-.card h2{font-size:14px;margin:0 0 13px;color:var(--primary);font-weight:800;
-  display:flex;align-items:center;gap:8px}
-.card h2 .ic{font-size:16px}
-.card h2 .n{margin-left:auto;font-size:11.5px;background:var(--primary-soft);
-  color:var(--primary);padding:4px 10px;border-radius:20px}
-
-.field{margin-bottom:12px}.field:last-child{margin-bottom:0}
-.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
-.field input,.field select,.field textarea{width:100%;padding:12px;border:1.5px solid var(--border);
-  border-radius:11px;font-size:15px;background:#fbfaff;color:var(--ink)}
-.field textarea{min-height:76px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--primary-2);background:#fff}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-
-/* GPS */
-.gps-box{background:var(--primary-soft);border-radius:12px;padding:13px;margin-bottom:12px}
-.gps-vals{display:flex;gap:8px;text-align:center}
-.gps-v{flex:1;background:#fff;border-radius:9px;padding:9px 4px}
-.gps-v .lbl{font-size:9.5px;color:var(--muted);font-weight:800;letter-spacing:.4px}
-.gps-v .val{font-size:13px;font-weight:800;color:var(--primary);margin-top:2px;
-  word-break:break-all;line-height:1.2}
-.gps-meta{font-size:11px;color:var(--muted);margin-top:9px;text-align:center}
-.btn-gps{width:100%;background:var(--primary);color:#fff;border:none;border-radius:11px;
-  padding:13px;font-size:14px;font-weight:700;margin-bottom:11px;
-  display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-gps:active{transform:scale(.98)}
-.link-manual{background:none;border:none;color:var(--primary-2);font-size:12.5px;
-  font-weight:700;padding:6px 0;text-decoration:underline}
-
-/* medios */
-.cap-btns{display:flex;gap:8px;margin-bottom:14px}
-.pill{flex:1;border:1.5px solid var(--border);background:#fbfaff;color:var(--primary);
-  border-radius:11px;padding:13px 6px;font-size:12.5px;font-weight:700;
-  display:flex;flex-direction:column;align-items:center;gap:4px}
-.pill .p-ic{font-size:19px}
-.pill:active{transform:scale(.98);background:var(--primary-soft)}
-.hidden-input{display:none}
-
-.medios{display:flex;flex-direction:column;gap:11px}
-.medio{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;background:#fbfaff}
-.medio-top{position:relative;background:#0e0a28}
-.medio-top img,.medio-top video{width:100%;max-height:240px;object-fit:contain;display:block}
-.medio-tag{position:absolute;top:7px;left:7px;background:rgba(20,14,60,.78);color:#fff;
-  font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:20px}
-.medio-del{position:absolute;top:7px;right:7px;width:28px;height:28px;border-radius:50%;
-  border:none;background:rgba(20,14,60,.78);color:#fff;font-size:15px;display:grid;place-items:center}
-.medio-body{padding:10px}
-.medio-body textarea{width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:9px;
-  font-size:13.5px;background:#fff;min-height:52px;resize:vertical}
-.medio-body textarea:focus{outline:none;border-color:var(--primary-2)}
-.medio-info{font-size:10.5px;color:var(--muted);margin-top:6px;display:flex;gap:10px;flex-wrap:wrap}
-.sin-medios{text-align:center;color:var(--muted);font-size:13px;padding:22px 10px}
-
-.navbar{position:fixed;left:0;right:0;bottom:0;z-index:30;
-  padding:12px 16px calc(env(safe-area-inset-bottom) + 12px);
-  background:linear-gradient(to top,var(--bg) 55%,rgba(244,242,248,0))}
-.nav-inner{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:9px}
-.nav-sec{display:flex;gap:10px}
-.btn{border:none;border-radius:12px;padding:14px;font-size:14.5px;font-weight:700;
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .06s,background .15s}
-.btn:active{transform:scale(.98)}
-.btn:disabled{opacity:.6;pointer-events:none}
-.btn-send{background:var(--ok);color:#fff;width:100%;font-size:15.5px;box-shadow:0 4px 14px rgba(31,157,85,.32)}
-.btn-ghost{background:#fff;color:var(--primary);border:1.5px solid var(--border);flex:1}
-.btn-pdf{background:#fff;color:var(--primary);border:1.5px solid var(--border);flex:1.4}
-
-.sending{position:fixed;inset:0;z-index:80;background:rgba(20,14,60,.55);display:none;
-  align-items:center;justify-content:center;backdrop-filter:blur(3px)}
-.sending.on{display:flex}
-.send-box{background:#fff;border-radius:18px;padding:26px 28px;text-align:center;max-width:330px;width:86%}
-.spin{width:44px;height:44px;border:4px solid var(--primary-soft);border-top-color:var(--primary);
-  border-radius:50%;margin:0 auto 14px;animation:sp .8s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-.send-box h3{margin:0 0 5px;font-size:16px}
-.send-box p{margin:0;font-size:13px;color:var(--muted);line-height:1.4}
-.send-box.done .spin{display:none}
-.check-ic{font-size:46px;margin-bottom:6px;display:none}
-.send-box.done .check-ic{display:block}
-@media(max-width:360px){.row2,.row3{grid-template-columns:1fr}}
-</style>
 </head>
 <body>
 <header class="hdr">
   <div class="hdr-row">
-    <button class="back" onclick="salir()" aria-label="Atrás">‹</button>
+    <button class="back" onclick="atras()" aria-label="Atrás">‹</button>
     <div class="htxt">
-      <h1 id="hTipo">Evidencia de sitio</h1>
-      <div class="folio" id="hFolio">—</div>
+      <h1>Evidencias</h1>
+      <div class="sub" id="hSub">—</div>
     </div>
+  </div>
+  <div class="prog">
+    <div class="pstep done"><div class="pbar"></div><div class="plabel">Datos del sitio</div></div>
+    <div class="pstep on"><div class="pbar"></div><div class="plabel">Evidencias</div></div>
   </div>
 </header>
 
@@ -135,58 +32,38 @@ input,select,textarea{font-family:inherit}
   <div id="banners"></div>
 
   <div class="card">
-    <h2><span class="ic">🏢</span>Datos del sitio</h2>
-    <div id="comunes"></div>
-  </div>
-
-  <div class="card">
-    <h2><span class="ic">📍</span>Ubicación GPS</h2>
-    <button class="btn-gps" onclick="obtenerGPS()"><span>🛰️</span><span id="gpsBtnTxt">Obtener ubicación</span></button>
-    <div class="gps-box">
-      <div class="gps-vals">
-        <div class="gps-v"><div class="lbl">LATITUD</div><div class="val" id="vLat">—</div></div>
-        <div class="gps-v"><div class="lbl">LONGITUD</div><div class="val" id="vLon">—</div></div>
-        <div class="gps-v"><div class="lbl">ALTITUD</div><div class="val" id="vAlt">—</div></div>
-      </div>
-      <div class="gps-meta" id="gpsMeta">Sin ubicación capturada</div>
-    </div>
-    <button class="link-manual" onclick="toggleManual()">Capturar manualmente</button>
-    <div id="manualBox" style="display:none;margin-top:10px">
-      <div class="row3">
-        <div class="field"><label>Latitud</label><input id="mLat" inputmode="decimal" placeholder="19.0414"></div>
-        <div class="field"><label>Longitud</label><input id="mLon" inputmode="decimal" placeholder="-98.2063"></div>
-        <div class="field"><label>Altitud (m)</label><input id="mAlt" inputmode="decimal" placeholder="2135"></div>
-      </div>
-      <button class="btn btn-ghost" style="width:100%" onclick="guardarManual()">Guardar coordenadas</button>
-    </div>
-  </div>
-
-  <div id="secciones"></div>
-
-  <div class="card">
-    <h2><span class="ic">📸</span>Evidencias<span class="n" id="medCount">0</span></h2>
+    <h2><span class="ic">📸</span>Fotos y videos<span class="n" id="medCount">0</span></h2>
+    <p class="hint">Cada archivo lleva su propio comentario o especificación.</p>
     <div class="cap-btns">
-      <button class="pill" onclick="document.getElementById('inp-cam').click()">
-        <span class="p-ic">📷</span><span>Cámara</span></button>
-      <button class="pill" onclick="document.getElementById('inp-gal').click()">
-        <span class="p-ic">🖼️</span><span>Galería</span></button>
-      <button class="pill" onclick="document.getElementById('inp-vid').click()">
-        <span class="p-ic">🎥</span><span>Video</span></button>
+      <button class="pill" onclick="document.getElementById('inp-foto').click()">
+        <span class="p-ic">📷</span><span>Tomar foto</span></button>
+      <button class="pill" onclick="document.getElementById('inp-video').click()">
+        <span class="p-ic">🎥</span><span>Grabar video</span></button>
+      <button class="pill" onclick="document.getElementById('inp-subir').click()">
+        <span class="p-ic">📁</span><span>Subir archivo</span></button>
     </div>
     <div class="medios" id="medios"></div>
   </div>
+
+  <div class="card">
+    <h2><span class="ic">📝</span>Notas y comentarios adicionales</h2>
+    <div class="field">
+      <textarea id="notas" placeholder="Observaciones generales del levantamiento…"
+        oninput="setNotas(this.value)"></textarea>
+    </div>
+  </div>
 </main>
 
-<input class="hidden-input" type="file" accept="image/*" capture="environment" id="inp-cam" onchange="capFotos(this)">
-<input class="hidden-input" type="file" accept="image/*" multiple id="inp-gal" onchange="capFotos(this)">
-<input class="hidden-input" type="file" accept="video/*" capture="environment" id="inp-vid" onchange="capVideo(this)">
+<input class="hidden-input" type="file" accept="image/*" capture="environment" id="inp-foto" onchange="capFoto(this)">
+<input class="hidden-input" type="file" accept="video/*" capture="environment" id="inp-video" onchange="capVideo(this)">
+<input class="hidden-input" type="file" accept="image/*,video/*" multiple id="inp-subir" onchange="capMixto(this)">
 
 <nav class="navbar">
   <div class="nav-inner">
-    <button class="btn btn-send" id="sendBtn" onclick="enviar()">📤 Enviar a Drive</button>
+    <button class="btn btn-send btn-block" id="sendBtn" onclick="enviar()">📤 Enviar a Drive</button>
     <div class="nav-sec">
-      <button class="btn btn-ghost" onclick="salir()">‹ Guardar y salir</button>
-      <button class="btn btn-pdf" onclick="descargarPDF()">📄 Ver PDF</button>
+      <button class="btn btn-ghost" onclick="atras()">‹ Datos del sitio</button>
+      <button class="btn btn-ghost" onclick="verPDF()">📄 Ver PDF</button>
     </div>
   </div>
 </nav>
@@ -196,241 +73,93 @@ input,select,textarea{font-family:inherit}
     <div class="spin"></div>
     <div class="check-ic" id="checkIc">✓</div>
     <h3 id="sendTitle">Procesando…</h3>
-    <p id="sendMsg">Preparando evidencias.</p>
+    <p id="sendMsg">Un momento.</p>
   </div>
 </div>
 
+<script src="app.js"></script>
 <script>
-/* ===================== CONFIGURACIÓN ===================== */
-const SURL     = 'URL_DEL_APPS_SCRIPT';
-const DRIVE_ID = 'ID_CARPETA_DRIVE';
-const SHEET_ID = 'ID_GOOGLE_SHEET';
-const LOGO     = '';   // 'data:image/jpeg;base64,...' logo MDreieck
-/* ======================================================== */
+const id = sessionStorage.getItem('mdk_id');
+let lev = getLev(id);
+if(!lev){ window.location.href='index.html'; }
+const urls = {};
 
-/* Campos comunes a todos los tipos */
-const COMUNES = [
-  ['sitioRef','Sitio / referencia','text'],
-  ['contacto','Contacto en sitio','text'],
-  ['telContacto','Teléfono de contacto','tel'],
-  ['clima','Condiciones climáticas','text'],
-  ['obsGen','Observaciones generales','textarea']
-];
-
-/* Secciones que cambian según el tipo */
-const SECCIONES = {
-  'Levantamiento de sitio':[
-    ['Suelo','🪨',[['sueloTipo','Tipo de suelo','text'],['sueloResist','Resistencia / compactación','text'],
-      ['sueloPendiente','Pendiente del terreno','text'],['sueloHumedad','Nivel freático / humedad','text']]],
-    ['Viento','💨',[['vientoVel','Velocidad estimada (km/h)','text'],['vientoDir','Dirección dominante','text'],
-      ['vientoExp','Exposición y obstáculos','textarea']]],
-    ['Cimentación','🧱',[['cimTipo','Tipo de cimentación','text'],['cimDim','Dimensiones','text'],
-      ['cimProf','Profundidad','text'],['cimMat','Material','text']]],
-    ['Equipo','📡',[['eqInstalar','Equipo a instalar','text'],['eqAltura','Altura de montaje','text'],
-      ['eqPeso','Peso aproximado','text'],['eqElect','Requerimientos eléctricos','textarea']]]
-  ],
-  'Durante la instalación':[
-    ['Proceso','🔧',[['procActividad','Actividad en curso','text'],['procCuadrilla','Cuadrilla / personal','text'],
-      ['procMaquinaria','Herramienta y maquinaria','text'],['procIncidencias','Incidencias','textarea']]],
-    ['Avance','📊',[['avancePct','% de avance','text'],['avanceCompletado','Actividades completadas','textarea'],
-      ['avancePendiente','Pendientes','textarea'],['avanceTermino','Fecha estimada de término','date']]]
-  ],
-  'Después de la instalación':[
-    ['Configuración','⚙️',[['cfgEquipo','Equipo configurado','text'],['cfgParametros','Parámetros','textarea'],
-      ['cfgFirmware','Firmware / versión','text'],['cfgDirecc','Direccionamiento / IP','text']]],
-    ['Pruebas','✅',[['prbRealizadas','Pruebas realizadas','textarea'],['prbResultado','Resultado','text'],
-      ['prbMediciones','Mediciones','textarea'],['prbRecibe','Entrega / quién recibe','text']]]
-  ]
-};
-
-/* ---------- IndexedDB para fotos y videos ---------- */
-const DB_NAME='mdk_evidencias', DB_VER=1, STORE='medios';
-function idbOpen(){
-  return new Promise((res,rej)=>{
-    const r=indexedDB.open(DB_NAME,DB_VER);
-    r.onupgradeneeded=()=>{ const db=r.result;
-      if(!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE,{keyPath:'id'}); };
-    r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error);
-  });
-}
-async function idbPut(rec){ const db=await idbOpen();
-  return new Promise((res,rej)=>{ const t=db.transaction(STORE,'readwrite');
-    t.objectStore(STORE).put(rec); t.oncomplete=()=>res(true); t.onerror=()=>rej(t.error); }); }
-async function idbGet(id){ const db=await idbOpen();
-  return new Promise((res,rej)=>{ const t=db.transaction(STORE,'readonly');
-    const q=t.objectStore(STORE).get(id); q.onsuccess=()=>res(q.result||null); q.onerror=()=>rej(q.error); }); }
-async function idbDel(id){ const db=await idbOpen();
-  return new Promise((res,rej)=>{ const t=db.transaction(STORE,'readwrite');
-    t.objectStore(STORE).delete(id); t.oncomplete=()=>res(true); t.onerror=()=>rej(t.error); }); }
-
-/* ---------- estado ---------- */
-function getEvs(){ try{ return JSON.parse(localStorage.getItem('ev_list')||'[]'); }catch(e){ return []; } }
-function saveEvs(l){ try{ localStorage.setItem('ev_list',JSON.stringify(l)); return true; }
-  catch(e){ alert('No se pudo guardar. Espacio insuficiente en el teléfono.'); return false; } }
-
-const evId = sessionStorage.getItem('ev_id');
-let ev = getEvs().find(e=>e.id===evId);
-if(!ev){ window.location.href='index.html'; }
-const urls = {};   // id de medio → objectURL
-
-function persistir(){
-  const evs=getEvs(); const i=evs.findIndex(e=>e.id===ev.id);
-  if(i<0) return false; evs[i]=ev; return saveEvs(evs);
-}
-function online(){ return navigator.onLine!==false; }
-
-/* ---------- render ---------- */
 function renderBanners(){
   const c=document.getElementById('banners');
+  let h='';
   if(!online()){
-    c.innerHTML=`<div class="banner off"><span class="b-ic">⚠️</span>
-      <span>Sin conexión. Todo se guarda en el teléfono; podrás enviarlo cuando haya señal.</span></div>`;
-  } else if(ev.listoParaEnviar && !ev.enviado){
-    c.innerHTML=`<div class="banner pend"><span class="b-ic">🔄</span>
-      <span>Esta evidencia quedó pendiente de envío. Pulsa "Enviar a Drive".</span></div>`;
-  } else c.innerHTML='';
+    h=`<div class="banner off"><span class="b-ic">⚠️</span>
+      <span>Sin conexión. Captura con normalidad; el envío queda pendiente hasta que haya señal.</span></div>`;
+  } else if(lev.listoParaEnviar && !lev.enviado){
+    h=`<div class="banner pend"><span class="b-ic">🔄</span>
+      <span>Este levantamiento quedó pendiente de envío. Ya hay señal: pulsa "Enviar a Drive".</span></div>`;
+  } else if(lev.enviado){
+    h=`<div class="banner info"><span class="b-ic">✓</span>
+      <span>Enviado el ${fmtFecha((lev.fechaEnvio||'').slice(0,10))}. Puedes volver a enviarlo si agregas algo.</span></div>`;
+  }
+  c.innerHTML=h;
 }
-function esc(s){ return String(s==null?'':s)
-  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function campoHTML(id,label,tipo,val){
-  const v=esc(val);
-  if(tipo==='textarea')
-    return `<div class="field"><label>${label}</label>
-      <textarea id="f_${id}" oninput="setDato('${id}',this.value)">${esc(val)}</textarea></div>`;
-  return `<div class="field"><label>${label}</label>
-    <input id="f_${id}" type="${tipo}" value="${v}" oninput="setDato('${id}',this.value)"></div>`;
+
+/* ---------- captura ---------- */
+function contarKind(k){ return (lev.medios||[]).filter(m=>m.kind===k).length; }
+
+async function agregar(kind, blob, mimeType){
+  const mid='m_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
+  try{ await idbPut({id:mid, levId:lev.id, blob}); }
+  catch(e){ alert('No se pudo guardar el archivo en el teléfono.'); return; }
+  const n=contarKind(kind)+1;
+  const ext = kind==='foto' ? 'jpg' : (String(mimeType).indexOf('quicktime')>=0 ? 'mov':'mp4');
+  lev.medios=lev.medios||[];
+  lev.medios.push({ id:mid, kind, mimeType, size:blob.size, comentario:'',
+    ts:new Date().toISOString(),
+    name:(kind==='foto'?'Foto_':'Video_')+String(n).padStart(2,'0')+'_'+lev.folio+'.'+ext });
+  guardarLev(lev);
 }
-function render(){
-  document.getElementById('hTipo').textContent = ev.tipo||'Evidencia de sitio';
-  document.getElementById('hFolio').textContent = ev.folio + (ev.folioProvisional?' · folio provisional':'');
-  renderBanners();
 
-  document.getElementById('comunes').innerHTML =
-    COMUNES.map(([id,l,t])=>campoHTML(id,l,t,ev.datos[id])).join('');
+async function procesarArchivo(file){
+  if(String(file.type).indexOf('video')===0){
+    if(file.size > 40*1024*1024 &&
+       !confirm('El video pesa '+fmtSize(file.size)+'. Los videos muy grandes pueden fallar al subir. ¿Continuar?')) return;
+    await agregar('video', file, file.type||'video/mp4');
+  } else {
+    const blob = await comprimirFoto(file);
+    if(blob) await agregar('foto', blob, 'image/jpeg');
+  }
+}
+async function capFoto(input){ await procesarLista(input); }
+async function capVideo(input){ await procesarLista(input); }
+async function capMixto(input){ await procesarLista(input); }
 
-  const secs = SECCIONES[ev.tipo]||[];
-  document.getElementById('secciones').innerHTML = secs.map(([titulo,ic,campos])=>
-    `<div class="card"><h2><span class="ic">${ic}</span>${titulo}</h2>
-      ${campos.map(([id,l,t])=>campoHTML(id,l,t,ev.datos[id])).join('')}</div>`).join('');
-
-  renderGPS();
+async function procesarLista(input){
+  const files=Array.from(input.files||[]);
+  if(!files.length) return;
+  mostrar('Guardando…','Procesando '+files.length+(files.length===1?' archivo.':' archivos.'));
+  for(const f of files){ await procesarArchivo(f); }
+  input.value='';
+  ocultar();
   renderMedios();
 }
-function setDato(id,val){ ev.datos[id]=val; persistir(); }
 
-/* ---------- GPS ---------- */
-function renderGPS(){
-  const g=ev.gps||{};
-  document.getElementById('vLat').textContent = g.lat ? Number(g.lat).toFixed(6) : '—';
-  document.getElementById('vLon').textContent = g.lon ? Number(g.lon).toFixed(6) : '—';
-  document.getElementById('vAlt').textContent = (g.alt!=null&&g.alt!=='') ? Number(g.alt).toFixed(0)+' m' : '—';
-  const meta=document.getElementById('gpsMeta');
-  if(g.lat){
-    const cuando = g.ts ? new Date(g.ts).toLocaleString('es-MX',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
-    meta.textContent = (g.manual?'Captura manual':'Precisión ±'+(g.acc?Math.round(g.acc):'?')+' m') + (cuando?' · '+cuando:'');
-  } else meta.textContent='Sin ubicación capturada';
-}
-function obtenerGPS(){
-  const txt=document.getElementById('gpsBtnTxt');
-  if(!navigator.geolocation){ alert('Este dispositivo no permite ubicación. Usa la captura manual.'); return; }
-  txt.textContent='Buscando señal…';
-  navigator.geolocation.getCurrentPosition(pos=>{
-    const c=pos.coords;
-    ev.gps={lat:c.latitude,lon:c.longitude,alt:(c.altitude!=null?c.altitude:''),
-      acc:c.accuracy,ts:new Date().toISOString(),manual:false};
-    persistir(); renderGPS(); txt.textContent='Actualizar ubicación';
-  }, err=>{
-    txt.textContent='Obtener ubicación';
-    alert('No se pudo obtener la ubicación ('+err.message+'). Activa el GPS o captura las coordenadas manualmente.');
-  }, {enableHighAccuracy:true, timeout:15000, maximumAge:0});
-}
-function toggleManual(){
-  const b=document.getElementById('manualBox');
-  const abierto = b.style.display!=='none';
-  b.style.display = abierto?'none':'block';
-  if(!abierto){ const g=ev.gps||{};
-    document.getElementById('mLat').value=g.lat||'';
-    document.getElementById('mLon').value=g.lon||'';
-    document.getElementById('mAlt').value=g.alt||''; }
-}
-function guardarManual(){
-  const lat=parseFloat(document.getElementById('mLat').value);
-  const lon=parseFloat(document.getElementById('mLon').value);
-  const alt=document.getElementById('mAlt').value;
-  if(isNaN(lat)||isNaN(lon)){ alert('Escribe latitud y longitud válidas.'); return; }
-  ev.gps={lat,lon,alt:alt===''?'':parseFloat(alt),acc:null,ts:new Date().toISOString(),manual:true};
-  persistir(); renderGPS(); document.getElementById('manualBox').style.display='none';
-}
-
-/* ---------- captura de medios ---------- */
-function nuevoId(){ return 'm_'+Date.now()+'_'+Math.random().toString(36).slice(2,7); }
-function fmtSize(b){ return b>1048576 ? (b/1048576).toFixed(1)+' MB' : Math.round(b/1024)+' KB'; }
-
-function capFotos(input){
-  const files=Array.from(input.files||[]); if(!files.length) return;
-  let pend=files.length;
-  files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=ev2=>{
-      const img=new Image();
-      img.onload=()=>{
-        const canvas=document.createElement('canvas');
-        const maxW=1650,maxH=2550;                 // media carta a alta resolución
-        let w=img.width,h=img.height;
-        if(w>maxW||h>maxH){ const r=Math.min(maxW/w,maxH/h); w=Math.round(w*r); h=Math.round(h*r); }
-        canvas.width=w; canvas.height=h;
-        const ctx=canvas.getContext('2d');
-        ctx.fillStyle='#fff'; ctx.fillRect(0,0,w,h);
-        ctx.drawImage(img,0,0,w,h);
-        canvas.toBlob(async blob=>{
-          if(blob) await agregarMedio('foto',blob,'image/jpeg');
-          if(--pend===0){ input.value=''; renderMedios(); }
-        },'image/jpeg',0.92);                       // 92% calidad
-      };
-      img.onerror=()=>{ if(--pend===0){ input.value=''; renderMedios(); } };
-      img.src=ev2.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-async function capVideo(input){
-  const file=(input.files||[])[0]; if(!file) return;
-  if(file.size > 60*1024*1024 &&
-     !confirm('El video pesa '+fmtSize(file.size)+'. Los videos grandes pueden fallar al subir. ¿Continuar?')){
-    input.value=''; return;
-  }
-  await agregarMedio('video',file,file.type||'video/mp4');
-  input.value=''; renderMedios();
-}
-async function agregarMedio(kind,blob,mimeType){
-  const id=nuevoId();
-  try{ await idbPut({id,evId:ev.id,blob}); }
-  catch(e){ alert('No se pudo guardar el archivo en el teléfono.'); return; }
-  const n=(ev.medios||[]).filter(m=>m.kind===kind).length+1;
-  const ext = kind==='foto' ? 'jpg' : (mimeType.includes('quicktime')?'mov':'mp4');
-  ev.medios=ev.medios||[];
-  ev.medios.push({id,kind,mimeType,size:blob.size,obs:'',ts:new Date().toISOString(),
-    name:(kind==='foto'?'Foto_':'Video_')+String(n).padStart(2,'0')+'_'+ev.folio+'.'+ext});
-  persistir();
-}
-async function eliminarMedio(id){
+async function eliminar(mid){
   if(!confirm('¿Eliminar este archivo?')) return;
-  try{ await idbDel(id); }catch(e){}
-  if(urls[id]){ URL.revokeObjectURL(urls[id]); delete urls[id]; }
-  ev.medios=(ev.medios||[]).filter(m=>m.id!==id);
-  persistir(); renderMedios();
+  try{ await idbDel(mid); }catch(e){}
+  if(urls[mid]){ URL.revokeObjectURL(urls[mid]); delete urls[mid]; }
+  lev.medios=(lev.medios||[]).filter(m=>m.id!==mid);
+  guardarLev(lev); renderMedios();
 }
-function setObs(id,val){
-  const m=(ev.medios||[]).find(x=>x.id===id); if(m){ m.obs=val; persistir(); }
+function setComentario(mid,v){
+  const m=(lev.medios||[]).find(x=>x.id===mid);
+  if(m){ m.comentario=v; guardarLev(lev); }
 }
+function setNotas(v){ lev.notas=v; guardarLev(lev); }
 
 async function renderMedios(){
   const cont=document.getElementById('medios');
-  const meds=ev.medios||[];
+  const meds=lev.medios||[];
   document.getElementById('medCount').textContent =
-    meds.filter(m=>m.kind==='foto').length+' 📷 · '+meds.filter(m=>m.kind==='video').length+' 🎥';
+    contarKind('foto')+' 📷 · '+contarKind('video')+' 🎥';
   if(!meds.length){
-    cont.innerHTML='<div class="sin-medios">Aún no hay fotos ni videos. Usa los botones de arriba.</div>';
+    cont.innerHTML='<div class="sin-medios">Aún no hay fotos ni videos.<br>Usa los botones de arriba.</div>';
     return;
   }
   const partes=[];
@@ -439,18 +168,17 @@ async function renderMedios(){
       const rec=await idbGet(m.id);
       urls[m.id]= rec && rec.blob ? URL.createObjectURL(rec.blob) : '';
     }
-    const media = m.kind==='foto'
+    const vista = m.kind==='foto'
       ? `<img src="${urls[m.id]}" alt="">`
       : `<video src="${urls[m.id]}" controls preload="metadata" playsinline></video>`;
     partes.push(`<div class="medio">
-      <div class="medio-top">
-        ${media}
+      <div class="medio-top">${vista}
         <span class="medio-tag">${m.kind==='foto'?'📷 Foto':'🎥 Video'}</span>
-        <button class="medio-del" onclick="eliminarMedio('${m.id}')" aria-label="Eliminar">✕</button>
+        <button class="medio-del" onclick="eliminar('${m.id}')" aria-label="Eliminar">✕</button>
       </div>
       <div class="medio-body">
-        <textarea placeholder="Observaciones de esta evidencia…"
-          oninput="setObs('${m.id}',this.value)">${esc(m.obs)}</textarea>
+        <textarea placeholder="Comentario o especificación de este archivo…"
+          oninput="setComentario('${m.id}',this.value)">${esc(m.comentario)}</textarea>
         <div class="medio-info"><span>${esc(m.name)}</span><span>${fmtSize(m.size||0)}</span></div>
       </div>
     </div>`);
@@ -458,287 +186,68 @@ async function renderMedios(){
   cont.innerHTML=partes.join('');
 }
 
-/* ---------- utilidades ---------- */
-function blobToBase64(blob){
-  return new Promise((res,rej)=>{ const r=new FileReader();
-    r.onload=()=>{ const s=r.result; const i=s.indexOf('base64,'); res(i>=0?s.slice(i+7):s); };
-    r.onerror=()=>rej(r.error); r.readAsDataURL(blob); });
-}
-function blobToDataURL(blob){
-  return new Promise((res,rej)=>{ const r=new FileReader();
-    r.onload=()=>res(r.result); r.onerror=()=>rej(r.error); r.readAsDataURL(blob); });
-}
-function cargarImg(src){ return new Promise(res=>{ const im=new Image();
-  im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
-function nombreCarpeta(){ return ev.folio+' - '+(ev.empresa||ev.proyecto)+' ('+ev.tipo+')'; }
-function coordsTexto(){
-  const g=ev.gps||{};
-  if(!g.lat) return 'Sin ubicación capturada';
-  return Number(g.lat).toFixed(6)+', '+Number(g.lon).toFixed(6)+
-    ((g.alt!=null&&g.alt!=='')?'  ·  alt. '+Number(g.alt).toFixed(0)+' m':'');
-}
-
-/* ---------- PDF completo ---------- */
-const W=139.7, H=215.9;   // media carta en mm
-
-function barraSuperior(doc,titulo){
-  doc.setFillColor(26,16,128); doc.rect(0,0,W,15,'F');
-  doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(8.5);
-  doc.text(titulo,7,9.8);
-  doc.setFont('helvetica','normal'); doc.setFontSize(6.5);
-  doc.text(ev.folio,W-7,9.8,{align:'right'});
-}
-function pieAzul(doc,izq,der){
-  doc.setFillColor(26,16,128); doc.rect(0,H-10,W,10,'F');
-  doc.setTextColor(255,255,255); doc.setFont('helvetica','normal'); doc.setFontSize(6.5);
-  doc.text(izq,5,H-5.5);
-  if(der) doc.text(der,W-5,H-5.5,{align:'right'});
-}
-function filaDato(doc,y,label,val){
-  if(y>H-26){ doc.addPage([W,H],'portrait'); barraSuperior(doc,'DATOS DEL SITIO'); y=24; }
-  doc.setTextColor(106,102,136); doc.setFont('helvetica','bold'); doc.setFontSize(6.5);
-  doc.text(String(label).toUpperCase(),8,y);
-  doc.setTextColor(27,24,48); doc.setFont('helvetica','normal'); doc.setFontSize(8.5);
-  const lines=doc.splitTextToSize(String(val||'—'),W-16);
-  doc.text(lines,8,y+4.2);
-  return y+4.2+lines.length*3.9+3.4;
-}
-function tituloSeccion(doc,y,txt){
-  if(y>H-30){ doc.addPage([W,H],'portrait'); barraSuperior(doc,'DATOS DEL SITIO'); y=24; }
-  doc.setFillColor(239,234,251); doc.roundedRect(6,y-4.2,W-12,7.5,1.5,1.5,'F');
-  doc.setTextColor(26,16,128); doc.setFont('helvetica','bold'); doc.setFontSize(7.5);
-  doc.text(txt.toUpperCase(),8,y+1);
-  return y+11;
-}
-
-async function generarPDF(){
-  if(!window.jspdf||!window.jspdf.jsPDF){ alert('jsPDF no cargó. Conéctate a internet una vez para descargarlo.'); return null; }
-  const {jsPDF}=window.jspdf;
-  const doc=new jsPDF({unit:'mm',format:[W,H],orientation:'portrait'});
-  const meds=ev.medios||[];
-  const fotos=meds.filter(m=>m.kind==='foto');
-  const videos=meds.filter(m=>m.kind==='video');
-  const hoy=new Date().toLocaleDateString('es-MX');
-
-  /* ---- 1. CARÁTULA ---- */
-  doc.setFillColor(26,16,128); doc.rect(0,0,W,H,'F');
-  if(LOGO){
-    try{ doc.addImage(LOGO,'JPEG',(W-42)/2,20,42,42); }catch(e){}
-  } else {
-    doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(26);
-    doc.text('MDreieck',W/2,44,{align:'center'});
-  }
-  doc.setTextColor(255,255,255); doc.setFont('helvetica','normal'); doc.setFontSize(8);
-  doc.text('EVIDENCIA FOTOGRÁFICA DE SITIO',W/2,74,{align:'center'});
-  doc.setFont('helvetica','bold'); doc.setFontSize(18);
-  doc.text(ev.folio,W/2,85,{align:'center'});
-  doc.setFont('helvetica','normal'); doc.setFontSize(8.5);
-  doc.text(ev.tipo||'',W/2,93,{align:'center'});
-
-  // panel blanco con los datos
-  const panelY=102, panelH=H-panelY-20;
-  doc.setFillColor(255,255,255); doc.roundedRect(10,panelY,W-20,panelH,3,3,'F');
-  let y=panelY+10;
-  const filas=[
-    ['Empresa',ev.empresa],['Proyecto',ev.proyecto],['Dirección',ev.direccion],
-    ['Fecha',ev.fecha],['Técnico',ev.tecnico],['Capturado por',ev.capturadoPor],
-    ['Coordenadas',coordsTexto()],
-    ['Contenido',fotos.length+' fotografías · '+videos.length+' videos']
-  ];
-  filas.forEach(([l,v])=>{
-    doc.setTextColor(106,102,136); doc.setFont('helvetica','bold'); doc.setFontSize(6);
-    doc.text(l.toUpperCase(),16,y);
-    doc.setTextColor(27,24,48); doc.setFont('helvetica','normal'); doc.setFontSize(8.5);
-    const lines=doc.splitTextToSize(String(v||'—'),W-32);
-    doc.text(lines,16,y+4);
-    y+=4+lines.length*3.9+3.2;
-  });
-  doc.setTextColor(255,255,255); doc.setFontSize(6.5);
-  doc.text('MDreieck Soluciones Técnicas · Generado el '+hoy,W/2,H-10,{align:'center'});
-
-  /* ---- 2. DATOS DEL SITIO ---- */
-  doc.addPage([W,H],'portrait');
-  barraSuperior(doc,'DATOS DEL SITIO');
-  y=24;
-  y=tituloSeccion(doc,y,'Generales');
-  COMUNES.forEach(([id,label])=>{ y=filaDato(doc,y,label,ev.datos[id]); });
-  (SECCIONES[ev.tipo]||[]).forEach(([titulo,,campos])=>{
-    y=tituloSeccion(doc,y,titulo);
-    campos.forEach(([id,label])=>{ y=filaDato(doc,y,label,ev.datos[id]); });
-  });
-  y=tituloSeccion(doc,y,'Ubicación');
-  y=filaDato(doc,y,'Coordenadas',coordsTexto());
-  if(ev.gps&&ev.gps.ts) y=filaDato(doc,y,'Capturada',new Date(ev.gps.ts).toLocaleString('es-MX'));
-
-  /* ---- 3. FOTOS: una por hoja ---- */
-  for(let i=0;i<fotos.length;i++){
-    const m=fotos[i];
-    const rec=await idbGet(m.id); if(!rec||!rec.blob) continue;
-    const dataUrl=await blobToDataURL(rec.blob);
-    const im=await cargarImg(dataUrl);
-    doc.addPage([W,H],'portrait');
-    const tieneObs=!!(m.obs&&m.obs.trim());
-    const boxX=5, boxY=5, boxW=W-10, boxH=H-15-(tieneObs?12:0);
-    if(im){
-      const nw=im.naturalWidth||im.width, nh=im.naturalHeight||im.height;
-      const r=Math.min(boxW/nw,boxH/nh);
-      const w=nw*r, h=nh*r;
-      doc.addImage(dataUrl,'JPEG',boxX+(boxW-w)/2,boxY+(boxH-h)/2,w,h,'','FAST');
-    }
-    if(tieneObs){
-      doc.setTextColor(27,24,48); doc.setFont('helvetica','normal'); doc.setFontSize(7);
-      const lines=doc.splitTextToSize(m.obs.trim(),W-12).slice(0,3);
-      doc.text(lines,6,H-13.5);
-    }
-    pieAzul(doc, ev.folio+' · FOTO '+(i+1)+'/'+fotos.length, hoy);
-  }
-
-  /* ---- 4. ÍNDICE DE VIDEOS ---- */
-  if(videos.length){
-    doc.addPage([W,H],'portrait');
-    barraSuperior(doc,'VIDEOS');
-    y=24;
-    doc.setTextColor(106,102,136); doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
-    const nota=doc.splitTextToSize('Los videos se entregan como archivos independientes en la subcarpeta VIDEOS de este levantamiento en Drive.',W-16);
-    doc.text(nota,8,y); y+=nota.length*3.9+6;
-    videos.forEach((m,i)=>{ y=filaDato(doc,y,'Video '+(i+1)+' · '+m.name, m.obs||'Sin observaciones'); });
-    pieAzul(doc, ev.folio+' · VIDEOS', hoy);
-  }
-  return doc;
-}
-function nombrePDF(){ return 'Evidencias_'+ev.folio+'_'+(ev.proyecto||'')+'.pdf'; }
-async function descargarPDF(){
-  mostrarOverlay('Generando PDF…','Armando carátula, datos y fotos.');
-  try{ const doc=await generarPDF(); if(doc) doc.save(nombrePDF()); }
-  finally{ ocultarOverlay(); }
-}
-
 /* ---------- overlay ---------- */
-function mostrarOverlay(t,m,done){
+function mostrar(t,m,estado){
   const box=document.getElementById('sendBox');
-  box.classList.toggle('done',!!done);
-  document.getElementById('checkIc').textContent = done==='err'?'⚠️':'✓';
-  document.getElementById('checkIc').style.color = done==='err'?'#c62828':'#1f9d55';
+  box.classList.toggle('done', !!estado);
+  const ic=document.getElementById('checkIc');
+  ic.textContent = estado==='err' ? '⚠️' : '✓';
+  ic.style.color = estado==='err' ? '#c62828' : '#1f9d55';
   document.getElementById('sendTitle').textContent=t;
   document.getElementById('sendMsg').textContent=m;
   document.getElementById('sendOv').classList.add('on');
 }
-function ocultarOverlay(){ document.getElementById('sendOv').classList.remove('on'); }
+function ocultar(){ document.getElementById('sendOv').classList.remove('on'); }
+
+/* ---------- PDF ---------- */
+async function verPDF(){
+  mostrar('Generando PDF…','Carátula, datos y fotos.');
+  try{
+    const doc=await generarPDF(lev, mostrar);
+    if(doc) doc.save(nombrePDF(lev));
+  }catch(e){ mostrar('No se pudo generar','('+(e.message||e)+')','err'); setTimeout(ocultar,3000); return; }
+  ocultar();
+}
 
 /* ---------- envío ---------- */
 async function enviar(){
-  const meds=ev.medios||[];
-  if(!meds.length && !confirm('No hay fotos ni videos. ¿Enviar de todas formas?')) return;
+  if(!(lev.medios||[]).length &&
+     !confirm('No hay fotos ni videos. ¿Enviar de todas formas?')) return;
 
   if(!online()){
-    ev.listoParaEnviar=true; persistir(); renderBanners();
-    mostrarOverlay('Guardado sin conexión','Se enviará automáticamente cuando vuelvas a tener señal. Búscalo en la lista como "Por enviar".',true);
-    setTimeout(ocultarOverlay,3200);
+    lev.listoParaEnviar=true; guardarLev(lev); renderBanners();
+    mostrar('Guardado en el teléfono',
+      'Queda como "Por enviar". Cuando tengas internet, ábrelo y pulsa Enviar a Drive.', true);
+    setTimeout(ocultar,3400);
     return;
   }
-
   const btn=document.getElementById('sendBtn'); btn.disabled=true;
   try{
-    // 1. Confirmar folio definitivo si era provisional
-    if(ev.folioProvisional && SURL && SURL!=='URL_DEL_APPS_SCRIPT'){
-      mostrarOverlay('Confirmando folio…','Sincronizando el consecutivo con el servidor.');
-      try{
-        const r=await fetch(SURL+'?accion=getConsec&proyecto='+encodeURIComponent('EV-'+ev.proyecto)+
-          '&sheet='+encodeURIComponent(SHEET_ID));
-        const d=await r.json();
-        if(d&&d.consec){
-          ev.folio='EV-'+ev.proyecto+'-'+String(d.consec).padStart(3,'0');
-          ev.folioProvisional=false;
-          (ev.medios||[]).forEach(m=>{
-            m.name=m.name.replace(/EV-[A-Z0-9-]+-\d{3}/, ev.folio);
-          });
-          persistir();
-          document.getElementById('hFolio').textContent=ev.folio;
-        }
-      }catch(e){}
-    }
-
-    // 2. PDF completo
-    mostrarOverlay('Generando PDF…','Carátula, datos y fotografías.');
-    const doc=await generarPDF();
-    let pdfEvidencias=null;
-    if(doc){
-      const s=doc.output('datauristring');
-      const i=s.indexOf('base64,');
-      pdfEvidencias={name:nombrePDF(), data:i>=0?s.slice(i+7):s};
-      doc.save(nombrePDF());   // copia local en el teléfono
-    }
-
-    // 3. Fotos
-    const fotos=[], videos=[];
-    const listaF=meds.filter(m=>m.kind==='foto');
-    for(let i=0;i<listaF.length;i++){
-      mostrarOverlay('Preparando fotos…','Foto '+(i+1)+' de '+listaF.length+'.');
-      const rec=await idbGet(listaF[i].id); if(!rec||!rec.blob) continue;
-      fotos.push({name:listaF[i].name, mimeType:'image/jpeg',
-        obs:listaF[i].obs||'', data:await blobToBase64(rec.blob)});
-    }
-
-    // 4. Payload principal
-    mostrarOverlay('Enviando a Drive…','Subiendo PDF y fotografías.');
-    const g=ev.gps||{};
-    const payload={
-      accion:'evidenciaSitio', folderId:DRIVE_ID, sheetId:SHEET_ID,
-      carpeta:nombreCarpeta(),
-      folio:ev.folio, tecnico:ev.tecnico, capturadoPor:ev.capturadoPor,
-      proyecto:ev.proyecto, empresa:ev.empresa, direccion:ev.direccion,
-      fecha:ev.fecha, tipo:ev.tipo,
-      gps:{lat:g.lat||'',lon:g.lon||'',alt:(g.alt!=null?g.alt:'')},
-      datos:ev.datos||{},
-      totalFotos:listaF.length, totalVideos:meds.filter(m=>m.kind==='video').length,
-      pdfEvidencias, fotos
-    };
-    if(SURL && SURL!=='URL_DEL_APPS_SCRIPT'){
-      await fetch(SURL,{method:'POST',mode:'no-cors',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
-    }
-
-    // 5. Videos: uno por petición (evita payloads gigantes)
-    const listaV=meds.filter(m=>m.kind==='video');
-    for(let i=0;i<listaV.length;i++){
-      mostrarOverlay('Enviando videos…','Video '+(i+1)+' de '+listaV.length+'. Puede tardar.');
-      const rec=await idbGet(listaV[i].id); if(!rec||!rec.blob) continue;
-      const cuerpo={accion:'evidenciaMedio', folderId:DRIVE_ID, carpeta:nombreCarpeta(),
-        sub:'VIDEOS', folio:ev.folio,
-        medio:{name:listaV[i].name, mimeType:listaV[i].mimeType||'video/mp4',
-          obs:listaV[i].obs||'', data:await blobToBase64(rec.blob)}};
-      if(SURL && SURL!=='URL_DEL_APPS_SCRIPT'){
-        await fetch(SURL,{method:'POST',mode:'no-cors',
-          headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(cuerpo)});
-      }
-    }
-
-    // 6. cerrar
-    ev.enviado=true; ev.listoParaEnviar=false; ev.fechaEnvio=new Date().toISOString();
-    persistir();
-    mostrarOverlay('¡Enviado!', (SURL&&SURL!=='URL_DEL_APPS_SCRIPT')
-      ? 'Carpeta creada en Drive con el PDF, las fotos y los videos por separado.'
-      : 'PDF generado. Configura la URL del Apps Script para subir a Drive.', true);
-    setTimeout(()=>{ window.location.href='index.html'; },2200);
+    await enviarLev(lev, mostrar);
+    lev.enviado=true; lev.listoParaEnviar=false; lev.fechaEnvio=new Date().toISOString();
+    guardarLev(lev);
+    mostrar('¡Enviado!', CONFIGURADO
+      ? 'Carpeta creada en Drive con el reporte PDF, las fotos y los videos.'
+      : 'PDF descargado. Falta configurar la URL del Apps Script para subir a Drive.', true);
+    setTimeout(()=>{ window.location.href='index.html'; }, 2300);
   }catch(err){
-    ev.listoParaEnviar=true; persistir();
-    mostrarOverlay('No se pudo enviar','Quedó guardado como pendiente. El PDF se descargó en el teléfono. '+(err&&err.message||''),'err');
-    document.getElementById('sendBtn').disabled=false;
-    setTimeout(ocultarOverlay,4000);
+    lev.listoParaEnviar=true; guardarLev(lev);
+    mostrar('No se pudo enviar',
+      'Quedó guardado como pendiente y el PDF se descargó en el teléfono. '+(err&&err.message||''),'err');
+    btn.disabled=false;
+    setTimeout(ocultar,4200);
   }
 }
 
-function salir(){ persistir(); window.location.href='index.html'; }
+function atras(){ guardarLev(lev); window.location.href='sitio.html'; }
 
+document.getElementById('hSub').textContent = lev.folio+'  ·  '+(lev.sitio||'');
+document.getElementById('notas').value = lev.notas||'';
 window.addEventListener('online', renderBanners);
 window.addEventListener('offline', renderBanners);
-window.addEventListener('beforeunload',()=>{ Object.values(urls).forEach(u=>u&&URL.revokeObjectURL(u)); });
-
-render();
-if(sessionStorage.getItem('ev_autosend')==='1'){
-  sessionStorage.removeItem('ev_autosend');
-  setTimeout(enviar,600);
-}
+window.addEventListener('beforeunload', ()=>{ Object.values(urls).forEach(u=>u&&URL.revokeObjectURL(u)); });
+renderBanners();
+renderMedios();
 </script>
 </body>
 </html>

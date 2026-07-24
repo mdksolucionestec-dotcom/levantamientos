@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a1080">
+<title>Datos del sitio</title>
+<link rel="stylesheet" href="estilos.css">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-row">
+    <button class="back" onclick="salir()" aria-label="Atrás">‹</button>
+    <div class="htxt">
+      <h1>Datos del sitio</h1>
+      <div class="sub" id="hSub">—</div>
+    </div>
+  </div>
+  <div class="prog">
+    <div class="pstep on"><div class="pbar"></div><div class="plabel">Datos del sitio</div></div>
+    <div class="pstep"><div class="pbar"></div><div class="plabel">Evidencias</div></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="banners"></div>
+  <div id="secciones"></div>
+</main>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <button class="btn btn-primary btn-block" onclick="siguiente()">Continuar a evidencias ›</button>
+    <div class="nav-sec">
+      <button class="btn btn-ghost" onclick="salir()">‹ Guardar y salir</button>
+    </div>
+  </div>
+</nav>
+
+<script src="app.js"></script>
+<script>
+const id = sessionStorage.getItem('mdk_id');
+let lev = getLev(id);
+if(!lev){ window.location.href='index.html'; }
+
+function renderBanners(){
+  document.getElementById('banners').innerHTML = online() ? '' :
+    `<div class="banner off"><span class="b-ic">⚠️</span>
+      <span>Sin conexión. Todo lo que captures se guarda en el teléfono.</span></div>`;
+}
+
+function campoHTML(item){
+  const v = (lev.datos||{})[item.id];
+  if(item.tipo==='sino'){
+    return `<div class="field"><label>${item.label}</label>
+      <div class="sino" id="g_${item.id}">
+        <button type="button" class="${v==='Sí'?'sel':''}" onclick="setSino('${item.id}','Sí')">Sí</button>
+        <button type="button" class="${v==='No'?'sel':''}" onclick="setSino('${item.id}','No')">No</button>
+      </div></div>`;
+  }
+  return `<div class="field"><label>${item.label}</label>
+    <input id="f_${item.id}" value="${esc(v)}" placeholder="${esc(item.ph||'')}"
+      oninput="setDato('${item.id}',this.value)"></div>`;
+}
+
+function render(){
+  document.getElementById('hSub').textContent = lev.folio+'  ·  '+(lev.sitio||'');
+  renderBanners();
+  document.getElementById('secciones').innerHTML = SECCIONES_SITIO.map(sec=>{
+    const gps = sec.titulo==='Ubicación' ? `
+      <button class="btn btn-primary btn-block" style="margin-bottom:12px" onclick="obtenerGPS()">
+        🛰️ <span id="gpsTxt">Obtener ubicación</span></button>
+      <div class="gps-box" style="margin-bottom:14px">
+        <div class="gps-vals">
+          <div class="gps-v"><div class="lbl">LATITUD</div><div class="val" id="vLat">—</div></div>
+          <div class="gps-v"><div class="lbl">LONGITUD</div><div class="val" id="vLon">—</div></div>
+          <div class="gps-v"><div class="lbl">ALTITUD</div><div class="val" id="vAlt">—</div></div>
+        </div>
+        <div class="gps-meta" id="gpsMeta">Sin ubicación capturada</div>
+      </div>
+      <p class="hint" style="margin-top:0">También puedes escribirlas a mano si el GPS no toma señal.</p>` : '';
+    return `<div class="card"><h2><span class="ic">${sec.ic}</span>${sec.titulo}</h2>
+      ${gps}${sec.items.map(campoHTML).join('')}</div>`;
+  }).join('');
+  pintarGPS();
+}
+
+function setDato(k,v){
+  lev.datos=lev.datos||{}; lev.datos[k]=v; guardarLev(lev);
+  if(k==='lat'||k==='lon') pintarGPS();
+}
+function setSino(k,v){
+  lev.datos=lev.datos||{}; lev.datos[k]=v; guardarLev(lev);
+  const g=document.getElementById('g_'+k);
+  g.querySelectorAll('button').forEach(b=>b.classList.toggle('sel', b.textContent===v));
+}
+
+function pintarGPS(){
+  const d=lev.datos||{};
+  const el=x=>document.getElementById(x);
+  if(!el('vLat')) return;
+  el('vLat').textContent = d.lat ? Number(d.lat).toFixed(6) : '—';
+  el('vLon').textContent = d.lon ? Number(d.lon).toFixed(6) : '—';
+  el('vAlt').textContent = d.altitud ? Math.round(Number(d.altitud))+' m' : '—';
+  const m=el('gpsMeta');
+  if(d.gpsTs){
+    m.textContent=(d.gpsManual?'Captura manual':'Precisión ±'+(d.gpsAcc?Math.round(d.gpsAcc):'?')+' m')+
+      ' · '+new Date(d.gpsTs).toLocaleString('es-MX',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+  } else m.textContent = (d.lat&&d.lon) ? 'Coordenadas escritas a mano' : 'Sin ubicación capturada';
+}
+
+function obtenerGPS(){
+  const t=document.getElementById('gpsTxt');
+  if(!navigator.geolocation){ alert('Este dispositivo no permite ubicación. Escribe las coordenadas a mano.'); return; }
+  t.textContent='Buscando señal…';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const c=pos.coords;
+    lev.datos=lev.datos||{};
+    lev.datos.lat=c.latitude.toFixed(6);
+    lev.datos.lon=c.longitude.toFixed(6);
+    lev.datos.coords=c.latitude.toFixed(6)+', '+c.longitude.toFixed(6);
+    if(c.altitude!=null) lev.datos.altitud=String(Math.round(c.altitude));
+    lev.datos.gpsAcc=c.accuracy; lev.datos.gpsTs=new Date().toISOString(); lev.datos.gpsManual=false;
+    guardarLev(lev);
+    ['lat','lon','coords','altitud'].forEach(k=>{
+      const i=document.getElementById('f_'+k); if(i) i.value=lev.datos[k]||'';
+    });
+    pintarGPS(); t.textContent='Actualizar ubicación';
+  }, err=>{
+    t.textContent='Obtener ubicación';
+    alert('No se pudo obtener la ubicación ('+err.message+'). Activa el GPS o escribe las coordenadas a mano.');
+  }, {enableHighAccuracy:true, timeout:15000, maximumAge:0});
+}
+
+function siguiente(){
+  lev.pasoSitio=true; guardarLev(lev);
+  window.location.href='evidencias.html';
+}
+function salir(){ guardarLev(lev); window.location.href='index.html'; }
+
+window.addEventListener('online', renderBanners);
+window.addEventListener('offline', renderBanners);
+render();
+</script>
+</body>
+</html>
